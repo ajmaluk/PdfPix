@@ -1,8 +1,14 @@
 export const PdfPixLogo = ({ className }: { className?: string }) => (
-  <svg className={className} width="140" height="32" viewBox="0 0 140 32" fill="none">
-    <rect width="32" height="32" rx="6" fill="#ee6c4d"/>
-    <path d="M8 8h16v4h-6v12h-4V12H8V8z" fill="#fff"/>
-    <text x="40" y="24" fontFamily="Inter, sans-serif" fontSize="22" fontWeight="700" fill="#383e45">PdfPix</text>
+  <svg className={className} width="196" height="40" viewBox="0 0 196 40" fill="none">
+    <text x="0" y="29" fontFamily='Georgia, "Times New Roman", serif' fontSize="28" fontWeight="700" fill="#111111">PDF</text>
+    <g transform="translate(67 7)">
+      <rect x="3" y="0" width="26" height="16" rx="5" fill="#ef4035"/>
+      <rect x="7.6" y="3.5" width="12.2" height="7.4" rx="1.8" fill="#ffffff" opacity="0.96"/>
+      <rect x="22.2" y="4.1" width="4.2" height="4.2" rx="1" fill="#ffffff"/>
+      <rect x="14.2" y="17.8" width="3.6" height="1.7" rx="0.85" fill="#111111"/>
+      <path d="M3 20h26l4.2 5H0z" fill="#ef4035"/>
+    </g>
+    <text x="106" y="29" fontFamily='Georgia, "Times New Roman", serif' fontSize="28" fontWeight="700" fill="#111111">PIX</text>
   </svg>
 );
 

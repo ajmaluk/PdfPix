@@ -1,19 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="300px" height="75.51px" viewBox="0 0 300 75.51">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="380" height="84" viewBox="0 0 380 84" role="img" aria-labelledby="title desc">
+  <title id="title">PdfPix wordmark</title>
+  <desc id="desc">PDF wordmark, a red laptop-inspired pixel icon, and PIX wordmark.</desc>
   <defs>
-    <linearGradient id="pdfpix-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ee6c4d;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#d45a3e;stop-opacity:1" />
+    <linearGradient id="pix-laptop-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6252"/>
+      <stop offset="100%" stop-color="#d92e24"/>
     </linearGradient>
+    <style>
+      .brand-text {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 56px;
+        font-weight: 700;
+        fill: #111111;
+        letter-spacing: -1px;
+      }
+    </style>
   </defs>
-  <g>
-    <rect x="5" y="12" width="50" height="50" rx="10" fill="url(#pdfpix-grad)"/>
-    <path d="M18 28h24v4H18zM18 36h18v4H18zM18 44h12v4H18z" fill="#fff" opacity="0.9"/>
-    <path d="M42 28l-8 8v-3l5-5z" fill="#fff" opacity="0.7"/>
-    <g transform="translate(64, 18)">
-      <text x="0" y="28" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#383e45">Pdf</text>
-      <text x="62" y="28" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#ee6c4d">Pix</text>
-      <text x="0" y="46" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="400" fill="#6b7280">Online PDF Tools</text>
-    </g>
+
+  <text class="brand-text" x="10" y="59">PDF</text>
+
+  <g transform="translate(134 14)">
+    <rect x="8" y="0" width="52" height="34" rx="9" fill="url(#pix-laptop-grad)"/>
+    <rect x="17" y="8" width="24" height="16" rx="3.5" fill="#ffffff" opacity="0.96"/>
+    <rect x="45" y="10" width="9" height="9" rx="2.2" fill="#ffffff"/>
+    <rect x="45" y="22" width="5" height="5" rx="1.2" fill="#ffb4ae"/>
+    <rect x="28" y="37" width="12" height="4" rx="2" fill="#111111"/>
+    <path d="M8 42h52l8 8H0z" fill="url(#pix-laptop-grad)"/>
+    <rect x="21" y="44" width="26" height="3.5" rx="1.75" fill="#ffffff" opacity="0.3"/>
   </g>
+
+  <text class="brand-text" x="212" y="59">PIX</text>
 </svg>

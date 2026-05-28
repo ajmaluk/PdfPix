@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "PdfPix",
     type: "website",
     url: "https://pdfpix.com",
-    images: [{ url: "/img/pdfpix.svg", width: 300, height: 75 }],
+    images: [{ url: "/img/pdfpix.svg", width: 360, height: 84 }],
   },
   twitter: {
     card: "summary_large_image",
