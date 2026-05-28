@@ -64,7 +64,7 @@ export default function AddPageNumbersPage() {
     </div>
   );
   return (
-    <ToolLayout title="Add Page Numbers" subtitle="Add page numbers to your PDF files easily." sidebar={sidebarContent}>
+    <ToolLayout toolId="page-numbers" title="Add Page Numbers" subtitle="Add page numbers to your PDF files easily." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

@@ -65,7 +65,7 @@ export default function OcrPdfPage() {
   );
 
   return (
-    <ToolLayout title="OCR PDF" subtitle="Convert scanned PDF documents into searchable text." sidebar={sidebarContent}>
+    <ToolLayout toolId="ocr" title="OCR PDF" subtitle="Convert scanned PDF documents into searchable text." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

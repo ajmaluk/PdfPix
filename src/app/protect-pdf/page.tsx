@@ -46,7 +46,7 @@ export default function ProtectPdfPage() {
   }, [files, password]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="protect"
       title="Protect PDF files"
       subtitle="Add password protection to your PDF files."
       sidebar={

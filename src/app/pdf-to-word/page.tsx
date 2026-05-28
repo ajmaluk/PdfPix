@@ -68,7 +68,7 @@ export default function PdfToWordPage() {
   }, [files]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="pdf-to-word"
       title="PDF to Word"
       subtitle="Easily convert your PDF files into easy to edit DOC and DOCX documents."
       sidebar={

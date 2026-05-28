@@ -66,7 +66,7 @@ export default function MergePdfPage() {
   }, [files]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="merge"
       title="Merge PDF files"
       subtitle="Combine PDFs in the order you want with the easiest PDF merger available."
       sidebar={

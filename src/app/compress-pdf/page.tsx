@@ -55,7 +55,7 @@ export default function CompressPdfPage() {
   }, [files]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="compress"
       title="Compress PDF files"
       subtitle="Reduce file size while optimizing for maximal PDF quality."
       sidebar={

@@ -577,7 +577,7 @@ export default function SplitPdfPage() {
   };
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="split"
       title="Split PDF files"
       subtitle="Separate one page or a whole set for easy conversion into independent PDF files."
       hasFiles={files.length > 0}

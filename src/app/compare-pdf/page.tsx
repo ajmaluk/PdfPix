@@ -78,7 +78,7 @@ export default function ComparePdfPage() {
   );
 
   return (
-    <ToolLayout title="Compare PDF" subtitle="Compare two PDF files side by side to find differences."
+    <ToolLayout toolId="compare" title="Compare PDF" subtitle="Compare two PDF files side by side to find differences."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>

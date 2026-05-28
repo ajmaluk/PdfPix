@@ -72,7 +72,7 @@ export default function PdfFormsPage() {
     </div>
   );
   return (
-    <ToolLayout title="PDF Forms" subtitle="Fill out and edit PDF forms easily." sidebar={sidebarContent}>
+    <ToolLayout toolId="forms" title="PDF Forms" subtitle="Fill out and edit PDF forms easily." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

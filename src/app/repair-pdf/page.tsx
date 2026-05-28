@@ -74,7 +74,7 @@ export default function RepairPdfPage() {
   );
 
   return (
-    <ToolLayout title="Repair PDF" subtitle="Repair damaged or corrupted PDF files." sidebar={sidebarContent}>
+    <ToolLayout toolId="repair" title="Repair PDF" subtitle="Repair damaged or corrupted PDF files." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

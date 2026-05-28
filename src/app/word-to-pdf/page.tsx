@@ -74,7 +74,7 @@ export default function WordToPdfPage() {
   }, [files]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="word-to-pdf"
       title="Word to PDF"
       subtitle="Make DOC and DOCX files easy to read by converting them to PDF."
       sidebar={

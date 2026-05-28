@@ -85,7 +85,7 @@ export default function PptToPdfPage() {
   );
 
   return (
-    <ToolLayout title="PowerPoint to PDF" subtitle="Make PPT and PPTX slideshows easy to view by converting them to PDF."
+    <ToolLayout toolId="ppt-to-pdf" title="PowerPoint to PDF" subtitle="Make PPT and PPTX slideshows easy to view by converting them to PDF."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".ppt,.pptx" />
       <div className="add"><div className="in_add">Advertisement</div></div>

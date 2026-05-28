@@ -66,7 +66,7 @@ export default function RemovePagesPage() {
     </div>
   );
   return (
-    <ToolLayout title="Remove Pages" subtitle="Remove pages from a PDF document easily." sidebar={sidebarContent}>
+    <ToolLayout toolId="remove-pages" title="Remove Pages" subtitle="Remove pages from a PDF document easily." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

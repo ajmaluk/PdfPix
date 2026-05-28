@@ -82,7 +82,7 @@ export default function TranslatePdfPage() {
   );
 
   return (
-    <ToolLayout title="Translate PDF" subtitle="Translate your PDF files into different languages." sidebar={sidebarContent}>
+    <ToolLayout toolId="translate" title="Translate PDF" subtitle="Translate your PDF files into different languages." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

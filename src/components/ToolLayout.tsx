@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ToolProvider, useTool } from "@/components/ToolContext";
+import ToolSEOContent from "@/components/ToolSEOContent";
 
 interface ToolLayoutProps {
   title: string;
@@ -9,9 +10,10 @@ interface ToolLayoutProps {
   children: React.ReactNode;
   hasFiles?: boolean;
   fileCount?: number;
+  toolId?: string;
 }
 
-function ToolLayoutInner({ title, subtitle, sidebar, children }: ToolLayoutProps) {
+function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLayoutProps) {
   const { hasFiles, sidebarOpen, setSidebarOpen } = useTool();
 
   return (
@@ -62,6 +64,9 @@ function ToolLayoutInner({ title, subtitle, sidebar, children }: ToolLayoutProps
             </>
           )}
         </div>
+        {!hasFiles && toolId && (
+          <ToolSEOContent toolId={toolId} />
+        )}
       </div>
       <Footer />
     </>

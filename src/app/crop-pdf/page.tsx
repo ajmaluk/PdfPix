@@ -67,7 +67,7 @@ export default function CropPdfPage() {
     </div>
   );
   return (
-    <ToolLayout title="Crop PDF" subtitle="Crop pages in your PDF to get the perfect margins." sidebar={sidebarContent}>
+    <ToolLayout toolId="crop" title="Crop PDF" subtitle="Crop pages in your PDF to get the perfect margins." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

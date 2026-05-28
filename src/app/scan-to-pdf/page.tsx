@@ -64,7 +64,7 @@ export default function ScanToPdfPage() {
     </div>
   );
   return (
-    <ToolLayout title="Scan to PDF" subtitle="Scan documents and convert them to PDF format." sidebar={sidebarContent}>
+    <ToolLayout toolId="scan" title="Scan to PDF" subtitle="Scan documents and convert them to PDF format." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept="image/*" />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} onReorder={(from, to) => { setFiles((prev) => { const n = [...prev]; const [m] = n.splice(from, 1); n.splice(to, 0, m); return n; }); }} />

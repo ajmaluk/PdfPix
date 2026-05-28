@@ -59,7 +59,7 @@ export default function OrganizePdfPage() {
   );
 
   return (
-    <ToolLayout title="Organize PDF" subtitle="Reorder, add, delete pages in your PDF document."
+    <ToolLayout toolId="organize" title="Organize PDF" subtitle="Reorder, add, delete pages in your PDF document."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>

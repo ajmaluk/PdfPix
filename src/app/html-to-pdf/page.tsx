@@ -65,7 +65,7 @@ export default function HtmlToPdfPage() {
   );
 
   return (
-    <ToolLayout title="HTML to PDF" subtitle="Convert HTML web pages to PDF files."
+    <ToolLayout toolId="html-to-pdf" title="HTML to PDF" subtitle="Convert HTML web pages to PDF files."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".html,.htm" />
       <div className="add"><div className="in_add">Advertisement</div></div>

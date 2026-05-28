@@ -65,7 +65,7 @@ export default function PdfSummarizePage() {
   );
 
   return (
-    <ToolLayout title="AI Summarizer" subtitle="Summarize PDF documents using AI technology." sidebar={sidebarContent}>
+    <ToolLayout toolId="summarize" title="AI Summarizer" subtitle="Summarize PDF documents using AI technology." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

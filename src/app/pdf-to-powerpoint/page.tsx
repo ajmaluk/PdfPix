@@ -64,7 +64,7 @@ export default function PdfToPptPage() {
   );
 
   return (
-    <ToolLayout title="PDF to PowerPoint" subtitle="Turn your PDF files into easy to edit PPT and PPTX slideshows."
+    <ToolLayout toolId="pdf-to-ppt" title="PDF to PowerPoint" subtitle="Turn your PDF files into easy to edit PPT and PPTX slideshows."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <div className="add"><div className="in_add">Advertisement</div></div>

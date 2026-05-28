@@ -64,7 +64,7 @@ export default function AddWatermarkPage() {
     </div>
   );
   return (
-    <ToolLayout title="Add Watermark" subtitle="Add text or image watermark to your PDF files." sidebar={sidebarContent}>
+    <ToolLayout toolId="watermark" title="Add Watermark" subtitle="Add text or image watermark to your PDF files." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

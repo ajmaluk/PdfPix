@@ -33,6 +33,39 @@ export default function HomePage() {
 
   return (
     <>
+      {/* Homepage Structured Data Schemas */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "PdfPix",
+            "url": "https://pdfpix.com",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://pdfpix.com/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "PdfPix",
+            "url": "https://pdfpix.com",
+            "logo": "https://pdfpix.com/img/pdfpix.svg",
+            "sameAs": [
+              "https://twitter.com/pdfpix",
+              "https://github.com/pdfpix"
+            ]
+          })
+        }}
+      />
       <Header />
       <div className="main" style={{ marginTop: "60px" }}>
         <div className="pattern-bg"></div>

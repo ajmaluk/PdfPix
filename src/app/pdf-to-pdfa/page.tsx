@@ -60,7 +60,7 @@ export default function PdfToPdfaPage() {
   );
 
   return (
-    <ToolLayout title="PDF to PDF/A" subtitle="Convert your PDF files to PDF/A format for long-term archiving."
+    <ToolLayout toolId="pdf-to-pdfa" title="PDF to PDF/A" subtitle="Convert your PDF files to PDF/A format for long-term archiving."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>

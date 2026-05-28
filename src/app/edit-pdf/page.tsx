@@ -1019,7 +1019,7 @@ export default function EditPdfPage() {
 
   if (files.length === 0) {
     return (
-      <ToolLayout
+      <ToolLayout toolId="edit"
         title="Edit PDF"
         subtitle="Add text, images, shapes or freehand annotations to a PDF document."
         sidebar={noFileSidebar}

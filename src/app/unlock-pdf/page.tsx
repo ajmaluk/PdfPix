@@ -62,7 +62,7 @@ export default function UnlockPdfPage() {
   }, [files, password]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="unlock"
       title="Unlock PDF files"
       subtitle="Remove PDF password protection to unlock your PDF files."
       sidebar={

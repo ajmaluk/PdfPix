@@ -58,7 +58,7 @@ export default function PdfToJpgPage() {
   }, [files]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="pdf-to-jpg"
       title="PDF to JPG"
       subtitle="Convert each PDF page into a JPG or extract all images contained in a PDF."
       sidebar={

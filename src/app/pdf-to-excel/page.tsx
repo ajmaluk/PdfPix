@@ -60,7 +60,7 @@ export default function PdfToExcelPage() {
   );
 
   return (
-    <ToolLayout title="PDF to Excel" subtitle="Pull data straight from PDFs into Excel spreadsheets."
+    <ToolLayout toolId="pdf-to-excel" title="PDF to Excel" subtitle="Pull data straight from PDFs into Excel spreadsheets."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <div className="add"><div className="in_add">Advertisement</div></div>

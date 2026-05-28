@@ -2,11 +2,12 @@
 
 async function getKey(password: string, salt: Uint8Array): Promise<CryptoKey> {
   const enc = new TextEncoder();
-  const keyMaterial = await (crypto.subtle.importKey as any)(
+  const keyMaterial = await crypto.subtle.importKey(
     "raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]
   );
-  return (crypto.subtle.deriveKey as any)(
-    { name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" },
+  return crypto.subtle.deriveKey(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    { name: "PBKDF2", salt: salt as any, iterations: 100000, hash: "SHA-256" },
     keyMaterial,
     { name: "AES-GCM", length: 256 },
     false,
@@ -21,7 +22,7 @@ export async function encryptPDF(
   const salt = new Uint8Array(crypto.getRandomValues(new Uint8Array(16)));
   const iv = new Uint8Array(crypto.getRandomValues(new Uint8Array(12)));
   const key = await getKey(password, salt);
-  const encrypted = await (crypto.subtle.encrypt as any)(
+  const encrypted = await crypto.subtle.encrypt(
     { name: "AES-GCM", iv }, key, pdfBytes
   );
   const header = new Uint8Array([0x50, 0x44, 0x46, 0x58]);
@@ -47,7 +48,7 @@ export async function decryptPDF(
   const iv = new Uint8Array(bytes.slice(20, 32));
   const encrypted = bytes.slice(32);
   const key = await getKey(password, salt);
-  const decrypted = await (crypto.subtle.decrypt as any)(
+  const decrypted = await crypto.subtle.decrypt(
     { name: "AES-GCM", iv }, key, encrypted
   );
   return decrypted;

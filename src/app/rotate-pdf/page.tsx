@@ -6,7 +6,7 @@ import FileUploader from "@/components/FileUploader";
 import FileList from "@/components/FileList";
 import ProcessOverlay from "@/components/ProcessOverlay";
 import { generateFileId, downloadBlob, readFileAsArrayBuffer } from "@/lib/pdf-utils";
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument, degrees } from "pdf-lib";
 
 interface FileEntry {
   id: string;
@@ -38,7 +38,7 @@ export default function RotatePdfPage() {
         const pages = pdf.getPages();
         for (const page of pages) {
           const current = page.getRotation().angle;
-          page.setRotation({ type: "degrees", angle: (current + rotation) % 360 } as any);
+          page.setRotation(degrees((current + rotation) % 360));
         }
         const bytes = await pdf.save();
         const blob = new Blob([bytes as BlobPart], { type: "application/pdf" });
@@ -53,7 +53,7 @@ export default function RotatePdfPage() {
   }, [files, rotation]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="rotate"
       title="Rotate PDF pages"
       subtitle="Rotate PDF pages by 90 degrees left or right."
       sidebar={

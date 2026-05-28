@@ -63,7 +63,7 @@ export default function JpgToPdfPage() {
   }, [files]);
 
   return (
-    <ToolLayout
+    <ToolLayout toolId="jpg-to-pdf"
       title="JPG to PDF"
       subtitle="Convert JPG images to PDF in seconds. Easily adjust orientation and margins."
       sidebar={

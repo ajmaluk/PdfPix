@@ -15,14 +15,6 @@ interface FileEntry {
   file: File;
 }
 
-interface TextItem {
-  text: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
 export default function RedactPdfPage() {
   const [files, setFiles] = useState<FileEntry[]>([]);
   const [processing, setProcessing] = useState(false);
@@ -61,10 +53,11 @@ export default function RedactPdfPage() {
             const textContent = await page.getTextContent();
             const viewport = page.getViewport({ scale: 1 });
             const pdfPage = pdf.getPage(i - 1);
-            const items = textContent.items as any[];
+            const items = textContent.items as { str?: string; transform?: number[]; width?: number; height?: number }[];
             const fontSize = 11;
             for (const item of items) {
               const tx = item.transform;
+              if (!tx || tx.length < 6) continue;
               const itemText = (item.str || "").toLowerCase();
               if (itemText.includes(keyword)) {
                 const x = tx[4];
@@ -106,7 +99,7 @@ export default function RedactPdfPage() {
   );
 
   return (
-    <ToolLayout title="Redact PDF" subtitle="Permanently remove sensitive information from your PDF." sidebar={sidebarContent}>
+    <ToolLayout toolId="redact" title="Redact PDF" subtitle="Permanently remove sensitive information from your PDF." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
       <div className="add"><div className="in_add">Advertisement</div></div>
       <FileList files={files} onRemove={removeFile} />

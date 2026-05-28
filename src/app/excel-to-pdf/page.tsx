@@ -65,7 +65,7 @@ export default function ExcelToPdfPage() {
   );
 
   return (
-    <ToolLayout title="Excel to PDF" subtitle="Make EXCEL spreadsheets easy to read by converting them to PDF."
+    <ToolLayout toolId="excel-to-pdf" title="Excel to PDF" subtitle="Make EXCEL spreadsheets easy to read by converting them to PDF."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".csv,.xls,.xlsx" />
       <div className="add"><div className="in_add">Advertisement</div></div>
