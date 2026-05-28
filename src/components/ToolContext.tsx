@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface ToolContextType {
   hasFiles: boolean;
@@ -13,10 +13,37 @@ interface ToolContextType {
 
 const ToolContext = createContext<ToolContextType | undefined>(undefined);
 
-export function ToolProvider({ children }: { children: React.ReactNode }) {
-  const [hasFiles, setHasFiles] = useState(false);
-  const [fileCount, setFileCount] = useState(0);
+const noop = () => {};
+
+const defaultToolContext: ToolContextType = {
+  hasFiles: false,
+  setHasFiles: noop,
+  fileCount: 0,
+  setFileCount: noop,
+  sidebarOpen: false,
+  setSidebarOpen: noop,
+};
+
+export function ToolProvider({
+  children,
+  initialHasFiles = false,
+  initialFileCount = 0,
+}: {
+  children: React.ReactNode;
+  initialHasFiles?: boolean;
+  initialFileCount?: number;
+}) {
+  const [hasFiles, setHasFiles] = useState(initialHasFiles);
+  const [fileCount, setFileCount] = useState(initialFileCount);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    setHasFiles(initialHasFiles);
+  }, [initialHasFiles]);
+
+  useEffect(() => {
+    setFileCount(initialFileCount);
+  }, [initialFileCount]);
 
   return (
     <ToolContext.Provider value={{ hasFiles, setHasFiles, fileCount, setFileCount, sidebarOpen, setSidebarOpen }}>
@@ -28,14 +55,7 @@ export function ToolProvider({ children }: { children: React.ReactNode }) {
 export function useTool() {
   const context = useContext(ToolContext);
   if (!context) {
-    return {
-      hasFiles: false,
-      setHasFiles: () => {},
-      fileCount: 0,
-      setFileCount: () => {},
-      sidebarOpen: false,
-      setSidebarOpen: () => {},
-    };
+    return defaultToolContext;
   }
   return context;
 }

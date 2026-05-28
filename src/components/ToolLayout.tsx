@@ -7,6 +7,8 @@ interface ToolLayoutProps {
   subtitle: string;
   sidebar: React.ReactNode;
   children: React.ReactNode;
+  hasFiles?: boolean;
+  fileCount?: number;
 }
 
 function ToolLayoutInner({ title, subtitle, sidebar, children }: ToolLayoutProps) {
@@ -36,9 +38,11 @@ function ToolLayoutInner({ title, subtitle, sidebar, children }: ToolLayoutProps
             <>
               {/* Mobile Gear Settings Toggle Button */}
               <button 
+                type="button"
                 className="mobile-settings-toggle show--sm" 
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 aria-label="Toggle settings panel"
+                aria-expanded={sidebarOpen}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="3"></circle>
@@ -66,7 +70,7 @@ function ToolLayoutInner({ title, subtitle, sidebar, children }: ToolLayoutProps
 
 export default function ToolLayout(props: ToolLayoutProps) {
   return (
-    <ToolProvider>
+    <ToolProvider initialHasFiles={props.hasFiles} initialFileCount={props.fileCount}>
       <ToolLayoutInner {...props} />
     </ToolProvider>
   );

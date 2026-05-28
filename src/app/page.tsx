@@ -62,7 +62,9 @@ export default function HomePage() {
               <div key={tool.id} className="tools__item">
                 <Link href={tool.path} title={tool.title}>
                   <div className="tools__item__icon">
-                    <ToolIcon id={tool.id} color={tool.color} size={48} />
+                    <span className="tools__item__icon-inner">
+                      <ToolIcon id={tool.id} color={tool.color} size={52} />
+                    </span>
                   </div>
                   <h3>{tool.title}</h3>
                   <div className="tools__item__content">
