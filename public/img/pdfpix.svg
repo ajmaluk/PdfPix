@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="300px" height="75.51px" viewBox="0 0 300 75.51">
+  <defs>
+    <linearGradient id="pdfpix-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ee6c4d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d45a3e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <g>
+    <rect x="5" y="12" width="50" height="50" rx="10" fill="url(#pdfpix-grad)"/>
+    <path d="M18 28h24v4H18zM18 36h18v4H18zM18 44h12v4H18z" fill="#fff" opacity="0.9"/>
+    <path d="M42 28l-8 8v-3l5-5z" fill="#fff" opacity="0.7"/>
+    <g transform="translate(64, 18)">
+      <text x="0" y="28" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#383e45">Pdf</text>
+      <text x="62" y="28" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#ee6c4d">Pix</text>
+      <text x="0" y="46" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="400" fill="#6b7280">Online PDF Tools</text>
+    </g>
+  </g>
+</svg>
