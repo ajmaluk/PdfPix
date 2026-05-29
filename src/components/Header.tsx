@@ -113,17 +113,10 @@ const convertPdfLinks = [
   },
 ];
 
-const siteLinks = [
-  { name: "Portfolio", href: "https://ajmal.uthakkan.in" },
-  { name: "LinkedIn", href: "https://in.linkedin.com/in/ajmaluk" },
-  { name: "GitHub", href: "https://github.com/ajmaluk" },
-  { name: "Instagram", href: "https://instagram.com/ajmaluk.me" },
-  { name: "Buy Me a Coffee", href: "https://buymeacoffee.com/ajmal.uk" },
-];
-
 const pdfPixLinks = [
   { name: "Pricing", href: "/pricing", icon: "pricing" },
   { name: "About us", href: "/about", icon: "about" },
+  { name: "Contact", href: "/contact", icon: "about" },
   { name: "Privacy", href: "/privacy", icon: "privacy" },
   { name: "Terms", href: "/terms", icon: "terms" },
 ] as const;
@@ -135,14 +128,6 @@ const allToolsMenuPaths = new Set(
     .flatMap((group) => group.items.map((item) => item.href))
     .filter((href) => !convertMenuPaths.has(href) && !directMenuPaths.has(href))
 );
-
-const otherProducts = [
-  { name: "ToolPix", href: "https://toolpix.pythonanywhere.com", description: "All-in-one browser tools and utilities", accent: "#ee6c4d", short: "T" },
-  { name: "CodePix", href: "https://codepix.com", description: "Beginner-friendly interactive coding lessons", accent: "#3b82f6", short: "C" },
-  { name: "Joyful", href: "https://joyful.uthakkan.in", description: "Delightful workspace and lifestyle platform", accent: "#8b5cf6", short: "J" },
-  { name: "UTHAKKAN", href: "https://www.uthakkan.in", description: "Studio website and company presence", accent: "#111827", short: "U" },
-  { name: "KallanCop", href: "https://play.google.com/store/apps/details?id=com.ajmal.kallancop", description: "Mobile game published on Google Play", accent: "#10b981", short: "K" },
-];
 
 function NineDotsIcon() {
   return (
@@ -289,28 +274,12 @@ export default function Header() {
         <div className="nav-actions">
           <ul>
             <li className="nav-has-dropdown hide--sm">
-              <span className="grid-icon-btn grid-icon-btn--products" aria-label="Open product menu">
+              <span className="grid-icon-btn grid-icon-btn--products" aria-label="Open site menu">
                 <NineDotsIcon />
               </span>
               <div className="nav-dropdown nav-dropdown--products">
                 <div className="nav-products">
-                  <div className="nav-products__main">
-                    <div className="nav-products__title">Other Products</div>
-                    <div className="nav-products__list">
-                      {otherProducts.map((product) => (
-                        <Link key={product.name} href={product.href} className="nav-products__product">
-                          <span className="nav-products__product-icon" style={{ backgroundColor: `${product.accent}14`, color: product.accent }}>
-                            {product.short}
-                          </span>
-                          <span className="nav-products__product-copy">
-                            <span className="nav-products__product-name">{product.name}</span>
-                            <span className="nav-products__product-desc">{product.description}</span>
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="nav-products__side">
+                  <div className="nav-products__side" style={{ width: "100%" }}>
                     <div className="nav-products__title">PdfPix</div>
                     <div className="nav-products__side-list">
                       {pdfPixLinks.map((link) => (
@@ -326,15 +295,6 @@ export default function Header() {
                         </Link>
                       ))}
                     </div>
-                    <div className="nav-products__divider" aria-hidden="true"></div>
-                    <div className="nav-products__title">Profiles</div>
-                    <div className="nav-products__side-list">
-                      {siteLinks.map((link) => (
-                        <Link key={link.href} href={link.href} className="nav-products__item">
-                          {link.name}
-                        </Link>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -346,7 +306,7 @@ export default function Header() {
                   setRightOpen(true);
                   setLeftOpen(false);
                 }}
-                aria-label="Open site links"
+                aria-label="Open site menu"
               >
                 <NineDotsIcon />
               </button>
@@ -419,30 +379,6 @@ export default function Header() {
                   >
                     <SiteLinkIcon icon={link.icon} />
                     <span>{link.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="drawer__section">
-            <div className="drawer__section-title">Profiles</div>
-            <ul className="drawer__section-list">
-              {siteLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="drawer__section-item" onClick={() => setRightOpen(false)}>
-                    <span>{link.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="drawer__section">
-            <div className="drawer__section-title">Other Products</div>
-            <ul className="drawer__section-list">
-              {otherProducts.map((product) => (
-                <li key={product.name}>
-                  <Link href={product.href} className="drawer__section-item" onClick={() => setRightOpen(false)}>
-                    <span>{product.name}</span>
                   </Link>
                 </li>
               ))}

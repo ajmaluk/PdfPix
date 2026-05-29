@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ToolProvider, useTool } from "@/components/ToolContext";
 import ToolSEOContent from "@/components/ToolSEOContent";
+import Link from "next/link";
+import { getCategoryLabel, getToolForSeoId } from "@/lib/site";
 
 interface ToolLayoutProps {
   title: string;
@@ -15,6 +17,8 @@ interface ToolLayoutProps {
 
 function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLayoutProps) {
   const { hasFiles, sidebarOpen, setSidebarOpen } = useTool();
+  const tool = toolId ? getToolForSeoId(toolId) : undefined;
+  const categoryLabel = tool ? getCategoryLabel(tool.category) : undefined;
 
   return (
     <>
@@ -24,10 +28,29 @@ function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLay
           <div className="tool__workarea" id="workArea">
             <div id="dropArea"></div>
             {!hasFiles && (
-              <div className="tool__header">
-                <h1 className="tool__header__title">{title}</h1>
-                <h2 className="tool__header__subtitle">{subtitle}</h2>
-              </div>
+              <>
+                <nav aria-label="Breadcrumb" className="mb-4 text-sm text-[#6b7280]">
+                  <ol className="flex flex-wrap items-center gap-2">
+                    <li>
+                      <Link href="/" className="hover:text-[#e5322d]">Home</Link>
+                    </li>
+                    {categoryLabel && (
+                      <li className="flex items-center gap-2">
+                        <span aria-hidden="true">/</span>
+                        <span>{categoryLabel}</span>
+                      </li>
+                    )}
+                    <li className="flex items-center gap-2">
+                      <span aria-hidden="true">/</span>
+                      <span aria-current="page" className="text-[#2d3238]">{title}</span>
+                    </li>
+                  </ol>
+                </nav>
+                <div className="tool__header">
+                  <h1 className="tool__header__title">{title}</h1>
+                  <h2 className="tool__header__subtitle">{subtitle}</h2>
+                </div>
+              </>
             )}
             {hasFiles && (
               <div className="uploading__bar uploading__bar--small">

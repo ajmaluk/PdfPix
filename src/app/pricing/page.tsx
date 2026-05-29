@@ -1,7 +1,6 @@
-"use client";
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function PricingPage() {
   return (
@@ -62,12 +61,12 @@ export default function PricingPage() {
                 </li>
               </ul>
 
-              <button
-                onClick={() => window.location.href = '/'}
-                className="w-full py-4 px-6 bg-[#e5322d] hover:bg-[#c8231e] text-white font-bold rounded-xl shadow-lg transition duration-200 text-center block mt-8"
+              <Link
+                href="/merge-pdf"
+                className="mt-8 block w-full rounded-xl bg-[#e5322d] px-6 py-4 text-center font-bold text-white shadow-lg transition duration-200 hover:bg-[#c8231e]"
               >
-                Start Editing Now
-              </button>
+                Start with Merge PDF
+              </Link>
             </div>
           </div>
 
@@ -79,6 +78,16 @@ export default function PricingPage() {
               which reduces our server costs to nearly zero. We support the site through minimal, non-intrusive 
               advertisements to keep our operations running.
             </p>
+          </div>
+          <div className="mt-10 grid max-w-2xl grid-cols-1 gap-4 mx-auto md:grid-cols-2">
+            <Link href="/compress-pdf" className="rounded-2xl border border-[#e8eaed] bg-white p-5 text-left shadow-sm transition hover:border-[#e5322d]">
+              <h2 className="mb-2 text-lg font-bold text-[#2d3238]">Compress large PDF files</h2>
+              <p className="text-sm text-gray-600">Reduce file size before sharing contracts, resumes, and project documents.</p>
+            </Link>
+            <Link href="/pdf-to-word" className="rounded-2xl border border-[#e8eaed] bg-white p-5 text-left shadow-sm transition hover:border-[#e5322d]">
+              <h2 className="mb-2 text-lg font-bold text-[#2d3238]">Convert PDF to Word</h2>
+              <p className="text-sm text-gray-600">Turn PDFs into editable documents without paying for a separate PDF suite.</p>
+            </Link>
           </div>
         </div>
       </main>

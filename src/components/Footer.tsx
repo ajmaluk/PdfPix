@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SUPPORT_EMAIL } from "@/lib/site";
 
 const columns = [
   {
@@ -91,7 +92,8 @@ export default function Footer() {
             <span>&copy; 2026 PdfPix. All rights reserved.</span>
           </div>
           <div className="footer__social">
-            <a href="mailto:support@pdfpix.com" title="Contact">Contact</a>
+            <Link href="/contact" title="Contact">Contact</Link>
+            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
           </div>

@@ -37,6 +37,19 @@ export default function HomePage() {
         { "organize pdf": "organize", "optimize pdf": "optimize", "convert pdf": "convert", "edit pdf": "edit", "pdf security": "security", "pdf intelligence": "intelligence" }[normalized];
     });
 
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "PdfPix PDF Tools",
+    "itemListElement": tools.map((tool, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `${SITE_URL}${tool.path}/`,
+      "name": tool.title,
+      "description": tool.description
+    }))
+  };
+
   return (
     <>
       {/* Homepage Structured Data Schemas */}
@@ -63,6 +76,12 @@ export default function HomePage() {
             "url": SITE_URL,
             "logo": SITE_OG_IMAGE
           })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListSchema)
         }}
       />
       <Header />
@@ -107,6 +126,28 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+        <section className="max-w-5xl mx-auto px-4 pb-20 pt-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="rounded-2xl border border-[#e8eaed] bg-white p-6">
+              <h2 className="mb-3 text-xl font-bold text-[#2d3238]">Private by design</h2>
+              <p className="text-sm leading-relaxed text-gray-600">
+                PdfPix runs core PDF processing in your browser, which helps protect confidential documents and removes slow uploads.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#e8eaed] bg-white p-6">
+              <h2 className="mb-3 text-xl font-bold text-[#2d3238]">Tools for every workflow</h2>
+              <p className="text-sm leading-relaxed text-gray-600">
+                Merge, split, compress, convert, redact, sign, translate, and organize PDF files from one toolkit.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[#e8eaed] bg-white p-6">
+              <h2 className="mb-3 text-xl font-bold text-[#2d3238]">Built for speed</h2>
+              <p className="text-sm leading-relaxed text-gray-600">
+                Open a tool, drop your file, and finish the task in a few clicks without registration or waiting queues.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
       <Footer />
     </>

@@ -1,11 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { seoData } from "@/lib/seo-data";
 import {
+  SITE_URL,
   SITE_NAME,
   SITE_OG_IMAGE,
+  getCategoryLabel,
   getCanonicalUrl,
+  getRelatedTools,
   getPathForSeoId,
+  getToolForSeoId,
 } from "@/lib/site";
 
 interface ToolSEOContentProps {
@@ -18,6 +23,9 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
 
   const { description, heading, steps, faqs } = data;
   const toolUrl = getCanonicalUrl(getPathForSeoId(toolId) ?? "/");
+  const tool = getToolForSeoId(toolId);
+  const relatedTools = getRelatedTools(toolId);
+  const categoryLabel = tool ? getCategoryLabel(tool.category) : "PDF Tools";
 
   // Structured Data Schemas
   const webAppSchema = {
@@ -50,6 +58,43 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
     }))
   } : null;
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${SITE_URL}/`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": categoryLabel
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": heading,
+        "item": toolUrl
+      }
+    ]
+  };
+
+  const howToSchema = steps && steps.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How to use ${heading}`,
+    "description": description,
+    "step": steps.map((step, index) => ({
+      "@type": "HowToStep",
+      "position": index + 1,
+      "text": step,
+      "url": `${toolUrl}#step-${index + 1}`
+    }))
+  } : null;
+
   return (
     <div className="seo-section w-full border-t border-[#e8eaed] bg-white mt-16 pb-20">
       {/* Schemas injection */}
@@ -57,6 +102,16 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        />
+      )}
       {faqSchema && (
         <script
           type="application/ld+json"
@@ -73,7 +128,7 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step, idx) => (
-                <div key={idx} className="flex flex-col items-start bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-6 relative transition duration-300 hover:shadow-md">
+                <div id={`step-${idx + 1}`} key={idx} className="flex flex-col items-start bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-6 relative transition duration-300 hover:shadow-md">
                   <div className="w-10 h-10 rounded-full bg-[#e5322d] text-white flex items-center justify-center font-bold text-lg mb-4 shadow-sm shadow-[#e5322d]/25">
                     {idx + 1}
                   </div>
@@ -150,7 +205,7 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
 
         {/* FAQs Accordion */}
         {faqs && faqs.length > 0 && (
-          <div className="text-left">
+          <div className="mb-16 text-left">
             <h2 className="text-3xl font-extrabold text-[#2d3238] mb-8 text-center tracking-tight">
               Frequently Asked Questions
             </h2>
@@ -172,6 +227,29 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
                     <p className="text-gray-600 text-sm leading-relaxed">{faq.answer}</p>
                   </div>
                 </details>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {relatedTools.length > 0 && (
+          <div className="text-left">
+            <h2 className="text-3xl font-extrabold text-[#2d3238] mb-8 text-center tracking-tight">
+              Related PDF tools
+            </h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {relatedTools.map((relatedTool) => (
+                <Link
+                  key={relatedTool.id}
+                  href={relatedTool.path}
+                  className="block rounded-2xl border border-[#e8eaed] bg-[#fcfcfd] p-6 transition duration-200 hover:border-[#e5322d] hover:shadow-md"
+                >
+                  <div className="mb-2 text-sm font-semibold text-[#e5322d]">
+                    {getCategoryLabel(relatedTool.category)}
+                  </div>
+                  <h3 className="mb-2 text-xl font-bold text-[#2d3238]">{relatedTool.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-600">{relatedTool.description}</p>
+                </Link>
               ))}
             </div>
           </div>

@@ -1,0 +1,32 @@
+# PdfPix
+
+> Free browser-based PDF tools for merging, splitting, compressing, converting, editing, protecting, and organizing PDF files.
+
+Canonical site: https://pdfpix.uthakkan.in/
+Sitemap: https://pdfpix.uthakkan.in/sitemap.xml
+Contact: mailto:support@pdfpix.com
+
+## Core pages
+- Home: https://pdfpix.uthakkan.in/
+- About: https://pdfpix.uthakkan.in/about/
+- Pricing: https://pdfpix.uthakkan.in/pricing/
+- Privacy: https://pdfpix.uthakkan.in/privacy/
+- Terms: https://pdfpix.uthakkan.in/terms/
+- Contact: https://pdfpix.uthakkan.in/contact/
+
+## Popular tools
+- Merge PDF: https://pdfpix.uthakkan.in/merge-pdf/
+- Split PDF: https://pdfpix.uthakkan.in/split-pdf/
+- Compress PDF: https://pdfpix.uthakkan.in/compress-pdf/
+- PDF to Word: https://pdfpix.uthakkan.in/pdf-to-word/
+- Word to PDF: https://pdfpix.uthakkan.in/word-to-pdf/
+- PDF to JPG: https://pdfpix.uthakkan.in/pdf-to-jpg/
+- JPG to PDF: https://pdfpix.uthakkan.in/jpg-to-pdf/
+- OCR PDF: https://pdfpix.uthakkan.in/ocr-pdf/
+- Protect PDF: https://pdfpix.uthakkan.in/protect-pdf/
+- Redact PDF: https://pdfpix.uthakkan.in/redact-pdf/
+
+## Product notes
+- PdfPix emphasizes privacy-first, browser-based processing.
+- The site focuses on direct workflows without account creation.
+- Tool pages include FAQ and how-to content for common document tasks.

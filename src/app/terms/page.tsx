@@ -1,4 +1,6 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function TermsPage() {
   return (
@@ -19,9 +21,12 @@ export default function TermsPage() {
           <p>PdfPix is provided &quot;as is&quot; without warranty. We are not liable for any damages arising from the use of our service. Files are processed locally and are your responsibility.</p>
           <h2 className="text-xl font-semibold text-[#2d3238] mt-8">Changes</h2>
           <p>We may update these terms at any time. Continued use of PdfPix after changes constitutes acceptance of the new terms.</p>
+          <h2 className="text-xl font-semibold text-[#2d3238] mt-8">Related pages</h2>
+          <p>For more information about how PdfPix handles files and site usage, review the <Link href="/privacy" className="text-[#ee6c4d] hover:underline">Privacy Policy</Link> and <Link href="/contact" className="text-[#ee6c4d] hover:underline">Contact page</Link>.</p>
         </div>
       </div>
     </main>
+      <Footer />
     </>
   );
 }

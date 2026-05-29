@@ -1,4 +1,6 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { SUPPORT_EMAIL } from "@/lib/site";
 
 export default function PrivacyPage() {
   return (
@@ -17,11 +19,14 @@ export default function PrivacyPage() {
           <p>We do not use tracking cookies. Cloudflare may set essential cookies for security and performance purposes.</p>
           <h2 className="text-xl font-semibold text-[#2d3238] mt-8">Third Parties</h2>
           <p>We do not share any data with third parties. All processing is client-side and self-contained.</p>
+          <h2 className="text-xl font-semibold text-[#2d3238] mt-8">How PdfPix handles files</h2>
+          <p>Most PdfPix workflows are designed to process files locally in your browser session. That means the content of your PDFs, Word files, spreadsheets, and images is not sent to a remote document-processing server as part of the normal workflow.</p>
           <h2 className="text-xl font-semibold text-[#2d3238] mt-8">Contact</h2>
-          <p>Questions about this policy? Email us at <a href="mailto:support@pdfpix.com" className="text-[#ee6c4d] hover:underline">support@pdfpix.com</a>.</p>
+          <p>Questions about this policy? Email us at <a href={`mailto:${SUPPORT_EMAIL}`} className="text-[#ee6c4d] hover:underline">{SUPPORT_EMAIL}</a>.</p>
         </div>
       </div>
     </main>
+      <Footer />
     </>
   );
 }
