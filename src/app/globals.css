@@ -93,10 +93,12 @@ body {
   align-items: center;
   height: 100%;
   padding: 0 16px;
-  font-size: 16px;
-  font-weight: 700;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: #2d3136;
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
@@ -313,7 +315,7 @@ body {
   display: none;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .show--sm {
     display: none !important;
   }
@@ -339,7 +341,7 @@ body {
   color: var(--color-primary);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .hide--sm {
     display: inline-flex;
   }
@@ -366,7 +368,7 @@ body {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .menu--sm {
     display: inline-flex;
     align-items: center;
@@ -1498,7 +1500,7 @@ body {
 .footer__brand img {
   height: 28px;
   width: auto;
-  opacity: 0.6;
+  opacity: 0.96;
 }
 
 .footer__social {
@@ -1515,7 +1517,7 @@ body {
   color: var(--color-white);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .has-files.toolpage .tool {
     padding: 0 !important;
     gap: 0 !important;
@@ -1537,7 +1539,7 @@ body {
   .toolpage--merge .merge-grid-actions-container,
   .toolpage--jpg-to-pdf .merge-grid-actions-container {
     position: fixed !important;
-    right: 24px !important;
+    right: 16px !important;
     top: 236px !important;
     z-index: 994 !important;
     display: flex !important;
@@ -2451,7 +2453,7 @@ body {
   z-index: 5;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .tool__sidebar,
   .has-files .tool__sidebar {
     position: fixed !important;
@@ -2794,9 +2796,154 @@ body {
 }
 
 .split-workspace > .uploader.box {
+  display: none !important;
+}
+
+/* Premium PDF File Header */
+.split-file-header {
   width: min(100%, 920px);
-  align-self: center;
-  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 16px 24px;
+  margin: 10px auto 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.split-file-header__info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.split-file-header__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(229, 50, 45, 0.08);
+  color: #e5322d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.split-file-header__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.split-file-header__name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.split-file-header__details {
+  font-size: 13px;
+  font-weight: 500;
+  color: #718096;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.split-file-header__bullet {
+  color: #cbd5e0;
+}
+
+.split-file-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.split-header-btn {
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.split-header-btn--change {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  color: #4a5568;
+  padding: 8px 16px;
+  min-height: auto;
+  border-radius: 8px;
+}
+
+.split-header-btn--change:hover {
+  background: #edf2f7;
+  color: #2d3748;
+  border-color: #cbd5e0;
+}
+
+.split-header-btn--remove {
+  background: #fff;
+  border: 1px solid #fed7d7;
+  color: #e53e3e;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  min-height: auto;
+  border-radius: 8px;
+}
+
+.split-header-btn--remove:hover {
+  background: #fff5f5;
+  color: #c53030;
+  border-color: #feb2b2;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .split-file-header {
+    width: calc(100% - 32px);
+    margin: 10px 16px 20px;
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+  
+  .split-file-header__icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .split-file-header__name {
+    font-size: 14px;
+  }
+  
+  .split-file-header__details {
+    font-size: 12px;
+  }
+  
+  .split-header-btn--change {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .split-header-btn--remove {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .split-ad-banner {
@@ -2937,9 +3084,17 @@ body {
   justify-content: center;
   gap: 24px;
   min-height: 358px;
-  padding: 22px 28px 18px;
-  border: 2px dashed #8b8c95;
+  padding: 24px 28px;
+  border: 2px dashed #cbd5e0;
+  background: #f7fafc;
+  border-radius: 20px;
   position: relative;
+  transition: all 0.2s ease;
+}
+
+.split-range-preview__frame:hover {
+  border-color: #a0aec0;
+  background: #edf2f7;
 }
 
 .split-range-preview__dots {
@@ -4143,7 +4298,7 @@ body {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .edit-mode-pill {
     width: 100%;
     justify-content: space-between;

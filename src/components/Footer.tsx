@@ -87,7 +87,7 @@ export default function Footer() {
         </div>
         <div className="footer__bottom">
           <div className="footer__brand">
-            <img src="/img/pdfpix.svg" alt="PdfPix" />
+            <img src="/img/pdfpix-footer.svg" alt="PdfPix" />
             <span>&copy; 2026 PdfPix. All rights reserved.</span>
           </div>
           <div className="footer__social">

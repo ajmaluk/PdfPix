@@ -5,7 +5,7 @@ import Image from "next/image";
 import ToolLayout from "@/components/ToolLayout";
 import FileUploader from "@/components/FileUploader";
 import ProcessOverlay from "@/components/ProcessOverlay";
-import { downloadBlob, generateFileId, readFileAsArrayBuffer } from "@/lib/pdf-utils";
+import { downloadBlob, generateFileId, readFileAsArrayBuffer, formatFileSize } from "@/lib/pdf-utils";
 import { PDFDocument } from "pdf-lib";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import JSZip from "jszip";
@@ -112,6 +112,7 @@ export default function SplitPdfPage() {
   const [mergeAllRanges, setMergeAllRanges] = useState(false);
 
   const pdfDocRef = useRef<PDFDocumentProxy | null>(null);
+  const changeInputRef = useRef<HTMLInputElement>(null);
 
   const addFiles = useCallback((newFiles: File[]) => {
     setFiles(newFiles.map((file) => ({
@@ -836,7 +837,62 @@ export default function SplitPdfPage() {
         </>
       ) : (
         <div className="split-workspace">
-          <FileUploader onFilesSelected={addFiles} hasFiles fileCount={files.length} />
+          {/* Active File Header */}
+          <div className="split-file-header">
+            <div className="split-file-header__info">
+              {/* PDF Icon */}
+              <div className="split-file-header__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+              </div>
+              <div className="split-file-header__meta">
+                <h3 className="split-file-header__name" title={files[0].name}>{files[0].name}</h3>
+                <p className="split-file-header__details">
+                  <span>{formatFileSize(files[0].size)}</span>
+                  <span className="split-file-header__bullet" aria-hidden="true">•</span>
+                  <span>{totalPages} pages</span>
+                </p>
+              </div>
+            </div>
+            
+            {/* Action buttons (Change File / Remove) */}
+            <div className="split-file-header__actions">
+              <button 
+                onClick={() => changeInputRef.current?.click()}
+                className="split-header-btn split-header-btn--change"
+                title="Choose a different PDF file"
+              >
+                Change File
+              </button>
+              <button 
+                onClick={clearFiles}
+                className="split-header-btn split-header-btn--remove"
+                title="Remove this file"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  <line x1="10" y1="11" x2="10" y2="17"></line>
+                  <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <input
+            ref={changeInputRef}
+            type="file"
+            accept=".pdf"
+            className="hidden"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                addFiles(Array.from(e.target.files));
+              }
+            }}
+          />
+
           <AdSpace />
           <div className="split-preview-stack">{renderRangePreview()}</div>
           <button className="split-mobile-cta show--sm" onClick={splitPdf} disabled={processing}>

@@ -1,4 +1,11 @@
 import type { Metadata } from "next";
+import {
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_URL,
+  getCanonicalUrl,
+  getPathForSeoId,
+} from "@/lib/site";
 
 export interface ToolSEOInfo {
   id: string;
@@ -589,55 +596,40 @@ export const seoData: Record<string, ToolSEOInfo> = {
 
 export function getMetadataForTool(id: string): Metadata {
   const data = seoData[id];
-  const baseUrl = "https://pdfpix.com";
-  
+
   if (!data) {
     return {
-      title: "PdfPix | Online PDF tools for PDF lovers",
-      description: "PdfPix is a free, easy-to-use suite of PDF tools for merging, splitting, compressing, and converting files.",
-      metadataBase: new URL(baseUrl)
+      title: `${SITE_NAME} | Free PDF Tools Online`,
+      description:
+        "PdfPix is a free, browser-based suite of PDF tools for merging, splitting, compressing, converting, and editing files.",
+      metadataBase: new URL(SITE_URL),
     };
   }
 
-  const pagePath = id === "about" || id === "contact" || id === "pricing" || id === "privacy" || id === "terms"
-    ? `/${id}`
-    : seoData[id]?.id === "summarize"
-    ? "/pdf-summarize"
-    : seoData[id]?.id === "forms"
-    ? "/pdf-forms"
-    : seoData[id]?.id === "page-numbers"
-    ? "/add-page-numbers"
-    : seoData[id]?.id === "watermark"
-    ? "/add-watermark"
-    : seoData[id]?.id === "pdf-to-ppt"
-    ? "/pdf-to-powerpoint"
-    : seoData[id]?.id === "ppt-to-pdf"
-    ? "/powerpoint-to-pdf"
-    : `/${id}-pdf`;
-
-  const canonicalUrl = `${baseUrl}${pagePath}`;
+  const pagePath = getPathForSeoId(id) ?? "/";
+  const canonicalUrl = getCanonicalUrl(pagePath);
 
   return {
     title: data.title,
     description: data.description,
     keywords: data.keywords,
-    metadataBase: new URL(baseUrl),
+    metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
       title: data.title,
       description: data.description,
-      siteName: "PdfPix",
+      siteName: SITE_NAME,
       type: "website",
       url: canonicalUrl,
-      images: [{ url: "/img/pdfpix.svg", width: 360, height: 84 }],
+      images: [{ url: SITE_OG_IMAGE }],
     },
     twitter: {
       card: "summary_large_image",
       title: data.title,
       description: data.description,
-      images: ["/img/pdfpix.svg"],
+      images: [SITE_OG_IMAGE],
     },
   };
 }

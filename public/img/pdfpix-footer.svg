@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="392" height="84" viewBox="0 0 392 84" role="img" aria-labelledby="title desc">
-  <title id="title">PdfPix wordmark</title>
-  <desc id="desc">PDF wordmark, a red laptop pixel icon, and PIX wordmark.</desc>
+  <title id="title">PdfPix footer wordmark</title>
+  <desc id="desc">White PDF wordmark, a red laptop pixel icon, and white PIX wordmark.</desc>
   <defs>
-    <linearGradient id="pdfpix-logo-grad" x1="6%" y1="2%" x2="94%" y2="98%">
+    <linearGradient id="pdfpix-footer-grad" x1="6%" y1="2%" x2="94%" y2="98%">
       <stop offset="0%" stop-color="#ff6a5f"/>
       <stop offset="100%" stop-color="#d93a2f"/>
     </linearGradient>
@@ -13,22 +13,22 @@
         font-size: 56px;
         font-weight: 700;
         letter-spacing: -1.35px;
-        fill: #1b1f24;
+        fill: #f7f9fb;
       }
     </style>
   </defs>
 
   <text class="brand-text" x="8" y="59">PDF</text>
 
-  <g transform="translate(126 12)">
-    <rect x="10" y="0" width="56" height="36" rx="10" fill="url(#pdfpix-logo-grad)"/>
+  <g transform="translate(136 12)">
+    <rect x="10" y="0" width="56" height="36" rx="10" fill="url(#pdfpix-footer-grad)"/>
     <rect x="20" y="8" width="25" height="16" rx="3.5" fill="#ffffff" opacity="0.97"/>
     <rect x="49" y="8" width="11" height="11" rx="2.6" fill="#ffffff"/>
     <rect x="49.5" y="22" width="6" height="6" rx="1.4" fill="#ffb7b0"/>
-    <rect x="31" y="40" width="13" height="4" rx="2" fill="#1b1f24"/>
-    <path d="M10 45h56l8 8H2z" fill="url(#pdfpix-logo-grad)"/>
+    <rect x="31" y="40" width="13" height="4" rx="2" fill="#f7f9fb"/>
+    <path d="M10 45h56l8 8H2z" fill="url(#pdfpix-footer-grad)"/>
     <rect x="23" y="47" width="29" height="3.5" rx="1.75" fill="#ffffff" opacity="0.28"/>
   </g>
 
-  <text class="brand-text" x="216" y="59">PIX</text>
+  <text class="brand-text" x="220" y="59">PIX</text>
 </svg>

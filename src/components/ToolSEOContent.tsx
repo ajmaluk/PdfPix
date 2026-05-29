@@ -1,6 +1,12 @@
 "use client";
 
 import { seoData } from "@/lib/seo-data";
+import {
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  getCanonicalUrl,
+  getPathForSeoId,
+} from "@/lib/site";
 
 interface ToolSEOContentProps {
   toolId: string;
@@ -11,24 +17,7 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
   if (!data) return null;
 
   const { description, heading, steps, faqs } = data;
-  const baseUrl = "https://pdfpix.com";
-  
-  // Format target paths based on tool ID
-  const pagePath = toolId === "summarize"
-    ? "/pdf-summarize"
-    : toolId === "forms"
-    ? "/pdf-forms"
-    : toolId === "page-numbers"
-    ? "/add-page-numbers"
-    : toolId === "watermark"
-    ? "/add-watermark"
-    : toolId === "pdf-to-ppt"
-    ? "/pdf-to-powerpoint"
-    : toolId === "ppt-to-pdf"
-    ? "/powerpoint-to-pdf"
-    : `/${toolId}-pdf`;
-
-  const toolUrl = `${baseUrl}${pagePath}`;
+  const toolUrl = getCanonicalUrl(getPathForSeoId(toolId) ?? "/");
 
   // Structured Data Schemas
   const webAppSchema = {
@@ -36,7 +25,7 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
     "@type": "WebApplication",
     "name": heading,
     "url": toolUrl,
-    "image": `${baseUrl}/img/pdfpix.svg`,
+    "image": SITE_OG_IMAGE,
     "description": description,
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "All",
@@ -98,7 +87,7 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
         {/* Benefits Grid */}
         <div className="mb-16 text-left">
           <h2 className="text-3xl font-extrabold text-[#2d3238] mb-8 text-center tracking-tight">
-            Why choose PdfPix for {heading}?
+            Why choose {SITE_NAME} for {heading}?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex bg-[#fdfdfd] border border-[#e8eaed] rounded-2xl p-6 gap-4 items-start shadow-sm">

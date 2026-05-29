@@ -6,6 +6,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ToolIcon from "@/components/ToolIcon";
 import { tools } from "@/lib/tools";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_URL,
+} from "@/lib/site";
 
 const categories = [
   "All",
@@ -40,13 +46,10 @@ export default function HomePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "PdfPix",
-            "url": "https://pdfpix.com",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://pdfpix.com/?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
+            "name": SITE_NAME,
+            "url": SITE_URL,
+            "description": SITE_DESCRIPTION,
+            "inLanguage": "en"
           })
         }}
       />
@@ -56,13 +59,9 @@ export default function HomePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "PdfPix",
-            "url": "https://pdfpix.com",
-            "logo": "https://pdfpix.com/img/pdfpix.svg",
-            "sameAs": [
-              "https://twitter.com/pdfpix",
-              "https://github.com/pdfpix"
-            ]
+            "name": SITE_NAME,
+            "url": SITE_URL,
+            "logo": SITE_OG_IMAGE
           })
         }}
       />

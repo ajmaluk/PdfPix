@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_URL,
+  getCanonicalUrl,
+} from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -8,31 +15,54 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pdfpix.com"),
-  title: "PdfPix | Online PDF tools for PDF lovers",
-  description:
-    "PdfPix is an online service to work with PDF files completely free and easy to use. Merge PDF, split PDF, compress PDF, office to PDF, PDF to JPG and more!",
-  keywords:
-    "Merge PDF, split PDF, combine PDF, extract PDF, compress PDF, convert PDF, Word to PDF, Excel to PDF, Powerpoint to PDF, PDF to JPG, JPG to PDF",
+  metadataBase: new URL(SITE_URL),
+  title: `${SITE_NAME} | Free PDF Tools Online`,
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "pdf tools",
+    "merge pdf",
+    "split pdf",
+    "compress pdf",
+    "convert pdf",
+    "edit pdf",
+    "pdf to word",
+    "word to pdf",
+    "pdf to jpg",
+    "jpg to pdf",
+  ],
+  alternates: {
+    canonical: getCanonicalUrl("/"),
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: "/img/favicon.svg",
     apple: "/img/icon.svg",
   },
   openGraph: {
-    title: "PdfPix | Online PDF tools for PDF lovers",
-    description:
-      "PdfPix is an online service to work with PDF files completely free and easy to use.",
-    siteName: "PdfPix",
+    title: `${SITE_NAME} | Free PDF Tools Online`,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
     type: "website",
-    url: "https://pdfpix.com",
-    images: [{ url: "/img/pdfpix.svg", width: 360, height: 84 }],
+    url: SITE_URL,
+    locale: "en_US",
+    images: [{ url: SITE_OG_IMAGE }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PdfPix | Online PDF tools for PDF lovers",
-    description:
-      "PdfPix is an online service to work with PDF files completely free and easy to use.",
-    images: ["/img/pdfpix.svg"],
+    title: `${SITE_NAME} | Free PDF Tools Online`,
+    description: SITE_DESCRIPTION,
+    images: [SITE_OG_IMAGE],
   },
 };
 
