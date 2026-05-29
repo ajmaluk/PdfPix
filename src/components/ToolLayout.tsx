@@ -19,7 +19,7 @@ function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLay
   return (
     <>
       <Header />
-      <div className={`main toolpage ${hasFiles ? "has-files" : "no-files"}`}>
+      <div className={`main toolpage ${toolId ? `toolpage--${toolId}` : ""} ${hasFiles ? "has-files" : "no-files"}`}>
         <div className={`tool ${hasFiles ? "tool--has-files" : "tool--no-files tool--small"}`}>
           <div className="tool__workarea" id="workArea">
             <div id="dropArea"></div>
@@ -44,6 +44,7 @@ function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLay
                 className="mobile-settings-toggle show--sm" 
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 aria-label="Toggle settings panel"
+                title="Toggle settings panel"
                 aria-expanded={sidebarOpen}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -68,7 +69,7 @@ function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLay
           <ToolSEOContent toolId={toolId} />
         )}
       </div>
-      <Footer />
+      {!hasFiles && <Footer />}
     </>
   );
 }

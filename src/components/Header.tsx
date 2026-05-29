@@ -4,21 +4,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ToolIcon from "@/components/ToolIcon";
+import { tools } from "@/lib/tools";
 
-const icoColors: Record<string, string> = {
-  merge: "#ee6c4d", split: "#ee6c4d", compress: "#8fbc5d",
-  "remove-pages": "#ee6c4d", organize: "#ee6c4d", scan: "#ee6c4d",
-  repair: "#8fbc5d", ocr: "#8fbc5d",
-  "jpg-to-pdf": "#d6bf2d", "word-to-pdf": "#5f83c6", "powerpoint-to-pdf": "#ee6c4d",
-  "excel-to-pdf": "#5ea162", "html-to-pdf": "#d6bf2d",
-  "pdf-to-jpg": "#d6bf2d", "pdf-to-word": "#5f83c6", "pdf-to-powerpoint": "#ee6c4d",
-  "pdf-to-excel": "#5ea162", "pdf-to-pdfa": "#ab6993",
-  "rotate-pdf": "#ab6993", "add-page-numbers": "#ab6993", "add-watermark": "#ab6993",
-  "crop-pdf": "#ab6993", "edit-pdf": "#ab6993", "pdf-forms": "#ab6993",
-  "unlock-pdf": "#5f83c6", "protect-pdf": "#5f83c6", "sign-pdf": "#5f83c6",
-  "redact-pdf": "#5f83c6", "compare-pdf": "#5f83c6",
-  "pdf-summarize": "#ee6c4d", "translate-pdf": "#ee6c4d",
-};
+const toolByPath = new Map(tools.map((tool) => [tool.path, tool]));
+
+function normalizePath(path: string | null) {
+  if (!path || path === "/") return "/";
+  return path.endsWith("/") ? path.slice(0, -1) : path;
+}
+
+function getToolVisual(tool: { id: string; href: string }) {
+  const match = toolByPath.get(tool.href);
+  return {
+    iconId: match?.id ?? tool.id,
+    color: match?.color ?? "#6b7280",
+  };
+}
 
 const toolGroups = [
   {
@@ -112,12 +113,35 @@ const convertPdfLinks = [
   },
 ];
 
-const productLinks = [
-  { name: "Pricing", href: "/pricing" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
-  { name: "Privacy", href: "/privacy" },
-  { name: "Terms", href: "/terms" },
+const siteLinks = [
+  { name: "Portfolio", href: "https://ajmal.uthakkan.in" },
+  { name: "LinkedIn", href: "https://in.linkedin.com/in/ajmaluk" },
+  { name: "GitHub", href: "https://github.com/ajmaluk" },
+  { name: "Instagram", href: "https://instagram.com/ajmaluk.me" },
+  { name: "Buy Me a Coffee", href: "https://buymeacoffee.com/ajmal.uk" },
+];
+
+const pdfPixLinks = [
+  { name: "Pricing", href: "/pricing", icon: "pricing" },
+  { name: "About us", href: "/about", icon: "about" },
+  { name: "Privacy", href: "/privacy", icon: "privacy" },
+  { name: "Terms", href: "/terms", icon: "terms" },
+] as const;
+
+const convertMenuPaths = new Set(convertPdfLinks.flatMap((group) => group.items.map((item) => item.href)));
+const directMenuPaths = new Set(["/merge-pdf", "/split-pdf", "/compress-pdf"]);
+const allToolsMenuPaths = new Set(
+  toolGroups
+    .flatMap((group) => group.items.map((item) => item.href))
+    .filter((href) => !convertMenuPaths.has(href) && !directMenuPaths.has(href))
+);
+
+const otherProducts = [
+  { name: "ToolPix", href: "https://toolpix.pythonanywhere.com", description: "All-in-one browser tools and utilities", accent: "#ee6c4d", short: "T" },
+  { name: "CodePix", href: "https://codepix.com", description: "Beginner-friendly interactive coding lessons", accent: "#3b82f6", short: "C" },
+  { name: "Joyful", href: "https://joyful.uthakkan.in", description: "Delightful workspace and lifestyle platform", accent: "#8b5cf6", short: "J" },
+  { name: "UTHAKKAN", href: "https://www.uthakkan.in", description: "Studio website and company presence", accent: "#111827", short: "U" },
+  { name: "KallanCop", href: "https://play.google.com/store/apps/details?id=com.ajmal.kallancop", description: "Mobile game published on Google Play", accent: "#10b981", short: "K" },
 ];
 
 function NineDotsIcon() {
@@ -136,10 +160,49 @@ function NineDotsIcon() {
   );
 }
 
+function SiteLinkIcon({ icon }: { icon: "pricing" | "about" | "privacy" | "terms" }) {
+  if (icon === "pricing") {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="6" width="18" height="12" rx="2" />
+        <path d="M7 10h10" />
+        <path d="M7 14h4" />
+      </svg>
+    );
+  }
+
+  if (icon === "about") {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 21s-6.5-4.35-9-8.28C1.24 9.94 3.16 6 7.2 6c2.17 0 3.55 1.2 4.8 2.76C13.25 7.2 14.63 6 16.8 6 20.84 6 22.76 9.94 21 12.72 18.5 16.65 12 21 12 21Z" />
+      </svg>
+    );
+  }
+
+  if (icon === "privacy") {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 3l7 4v5c0 5-3.2 7.76-7 9-3.8-1.24-7-4-7-9V7l7-4Z" />
+        <path d="M9.5 12.5 11 14l3.5-3.5" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3v18" />
+      <path d="M7 7h8.5a2.5 2.5 0 0 1 0 5H10a2.5 2.5 0 0 0 0 5h7" />
+    </svg>
+  );
+}
+
 export default function Header() {
   const pathname = usePathname();
+  const currentPath = normalizePath(pathname);
   const [leftOpen, setLeftOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
+  const convertMenuActive = convertMenuPaths.has(currentPath);
+  const allToolsMenuActive = allToolsMenuPaths.has(currentPath);
 
   return (
     <header className="header">
@@ -166,56 +229,58 @@ export default function Header() {
         <div className="menu hide--sm">
           <ul className="menu__primary">
             <li>
-              <Link href="/merge-pdf" className={pathname === "/merge-pdf" ? "active" : ""}>Merge PDF</Link>
+              <Link href="/merge-pdf" className={currentPath === "/merge-pdf" ? "active" : ""}>Merge PDF</Link>
             </li>
             <li>
-              <Link href="/split-pdf" className={pathname === "/split-pdf" ? "active" : ""}>Split PDF</Link>
+              <Link href="/split-pdf" className={currentPath === "/split-pdf" ? "active" : ""}>Split PDF</Link>
             </li>
             <li>
-              <Link href="/compress-pdf" className={pathname === "/compress-pdf" ? "active" : ""}>Compress PDF</Link>
+              <Link href="/compress-pdf" className={currentPath === "/compress-pdf" ? "active" : ""}>Compress PDF</Link>
             </li>
-            <li className="nav-has-dropdown">
-              <span>Convert PDF <i className="ico ico--down"></i></span>
-              <div className="nav-dropdown">
-                <ul>
+            <li className={`nav-has-dropdown nav-has-dropdown--convert-mega ${convertMenuActive ? "active" : ""}`}>
+              <span className={`menu--md menu--md-convert ${convertMenuActive ? "active" : ""}`}>Convert PDF <i className="ico ico--down" aria-hidden="true"></i></span>
+              <div className="nav-dropdown nav-dropdown--convert-mega">
+                <div className="nav-dropdown--convert-mega__pointer" aria-hidden="true"></div>
+                <div className="nav-dropdown--convert-mega__grid">
                   {convertPdfLinks.map((col) => (
-                    <li key={col.title}>
-                      <ul>
-                        <li><div className="nav__title">{col.title}</div></li>
+                    <div key={col.title} className="nav-dropdown--convert-mega__col">
+                      <div className="nav-dropdown--convert-mega__title">{col.title}</div>
+                      <ul className="nav-dropdown--convert-mega__list">
                         {col.items.map((t) => (
                           <li key={t.id}>
-                            <Link href={t.href} className={pathname === t.href ? "active" : ""}>
-                              <ToolIcon id={t.id} color={icoColors[t.id]} />
-                              {t.name}
+                            <Link href={t.href} className={currentPath === t.href ? "active" : ""}>
+                              <ToolIcon id={getToolVisual(t).iconId} color={getToolVisual(t).color} size={26} />
+                              <span>{t.name}</span>
                             </Link>
                           </li>
                         ))}
                       </ul>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </li>
-            <li className="nav-has-dropdown nav-has-dropdown--full">
-              <span className="menu--md">All PDF tools <i className="ico ico--down"></i></span>
-              <div className="nav-dropdown nav-dropdown--full">
-                <ul>
+            <li className={`nav-has-dropdown nav-has-dropdown--tool-mega ${allToolsMenuActive ? "active" : ""}`}>
+              <span className={`menu--md menu--md-tools ${allToolsMenuActive ? "active" : ""}`}>All PDF tools <i className="ico ico--down" aria-hidden="true"></i></span>
+              <div className="nav-dropdown nav-dropdown--tool-mega">
+                <div className="nav-dropdown--tool-mega__pointer" aria-hidden="true"></div>
+                <div className="nav-dropdown--tool-mega__grid">
                   {toolGroups.map((group) => (
-                    <li key={group.category}>
-                      <ul>
-                        <li><div className="nav__title">{group.category}</div></li>
+                    <div key={group.category} className="nav-dropdown--tool-mega__col">
+                      <div className="nav-dropdown--tool-mega__title">{group.category}</div>
+                      <ul className="nav-dropdown--tool-mega__list">
                         {group.items.map((tool) => (
                           <li key={tool.id}>
-                            <Link href={tool.href} className={pathname === tool.href ? "active" : ""}>
-                              <ToolIcon id={tool.id} color={icoColors[tool.id]} />
-                              {tool.name}
+                            <Link href={tool.href} className={currentPath === tool.href ? "active" : ""}>
+                              <ToolIcon id={getToolVisual(tool).iconId} color={getToolVisual(tool).color} size={26} />
+                              <span>{tool.name}</span>
                             </Link>
                           </li>
                         ))}
                       </ul>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </li>
           </ul>
@@ -224,16 +289,53 @@ export default function Header() {
         <div className="nav-actions">
           <ul>
             <li className="nav-has-dropdown hide--sm">
-              <span className="grid-icon-btn" aria-label="Open product menu">
+              <span className="grid-icon-btn grid-icon-btn--products" aria-label="Open product menu">
                 <NineDotsIcon />
               </span>
               <div className="nav-dropdown nav-dropdown--products">
                 <div className="nav-products">
-                  {productLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="nav-products__item">
-                      {link.name}
-                    </Link>
-                  ))}
+                  <div className="nav-products__main">
+                    <div className="nav-products__title">Other Products</div>
+                    <div className="nav-products__list">
+                      {otherProducts.map((product) => (
+                        <Link key={product.name} href={product.href} className="nav-products__product">
+                          <span className="nav-products__product-icon" style={{ backgroundColor: `${product.accent}14`, color: product.accent }}>
+                            {product.short}
+                          </span>
+                          <span className="nav-products__product-copy">
+                            <span className="nav-products__product-name">{product.name}</span>
+                            <span className="nav-products__product-desc">{product.description}</span>
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="nav-products__side">
+                    <div className="nav-products__title">PdfPix</div>
+                    <div className="nav-products__side-list">
+                      {pdfPixLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className={`nav-products__item nav-products__item--with-icon ${currentPath === link.href ? "active" : ""}`}
+                        >
+                          <span className="nav-products__item-icon">
+                            <SiteLinkIcon icon={link.icon} />
+                          </span>
+                          <span>{link.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="nav-products__divider" aria-hidden="true"></div>
+                    <div className="nav-products__title">Profiles</div>
+                    <div className="nav-products__side-list">
+                      {siteLinks.map((link) => (
+                        <Link key={link.href} href={link.href} className="nav-products__item">
+                          {link.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </li>
@@ -278,10 +380,10 @@ export default function Header() {
                   <li key={tool.id}>
                     <Link
                       href={tool.href}
-                      className={`drawer__section-item ${pathname === tool.href ? "active" : ""}`}
+                      className={`drawer__section-item ${currentPath === tool.href ? "active" : ""}`}
                       onClick={() => setLeftOpen(false)}
                     >
-                      <ToolIcon id={tool.id} color={icoColors[tool.id]} size={18} />
+                      <ToolIcon id={getToolVisual(tool).iconId} color={getToolVisual(tool).color} size={18} />
                       <span>{tool.name}</span>
                     </Link>
                   </li>
@@ -306,12 +408,41 @@ export default function Header() {
         </div>
         <div className="drawer__content">
           <div className="drawer__section">
-            <div className="drawer__section-title">Site Links</div>
+            <div className="drawer__section-title">PdfPix</div>
             <ul className="drawer__section-list">
-              {productLinks.map((link) => (
+              {pdfPixLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`drawer__section-item ${currentPath === link.href ? "active" : ""}`}
+                    onClick={() => setRightOpen(false)}
+                  >
+                    <SiteLinkIcon icon={link.icon} />
+                    <span>{link.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="drawer__section">
+            <div className="drawer__section-title">Profiles</div>
+            <ul className="drawer__section-list">
+              {siteLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="drawer__section-item" onClick={() => setRightOpen(false)}>
                     <span>{link.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="drawer__section">
+            <div className="drawer__section-title">Other Products</div>
+            <ul className="drawer__section-list">
+              {otherProducts.map((product) => (
+                <li key={product.name}>
+                  <Link href={product.href} className="drawer__section-item" onClick={() => setRightOpen(false)}>
+                    <span>{product.name}</span>
                   </Link>
                 </li>
               ))}

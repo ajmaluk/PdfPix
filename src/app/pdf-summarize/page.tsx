@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -67,7 +68,7 @@ export default function PdfSummarizePage() {
   return (
     <ToolLayout toolId="summarize" title="AI Summarizer" subtitle="Summarize PDF documents using AI technology." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length > 0 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={summarize} disabled={processing}>{processing ? "Summarizing..." : "Summarize!"}</button></div>}
       <ProcessOverlay isActive={processing} message="Summarizing PDF..." />

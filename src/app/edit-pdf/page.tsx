@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -1025,7 +1026,7 @@ export default function EditPdfPage() {
         sidebar={noFileSidebar}
       >
         <FileUploader onFilesSelected={addFiles} hasFiles={false} />
-        <div className="add"><div className="in_add">Advertisement</div></div>
+        <AdSpace />
       </ToolLayout>
     );
   }

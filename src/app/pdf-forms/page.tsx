@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -74,7 +75,7 @@ export default function PdfFormsPage() {
   return (
     <ToolLayout toolId="forms" title="PDF Forms" subtitle="Fill out and edit PDF forms easily." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length > 0 && formData && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={fillForm} disabled={processing}>{processing ? "Filling..." : "Fill Form!"}</button></div>}
       <ProcessOverlay isActive={processing} message="Filling PDF form..." />

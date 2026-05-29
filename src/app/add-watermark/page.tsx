@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -66,7 +67,7 @@ export default function AddWatermarkPage() {
   return (
     <ToolLayout toolId="watermark" title="Add Watermark" subtitle="Add text or image watermark to your PDF files." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length > 0 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={addWatermark} disabled={processing}>{processing ? "Adding..." : "Add Watermark!"}</button></div>}
       <ProcessOverlay isActive={processing} message="Adding watermark..." />

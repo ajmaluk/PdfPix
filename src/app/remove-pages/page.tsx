@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -68,7 +69,7 @@ export default function RemovePagesPage() {
   return (
     <ToolLayout toolId="remove-pages" title="Remove Pages" subtitle="Remove pages from a PDF document easily." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length > 0 && pagesToRemove && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={removePages} disabled={processing}>{processing ? "Removing..." : "Remove Pages!"}</button></div>}
       <ProcessOverlay isActive={processing} message="Removing pages..." />

@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -65,7 +66,7 @@ export default function GenericToolPage({ title, subtitle, accept = ".pdf", desc
       }
     >
       <FileUploader onFilesSelected={addFiles} accept={accept} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length > 0 && (
         <div className="flex justify-center mt-6">

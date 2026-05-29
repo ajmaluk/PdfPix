@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -67,7 +68,7 @@ export default function OcrPdfPage() {
   return (
     <ToolLayout toolId="ocr" title="OCR PDF" subtitle="Convert scanned PDF documents into searchable text." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length > 0 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={extract} disabled={processing}>{processing ? "Extracting..." : "Extract Text!"}</button></div>}
       <ProcessOverlay isActive={processing} message="Extracting text from PDF..." />

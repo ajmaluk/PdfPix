@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -67,7 +68,7 @@ export default function PdfToPptPage() {
     <ToolLayout toolId="pdf-to-ppt" title="PDF to PowerPoint" subtitle="Turn your PDF files into easy to edit PPT and PPTX slideshows."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length > 0 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={convert} disabled={processing}>{processing ? "Converting..." : "Convert to PPT!"}</button></div>}
       <ProcessOverlay isActive={processing} message="Converting PDF to PowerPoint..." />

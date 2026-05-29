@@ -9,6 +9,7 @@ import { downloadBlob, generateFileId, readFileAsArrayBuffer } from "@/lib/pdf-u
 import { PDFDocument } from "pdf-lib";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import JSZip from "jszip";
+import AdSpace from "@/components/AdSpace";
 
 interface FileEntry {
   id: string;
@@ -829,11 +830,14 @@ export default function SplitPdfPage() {
       }
     >
       {files.length === 0 ? (
-        <FileUploader onFilesSelected={addFiles} hasFiles={false} />
+        <>
+          <FileUploader onFilesSelected={addFiles} hasFiles={false} />
+          <AdSpace />
+        </>
       ) : (
         <div className="split-workspace">
           <FileUploader onFilesSelected={addFiles} hasFiles fileCount={files.length} />
-          <div className="split-ad-banner">Advertisement</div>
+          <AdSpace />
           <div className="split-preview-stack">{renderRangePreview()}</div>
           <button className="split-mobile-cta show--sm" onClick={splitPdf} disabled={processing}>
             <span>{processing ? "Splitting..." : "Split PDF"}</span>

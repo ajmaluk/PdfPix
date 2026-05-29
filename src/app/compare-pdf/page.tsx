@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -81,7 +82,7 @@ export default function ComparePdfPage() {
     <ToolLayout toolId="compare" title="Compare PDF" subtitle="Compare two PDF files side by side to find differences."
       sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       {files.length >= 2 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={compare} disabled={processing}>{processing ? "Comparing..." : "Compare PDFs!"}</button></div>}
       <ProcessOverlay isActive={processing} message="Comparing PDFs..." />

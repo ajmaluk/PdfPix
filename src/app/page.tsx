@@ -67,7 +67,7 @@ export default function HomePage() {
         }}
       />
       <Header />
-      <div className="main" style={{ marginTop: "60px" }}>
+      <div className="main" style={{ marginTop: "20px" }}>
         <div className="pattern-bg"></div>
         <div className="home-title">
           <h1 className="home-title__title">
@@ -96,7 +96,7 @@ export default function HomePage() {
                 <Link href={tool.path} title={tool.title}>
                   <div className="tools__item__icon">
                     <span className="tools__item__icon-inner">
-                      <ToolIcon id={tool.id} color={tool.color} size={52} />
+                      <ToolIcon id={tool.id} color={tool.color} size={78} />
                     </span>
                   </div>
                   <h3>{tool.title}</h3>

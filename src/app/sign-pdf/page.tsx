@@ -1,4 +1,5 @@
 "use client";
+import AdSpace from "@/components/AdSpace";
 
 import { useState, useCallback, useRef } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -99,7 +100,7 @@ export default function SignPdfPage() {
   return (
     <ToolLayout toolId="sign" title="Sign PDF" subtitle="Add your signature to PDF documents easily." sidebar={sidebarContent}>
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
-      <div className="add"><div className="in_add">Advertisement</div></div>
+      <AdSpace />
       <FileList files={files} onRemove={removeFile} />
       <ProcessOverlay isActive={processing} message="Signing PDF..." />
     </ToolLayout>
