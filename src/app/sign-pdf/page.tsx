@@ -86,22 +86,92 @@ export default function SignPdfPage() {
   const clearSig = () => { const ctx = canvasRef.current?.getContext("2d"); if (ctx) ctx.clearRect(0, 0, 300, 100); };
 
   const sidebarContent = (
-    <div className="option__panel">
-      <div className="option__panel__title">Sign PDF</div>
-      <div className="option__panel__content">
-        <div className="info">Draw your signature below:</div>
-        <canvas ref={canvasRef} width={300} height={100} className="border border-[#d1d5db] rounded-lg mb-2 cursor-crosshair bg-white" style={{ touchAction: "none" }} onMouseDown={startDraw} onMouseMove={draw} onMouseUp={stopDraw} onMouseLeave={stopDraw} />
-        <button className="btn btn--secondary btn--sm mb-3" onClick={clearSig}>Clear</button>
-        {files.length > 0 && <button className="btn btn--primary w-full" onClick={sign} disabled={processing}>{processing ? "Signing..." : "Sign PDF!"}</button>}
+    <div className="option__panel split-sidebar-panel">
+      <div className="split-sidebar-panel__header">
+        <div className="option__panel__title split-sidebar-panel__title text-center w-full">Sign PDF</div>
+      </div>
+
+      <div className="option__panel__content split-sidebar-panel__content">
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Draw your signature</label>
+          <div className="border-2 border-gray-200 rounded-2xl overflow-hidden bg-white mb-2 shadow-inner">
+            <canvas 
+              ref={canvasRef} 
+              width={300} 
+              height={100} 
+              className="w-full cursor-crosshair" 
+              style={{ touchAction: "none" }} 
+              onMouseDown={startDraw} 
+              onMouseMove={draw} 
+              onMouseUp={stopDraw} 
+              onMouseLeave={stopDraw} 
+            />
+          </div>
+          <button 
+            type="button" 
+            className="flex items-center gap-1.5 text-xs font-bold text-[#e5322d] bg-[#fef2f2] px-3 py-1.5 rounded-lg border border-red-150 hover:bg-red-100 transition-all duration-200" 
+            onClick={clearSig}
+          >
+            Clear canvas
+          </button>
+        </div>
+
+        {/* Features */}
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+          <div className="space-y-2">
+            {["Draw custom signatures", "Embedded as raw PNG signature overlay", "Placed at the bottom-right corner", "100% Secure local processing"].map((feature) => (
+              <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="split-sidebar-panel__footer">
+        <button 
+          type="button" 
+          onClick={sign} 
+          disabled={files.length === 0 || processing} 
+          className="btn-sidebar-cta"
+          style={{ backgroundColor: "#3b82f6" }}
+        >
+          <span>{processing ? "Signing..." : "Sign PDF!"}</span>
+          <span className="btn-sidebar-cta__icon">→</span>
+        </button>
       </div>
     </div>
   );
 
   return (
-    <ToolLayout toolId="sign" title="Sign PDF" subtitle="Add your signature to PDF documents easily." sidebar={sidebarContent}>
-      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
+    <ToolLayout 
+      toolId="sign" 
+      title="Sign PDF" 
+      subtitle="Add your signature to PDF documents easily." 
+      hasFiles={files.length > 0}
+      fileCount={files.length}
+      sidebar={sidebarContent}
+    >
+      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <AdSpace />
-      <FileList files={files} onRemove={removeFile} />
+      <FileList files={files} onRemove={removeFile} onAddFiles={addFiles} accept=".pdf" />
+      
+      {files.length > 0 && (
+        <button 
+          className="split-mobile-cta show--sm" 
+          onClick={sign} 
+          disabled={processing}
+          style={{ backgroundColor: "#3b82f6" }}
+        >
+          <span>{processing ? "Signing..." : "Sign PDF"}</span>
+          <span className="split-mobile-cta__icon">→</span>
+        </button>
+      )}
+      
       <ProcessOverlay isActive={processing} message="Signing PDF..." />
     </ToolLayout>
   );

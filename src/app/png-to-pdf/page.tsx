@@ -13,11 +13,11 @@ interface FileEntry {
   name: string;
   size: number;
   file: File;
-  rotation: number; // 0, 90, 180, 270 degrees
-  thumbnailUrl: string; // Object URL for image preview
+  rotation: number;
+  thumbnailUrl: string;
 }
 
-export default function JpgToPdfPage() {
+export default function PngToPdfPage() {
   const [files, setFiles] = useState<FileEntry[]>([]);
   const [processing, setProcessing] = useState(false);
   const [orientation, setOrientation] = useState<"portrait" | "landscape">("portrait");
@@ -29,7 +29,6 @@ export default function JpgToPdfPage() {
   
   const { setHasFiles, setFileCount } = useTool();
 
-  // Keep tool layout state updated with file list length
   useEffect(() => {
     setHasFiles(files.length > 0);
     if (setFileCount) {
@@ -41,7 +40,6 @@ export default function JpgToPdfPage() {
     };
   }, [files.length, setHasFiles, setFileCount]);
 
-  // Clean up object URLs to avoid memory leaks
   useEffect(() => {
     return () => {
       files.forEach((f) => {
@@ -98,7 +96,6 @@ export default function JpgToPdfPage() {
     setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
   }, [sortOrder]);
 
-  // Drag and drop handlers
   const handleDragStart = (index: number, e: React.DragEvent) => {
     setDraggedIndex(index);
     e.dataTransfer.effectAllowed = "move";
@@ -140,6 +137,19 @@ export default function JpgToPdfPage() {
           image = await pdfDoc.embedPng(imgBytes);
         } else if (ext === "jpg" || ext === "jpeg") {
           image = await pdfDoc.embedJpg(imgBytes);
+        } else if (ext === "webp") {
+          // For webp, convert to PNG via canvas first
+          const bitmap = await createImageBitmap(new Blob([imgBytes]));
+          const canvas = document.createElement("canvas");
+          canvas.width = bitmap.width;
+          canvas.height = bitmap.height;
+          const ctx = canvas.getContext("2d")!;
+          ctx.drawImage(bitmap, 0, 0);
+          const pngBlob = await new Promise<Blob>((resolve) => 
+            canvas.toBlob((b) => resolve(b!), "image/png")
+          );
+          const pngBytes = await pngBlob.arrayBuffer();
+          image = await pdfDoc.embedPng(pngBytes);
         } else {
           continue;
         }
@@ -198,15 +208,15 @@ export default function JpgToPdfPage() {
 
   return (
     <ToolLayout 
-      toolId="jpg-to-pdf"
-      title="JPG to PDF"
-      subtitle="Convert JPG images to PDF in seconds. Easily adjust orientation and margins."
+      toolId="png-to-pdf"
+      title="PNG to PDF"
+      subtitle="Convert PNG images to PDF in seconds. Supports PNG, WEBP formats with custom layout options."
       hasFiles={files.length > 0}
       fileCount={files.length}
       sidebar={
         <div className="option__panel split-sidebar-panel">
           <div className="split-sidebar-panel__header">
-            <div className="option__panel__title split-sidebar-panel__title text-center w-full">JPG to PDF</div>
+            <div className="option__panel__title split-sidebar-panel__title text-center w-full">PNG to PDF</div>
           </div>
 
           <div className="option__panel__content split-sidebar-panel__content">
@@ -216,18 +226,18 @@ export default function JpgToPdfPage() {
               <div className="grid grid-cols-2 gap-3">
                 <button 
                   type="button"
-                  className={`flex flex-col items-center gap-2.5 rounded-2xl border-2 px-4 py-3.5 text-xs font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${orientation === "portrait" ? "border-[#d6bf2d] bg-[#fefdeb] text-[#856404] shadow-[0_4px_12px_rgba(214,191,45,0.12)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
+                  className={`flex flex-col items-center gap-2.5 rounded-2xl border-2 px-4 py-3.5 text-xs font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${orientation === "portrait" ? "border-[#2ecc71] bg-[#f0fdf4] text-[#15803d] shadow-[0_4px_12px_rgba(46,204,113,0.12)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
                   onClick={() => setOrientation("portrait")}
                 >
-                  <svg className={`${orientation === "portrait" ? "text-[#d6bf2d]" : "text-[#8a8a92]"}`} xmlns="http://www.w3.org/2000/svg" width="20" height="26" viewBox="0 0 20 26" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="1" width="18" height="24" rx="3"/></svg>
+                  <svg className={`${orientation === "portrait" ? "text-[#2ecc71]" : "text-[#8a8a92]"}`} xmlns="http://www.w3.org/2000/svg" width="20" height="26" viewBox="0 0 20 26" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="1" width="18" height="24" rx="3"/></svg>
                   Portrait
                 </button>
                 <button 
                   type="button"
-                  className={`flex flex-col items-center gap-2.5 rounded-2xl border-2 px-4 py-3.5 text-xs font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${orientation === "landscape" ? "border-[#d6bf2d] bg-[#fefdeb] text-[#856404] shadow-[0_4px_12px_rgba(214,191,45,0.12)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
+                  className={`flex flex-col items-center gap-2.5 rounded-2xl border-2 px-4 py-3.5 text-xs font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${orientation === "landscape" ? "border-[#2ecc71] bg-[#f0fdf4] text-[#15803d] shadow-[0_4px_12px_rgba(46,204,113,0.12)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
                   onClick={() => setOrientation("landscape")}
                 >
-                  <svg className={`${orientation === "landscape" ? "text-[#d6bf2d]" : "text-[#8a8a92]"}`} xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="1" width="24" height="18" rx="3"/></svg>
+                  <svg className={`${orientation === "landscape" ? "text-[#2ecc71]" : "text-[#8a8a92]"}`} xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="1" width="24" height="18" rx="3"/></svg>
                   Landscape
                 </button>
               </div>
@@ -245,7 +255,7 @@ export default function JpgToPdfPage() {
                   <button 
                     key={opt.value}
                     type="button"
-                    className={`flex flex-col items-center rounded-xl border-2 px-2 py-2.5 text-[11px] font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${pageSize === opt.value ? "border-[#d6bf2d] bg-[#fefdeb] text-[#856404] shadow-[0_4px_12px_rgba(214,191,45,0.1)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
+                    className={`flex flex-col items-center rounded-xl border-2 px-2 py-2.5 text-[11px] font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${pageSize === opt.value ? "border-[#2ecc71] bg-[#f0fdf4] text-[#15803d] shadow-[0_4px_12px_rgba(46,204,113,0.1)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
                     onClick={() => setPageSize(opt.value)}
                   >
                     <span>{opt.label}</span>
@@ -267,28 +277,40 @@ export default function JpgToPdfPage() {
                   <button 
                     key={opt.value}
                     type="button"
-                    className={`flex flex-col items-center rounded-xl border-2 px-2 py-2.5 text-[11px] font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${margin === opt.value ? "border-[#d6bf2d] bg-[#fefdeb] text-[#856404] shadow-[0_4px_12px_rgba(214,191,45,0.1)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
+                    className={`flex flex-col items-center rounded-xl border-2 px-2 py-2.5 text-[11px] font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${margin === opt.value ? "border-[#2ecc71] bg-[#f0fdf4] text-[#15803d] shadow-[0_4px_12px_rgba(46,204,113,0.1)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
                     onClick={() => setMargin(opt.value)}
                   >
-                    <span className={`text-sm font-black mb-0.5 ${margin === opt.value ? "text-[#d6bf2d]" : "text-[#8a8a92]"}`}>{opt.icon}</span>
+                    <span className={`text-sm font-black mb-0.5 ${margin === opt.value ? "text-[#2ecc71]" : "text-[#8a8a92]"}`}>{opt.icon}</span>
                     <span>{opt.label}</span>
                   </button>
                 ))}
               </div>
             </div>
 
+            {/* Supported formats */}
+            <div className="split-section">
+              <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Supported</label>
+              <div className="flex gap-2">
+                {["PNG", "WEBP", "JPG"].map((fmt) => (
+                  <div key={fmt} className="flex items-center justify-center px-3 py-1.5 rounded-xl bg-[#f8fafc] border border-gray-150 text-[10px] font-bold text-[#555c66] shadow-sm">
+                    .{fmt.toLowerCase()}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Information Tip */}
             <div className="split-section">
-              <div className="flex items-start gap-3 bg-[#fefdeb] border border-[#fef08a] rounded-xl p-4 text-left">
-                <div className="shrink-0 text-[#d6bf2d] mt-0.5">
+              <div className="flex items-start gap-3 bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl p-4 text-left">
+                <div className="shrink-0 text-[#2ecc71] mt-0.5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <line x1="12" y1="16" x2="12" y2="12"/>
                     <line x1="12" y1="8" x2="12.01" y2="8"/>
                   </svg>
                 </div>
-                <p className="text-[11px] text-[#713f12] leading-relaxed font-semibold">
-                  Drag and drop to rearrange images. Rotate individual images with the rotate button.
+                <p className="text-[11px] text-[#166534] leading-relaxed font-semibold">
+                  Drag and drop to rearrange images. Transparency in PNG files is preserved.
                 </p>
               </div>
             </div>
@@ -300,7 +322,7 @@ export default function JpgToPdfPage() {
               onClick={convert} 
               disabled={files.length === 0 || processing}
               className="btn-sidebar-cta"
-              style={{ backgroundColor: "#d6bf2d" }}
+              style={{ backgroundColor: "#2ecc71" }}
             >
               <span>{processing ? "Converting..." : "Convert to PDF!"}</span>
               <span className="btn-sidebar-cta__icon">→</span>
@@ -311,7 +333,7 @@ export default function JpgToPdfPage() {
     >
       {files.length === 0 && (
         <>
-          <FileUploader onFilesSelected={addFiles} hasFiles={false} accept="image/*" />
+          <FileUploader onFilesSelected={addFiles} hasFiles={false} accept="image/png,image/webp,image/jpeg" />
           <AdSpace />
         </>
       )}
@@ -459,7 +481,7 @@ export default function JpgToPdfPage() {
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept="image/png,image/webp,image/jpeg"
         multiple
         className="hidden"
         onChange={(e) => {

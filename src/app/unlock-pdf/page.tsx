@@ -66,37 +66,76 @@ export default function UnlockPdfPage() {
     <ToolLayout toolId="unlock"
       title="Unlock PDF files"
       subtitle="Remove PDF password protection to unlock your PDF files."
+      hasFiles={files.length > 0}
+      fileCount={files.length}
       sidebar={
-        <div className="option__panel">
-          <div className="option__panel__title">Unlock PDF</div>
-          <div className="option__panel__content">
-            <div className="info">Upload a password-protected PDF to remove its security.</div>
-            <input
-              type="password"
-              className="w-full px-3 py-2 border border-[#d1d5db] rounded-lg text-sm mb-3"
-              placeholder="Password (for .pdfx encrypted files)"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {files.length > 0 && (
-              <button className="btn btn--primary w-full mt-2" onClick={unlockPdf} disabled={processing}>
-                {processing ? "Unlocking..." : "Unlock PDF!"}
-              </button>
-            )}
+        <div className="option__panel split-sidebar-panel">
+          <div className="split-sidebar-panel__header">
+            <div className="option__panel__title split-sidebar-panel__title text-center w-full">Unlock PDF</div>
+          </div>
+
+          <div className="option__panel__content split-sidebar-panel__content">
+            <div className="split-section">
+              <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Decryption Password</label>
+              <input
+                type="password"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl text-sm focus:border-[#3b82f6] focus:outline-none transition-all duration-200"
+                placeholder="Enter password if encrypted"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <p className="text-[10px] text-[#8a8a92] mt-1.5 font-medium leading-relaxed">
+                Provide the owner or user password required to unlock and decrypt the file content.
+              </p>
+            </div>
+
+            {/* Features */}
+            <div className="split-section">
+              <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+              <div className="space-y-2">
+                {["Instantly removes password locks", "Allows editing, copying, and printing", "Supports secure PDFX format decryption", "100% Secure local processing"].map((feature) => (
+                  <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="split-sidebar-panel__footer">
+            <button 
+              type="button" 
+              onClick={unlockPdf} 
+              disabled={files.length === 0 || processing} 
+              className="btn-sidebar-cta"
+              style={{ backgroundColor: "#3b82f6" }}
+            >
+              <span>{processing ? "Unlocking..." : "Unlock PDF!"}</span>
+              <span className="btn-sidebar-cta__icon">→</span>
+            </button>
           </div>
         </div>
       }
     >
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf,.pdfx" />
       <AdSpace />
-      <FileList files={files} onRemove={removeFile} />
+      <FileList files={files} onRemove={removeFile} onAddFiles={addFiles} accept=".pdf,.pdfx" />
+      
       {files.length > 0 && (
-        <div className="flex justify-center mt-6">
-          <button className="btn btn--primary text-lg px-10 py-3" onClick={unlockPdf} disabled={processing}>
-            {processing ? "Unlocking..." : "Unlock PDF!"}
-          </button>
-        </div>
+        <button 
+          className="split-mobile-cta show--sm" 
+          onClick={unlockPdf} 
+          disabled={processing}
+          style={{ backgroundColor: "#3b82f6" }}
+        >
+          <span>{processing ? "Unlocking..." : "Unlock PDF"}</span>
+          <span className="split-mobile-cta__icon">→</span>
+        </button>
       )}
+      
       <ProcessOverlay isActive={processing} message="Unlocking PDF..." />
     </ToolLayout>
   );

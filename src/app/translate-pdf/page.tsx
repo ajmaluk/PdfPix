@@ -68,26 +68,79 @@ export default function TranslatePdfPage() {
   }, [files, lang]);
 
   const sidebarContent = (
-    <div className="option__panel">
-      <div className="option__panel__title">Translate PDF</div>
-      <div className="info">Select target language:</div>
-      <select className="w-full px-3 py-2 border border-[#d1d5db] rounded-lg text-sm mb-3" value={lang} onChange={(e) => setLang(e.target.value)}>
-        {languages.map((l) => <option key={l.code} value={l.code}>{l.name}</option>)}
-      </select>
-      {files.length > 0 && (
-        <button className="btn btn--primary w-full mt-4" onClick={translate} disabled={processing}>
-          {processing ? "Translating..." : "Translate!"}
+    <div className="option__panel split-sidebar-panel">
+      <div className="split-sidebar-panel__header">
+        <div className="option__panel__title split-sidebar-panel__title text-center w-full">Translate PDF</div>
+      </div>
+
+      <div className="option__panel__content split-sidebar-panel__content">
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Target Language</label>
+          <select 
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl text-sm focus:border-[#06b6d4] focus:outline-none transition-all duration-200 bg-white" 
+            value={lang} 
+            onChange={(e) => setLang(e.target.value)}
+          >
+            {languages.map((l) => <option key={l.code} value={l.code}>{l.name}</option>)}
+          </select>
+        </div>
+
+        {/* Features */}
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+          <div className="space-y-2">
+            {["High accuracy machine translation", "Supports 9+ major languages", "Downloads translated text documents", "Secure remote processing stream"].map((feature) => (
+              <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="split-sidebar-panel__footer">
+        <button 
+          type="button" 
+          onClick={translate} 
+          disabled={files.length === 0 || processing} 
+          className="btn-sidebar-cta"
+          style={{ backgroundColor: "#06b6d4" }}
+        >
+          <span>{processing ? "Translating..." : "Translate!"}</span>
+          <span className="btn-sidebar-cta__icon">→</span>
         </button>
-      )}
+      </div>
     </div>
   );
 
   return (
-    <ToolLayout toolId="translate" title="Translate PDF" subtitle="Translate your PDF files into different languages." sidebar={sidebarContent}>
-      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
+    <ToolLayout 
+      toolId="translate" 
+      title="Translate PDF" 
+      subtitle="Translate your PDF files into different languages." 
+      hasFiles={files.length > 0}
+      fileCount={files.length}
+      sidebar={sidebarContent}
+    >
+      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <AdSpace />
-      <FileList files={files} onRemove={removeFile} />
-      {files.length > 0 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={translate} disabled={processing}>{processing ? "Translating..." : "Translate!"}</button></div>}
+      <FileList files={files} onRemove={removeFile} onAddFiles={addFiles} accept=".pdf" />
+      
+      {files.length > 0 && (
+        <button 
+          className="split-mobile-cta show--sm" 
+          onClick={translate} 
+          disabled={processing}
+          style={{ backgroundColor: "#06b6d4" }}
+        >
+          <span>{processing ? "Translating..." : "Translate PDF"}</span>
+          <span className="split-mobile-cta__icon">→</span>
+        </button>
+      )}
+      
       <ProcessOverlay isActive={processing} message="Translating PDF..." />
     </ToolLayout>
   );

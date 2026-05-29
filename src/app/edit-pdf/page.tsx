@@ -294,10 +294,12 @@ function PageRenderSurface({
                       top: `${item.y * 100}%`,
                       width: `${item.width * 100}%`,
                       minHeight: `${item.height * 100}%`,
-                      color: item.color,
+                      color: item.edited || isSelected ? item.color : "transparent",
+                      backgroundColor: item.edited ? "#ffffff" : undefined,
                       fontSize: `${item.fontSize}px`,
                     }}
                     onPointerDown={(event) => onExistingTextPointerDown(event, item)}
+                    onClick={(event) => event.stopPropagation()}
                   >
                     {isSelected && selectedTool === "text" ? (
                       <textarea
@@ -321,6 +323,7 @@ function PageRenderSurface({
                       viewBox="0 0 1000 1000"
                       className={`edit-overlay edit-overlay--draw ${selectedItemId === overlay.id ? "is-selected" : ""}`}
                       onPointerDown={(event) => onOverlayPointerDown(event, overlay)}
+                      onClick={(event) => event.stopPropagation()}
                     >
                       <path
                         d={overlay.points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x * 1000} ${point.y * 1000}`).join(" ")}
@@ -351,6 +354,7 @@ function PageRenderSurface({
                         fontSize: `${overlay.fontSize}px`,
                       }}
                       onPointerDown={(event) => onOverlayPointerDown(event, overlay)}
+                      onClick={(event) => event.stopPropagation()}
                     >
                       {overlay.text}
                     </div>
@@ -372,6 +376,7 @@ function PageRenderSurface({
                         opacity: overlay.fillOpacity,
                       }}
                       onPointerDown={(event) => onOverlayPointerDown(event, overlay)}
+                      onClick={(event) => event.stopPropagation()}
                     />
                   );
                 }
@@ -386,6 +391,7 @@ function PageRenderSurface({
                       height: `${overlay.height * 100}%`,
                     }}
                     onPointerDown={(event) => onOverlayPointerDown(event, overlay)}
+                    onClick={(event) => event.stopPropagation()}
                   >
                     <LazyPageImage
                       src={overlay.src}
@@ -1008,12 +1014,44 @@ export default function EditPdfPage() {
   const editedTextCount = Object.values(pageTextItems).reduce((sum, items) => sum + items.filter((item) => item.edited).length, 0);
 
   const noFileSidebar = (
-    <div className="option__panel">
-      <div className="option__panel__title">Edit PDF</div>
-      <div className="option__panel__content">
-        <div className="info">
-          Upload a PDF to open a client-side editor with page previews, detected text blocks, text overlays, shapes, image placement, and freehand annotations.
+    <div className="option__panel split-sidebar-panel">
+      <div className="split-sidebar-panel__header">
+        <div className="option__panel__title split-sidebar-panel__title text-center w-full">Edit PDF</div>
+      </div>
+
+      <div className="option__panel__content split-sidebar-panel__content">
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">PDF Editor</label>
+          <div className="text-xs text-[#555c66] font-medium leading-relaxed">
+            Upload a PDF to open the interactive client-side editor. You can insert text elements, place custom images, draw freehand annotations, and draw highlight shapes.
+          </div>
         </div>
+
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+          <div className="space-y-2">
+            {["Interactive PDF annotation", "Insert text, shapes & images", "Freehand drawing tools", "Fully client-side and secure"].map((feature) => (
+              <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="split-sidebar-panel__footer">
+        <button 
+          type="button" 
+          disabled 
+          className="btn-sidebar-cta opacity-60 cursor-not-allowed"
+          style={{ backgroundColor: "#ab6993" }}
+        >
+          <span>Select File Above</span>
+          <span className="btn-sidebar-cta__icon">→</span>
+        </button>
       </div>
     </div>
   );

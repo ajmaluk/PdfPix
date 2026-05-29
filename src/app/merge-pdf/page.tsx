@@ -280,8 +280,9 @@ export default function MergePdfPage() {
                   {/* Actions (rotate, delete) */}
                   <div className="merge-file-card__actions">
                     <button
+                      type="button"
                       className="merge-file-card__action-btn"
-                      onClick={() => rotateFile(file.id)}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); rotateFile(file.id); }}
                       title="Rotate file"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -289,8 +290,9 @@ export default function MergePdfPage() {
                       </svg>
                     </button>
                     <button
+                      type="button"
                       className="merge-file-card__action-btn merge-file-card__action-btn--delete"
-                      onClick={() => removeFile(file.id)}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); removeFile(file.id); }}
                       title="Remove file"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -337,7 +339,8 @@ export default function MergePdfPage() {
               {/* Add more files FAB */}
               <div className="merge-fab-add group relative">
                 <button
-                  onClick={() => inputRef.current?.click()}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); inputRef.current?.click(); }}
                   className="merge-fab-add__btn"
                   aria-label="Add more files"
                 >

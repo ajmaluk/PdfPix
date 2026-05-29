@@ -219,6 +219,10 @@ export default function ToolIcon({ id, color, size = 18 }: { id: string; color: 
       return <ConvertIcon size={size} direction="from-pdf" appFill="#d9bf29" appLabel="J" />;
     case "jpg-to-pdf":
       return <ConvertIcon size={size} direction="to-pdf" appFill="#d9bf29" appLabel="J" />;
+    case "png-to-pdf":
+      return <ConvertIcon size={size} direction="to-pdf" appFill="#2ecc71" appLabel="P" />;
+    case "image-to-pdf":
+      return <ConvertIcon size={size} direction="to-pdf" appFill="#e67e22" appLabel="IMG" appTextSize={6} />;
     case "html-to-pdf":
       return <ConvertIcon size={size} direction="to-pdf" appFill="#8b5cf6" appLabel="</>" appTextSize={6.5} />;
     case "pdf-to-pdfa":

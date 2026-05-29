@@ -205,6 +205,40 @@ export const seoData: Record<string, ToolSEOInfo> = {
       { question: "Is there a limit to the file size of the images?", answer: "No. Because images are converted locally, there is no file size limit except what your machine's hardware supports." }
     ]
   },
+  "png-to-pdf": {
+    id: "png-to-pdf",
+    title: "PNG to PDF Converter - Convert PNG Images to PDF Free | PdfPix",
+    description: "Convert PNG and WEBP images to PDF documents in seconds. Adjust orientation, margins, and page size. Free online image to PDF converter.",
+    keywords: "png to pdf, convert png to pdf, image to pdf, webp to pdf, convert images to pdf online free, png to pdf converter",
+    heading: "Convert PNG to PDF",
+    steps: [
+      "Select your PNG or WEBP images or drag them into the upload zone.",
+      "Configure page orientation, size, and margin settings in the sidebar.",
+      "Click 'Convert to PDF' to compile your images into a single PDF document."
+    ],
+    faqs: [
+      { question: "Does PNG to PDF preserve transparency?", answer: "Yes, PNG transparency is maintained when embedding images into the PDF document." },
+      { question: "What image formats are supported?", answer: "We support PNG, WEBP, and JPG images in this converter." },
+      { question: "Can I rearrange images before converting?", answer: "Yes, drag and drop the image cards to set the exact page order you want in the final PDF." }
+    ]
+  },
+  "image-to-pdf": {
+    id: "image-to-pdf",
+    title: "Image to PDF Converter - Convert Images to PDF Free | PdfPix",
+    description: "Convert JPG, PNG, WEBP, GIF, BMP, and TIFF images to PDF documents online for free. Adjust orientation, margins, and page size. Complete local in-browser conversion.",
+    keywords: "image to pdf, convert images to pdf, jpg to pdf, png to pdf, gif to pdf, webp to pdf, convert image to pdf free online",
+    heading: "Convert Image to PDF",
+    steps: [
+      "Select your images (JPG, PNG, WEBP, GIF, BMP, TIFF) or drag them into the upload zone.",
+      "Configure page orientation, page size, and margin settings in the sidebar panel.",
+      "Rearrange or rotate individual images if needed, then click 'Convert to PDF!' to download the combined document."
+    ],
+    faqs: [
+      { question: "What image formats can I convert to PDF?", answer: "We support JPG, JPEG, PNG, WEBP, GIF, BMP, and TIFF formats. Non-standard formats are processed securely in your browser and embedded seamlessly." },
+      { question: "Can I combine different image formats into one PDF?", answer: "Yes, you can upload a mix of JPG, PNG, and other formats at once and combine them into a single PDF." },
+      { question: "Is my privacy protected during image conversion?", answer: "Absolutely. All image processing, canvas operations, and PDF generation are executed locally in your browser. Your images are never sent to any server." }
+    ]
+  },
   rotate: {
     id: "rotate",
     title: "Rotate PDF Pages Online Free - Rotate PDFs | PdfPix",

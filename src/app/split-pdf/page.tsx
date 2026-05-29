@@ -631,19 +631,29 @@ export default function SplitPdfPage() {
                       onClick={() => setRangeMode("custom")}
                       className={`mode-pill-btn ${rangeMode === "custom" ? "active" : ""}`}
                     >
-                      Custom
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mode-pill-btn__icon">
+                        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                      </svg>
+                      <span>Custom</span>
                     </button>
                     <button
                       onClick={() => setRangeMode("fixed")}
                       className={`mode-pill-btn ${rangeMode === "fixed" ? "active" : ""}`}
                     >
-                      Fixed
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mode-pill-btn__icon">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M9 3v18M15 3v18" />
+                      </svg>
+                      <span>Fixed</span>
                     </button>
                     <button
                       onClick={() => setRangeMode("smart")}
                       className={`mode-pill-btn ${rangeMode === "smart" ? "active" : ""}`}
                     >
-                      Smart
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mode-pill-btn__icon">
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                      </svg>
+                      <span>Smart</span>
                     </button>
                   </div>
                 </div>
@@ -659,17 +669,30 @@ export default function SplitPdfPage() {
                               <button
                                 onClick={() => removeRange(range.id)}
                                 className="split-range-editor__delete"
+                                title="Delete this range"
                               >
-                                Delete
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="split-range-editor__delete-icon">
+                                  <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+                                </svg>
+                                <span>Delete</span>
                               </button>
                             )}
                           </div>
 
                           <div className="split-range-editor__row">
-                            <span className="split-range-editor__handle" aria-hidden="true">⋮⋮</span>
+                            <span className="split-range-editor__handle" aria-hidden="true">
+                              <svg width="12" height="18" viewBox="0 0 12 18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                                <circle cx="2" cy="3" r="1.2" fill="currentColor" />
+                                <circle cx="2" cy="9" r="1.2" fill="currentColor" />
+                                <circle cx="2" cy="15" r="1.2" fill="currentColor" />
+                                <circle cx="10" cy="3" r="1.2" fill="currentColor" />
+                                <circle cx="10" cy="9" r="1.2" fill="currentColor" />
+                                <circle cx="10" cy="15" r="1.2" fill="currentColor" />
+                              </svg>
+                            </span>
                             <div className="split-range-editor__controls">
                               <div className="split-range-editor__field split-range-editor__field--from">
-                                <span>from page</span>
+                                <span className="split-range-editor__label">From Page</span>
                                 <input
                                   type="number"
                                   min={1}
@@ -679,7 +702,7 @@ export default function SplitPdfPage() {
                                 />
                               </div>
                               <div className="split-range-editor__field split-range-editor__field--to">
-                                <span>to</span>
+                                <span className="split-range-editor__label">To Page</span>
                                 <input
                                   type="number"
                                   min={range.from}
@@ -733,7 +756,12 @@ export default function SplitPdfPage() {
                     </div>
 
                     <div className="split-note split-note--info">
-                      PDF will be split into {Math.ceil(totalPages / (fixedPages || 1))} files of up to {fixedPages} pages each.
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="split-note__icon">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                      </svg>
+                      <span>PDF will be split into {Math.ceil(totalPages / (fixedPages || 1))} files of up to {fixedPages} pages each.</span>
                     </div>
                   </div>
                 )}
@@ -741,7 +769,10 @@ export default function SplitPdfPage() {
                 {rangeMode === "smart" && (
                   <div className="split-section">
                     <div className="split-note split-note--warning">
-                      Smart split will export chapters based on detected bookmarks and major outline breaks.
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="split-note__icon">
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                      </svg>
+                      <span>Smart split will export chapters based on detected bookmarks and major outline breaks.</span>
                     </div>
                   </div>
                 )}
@@ -757,30 +788,53 @@ export default function SplitPdfPage() {
                       onClick={() => setPagesMode("all")}
                       className={`mode-pill-btn ${pagesMode === "all" ? "active" : ""}`}
                     >
-                      Extract all
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mode-pill-btn__icon">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                      </svg>
+                      <span>Extract all</span>
                     </button>
                     <button
                       onClick={() => setPagesMode("select")}
                       className={`mode-pill-btn ${pagesMode === "select" ? "active" : ""}`}
                     >
-                      Select pages
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mode-pill-btn__icon">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3" />
+                      </svg>
+                      <span>Select pages</span>
                     </button>
                   </div>
                 </div>
 
                 {pagesMode === "all" && (
-                  <div className="split-note split-note--plain">
-                    Every page in this document will be exported as an individual PDF file. {totalPages} files will be created.
+                  <div className="split-section">
+                    <div className="split-note split-note--info">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="split-note__icon">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                      </svg>
+                      <span>Every page in this document will be exported as an individual PDF file. {totalPages} files will be created.</span>
+                    </div>
                   </div>
                 )}
 
                 {pagesMode === "select" && (
-                  <div className="split-section">
-                    <div className="split-note split-note--plain">
-                      Select pages directly from the preview grid, then choose whether to merge them into a single output file.
+                  <div className="split-section split-custom-settings">
+                    <div className="split-note split-note--info">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="split-note__icon">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                      </svg>
+                      <span>Select pages directly from the preview grid, then choose whether to merge them into a single output file.</span>
                     </div>
 
-                    <div className="split-note split-note--info">Selected pages: {selectedCount}</div>
+                    <div className="split-note split-note--success">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="split-note__icon">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3" />
+                      </svg>
+                      <span>Selected pages: <strong>{selectedCount}</strong></span>
+                    </div>
 
                     <label className="split-checkbox-row">
                       <input
@@ -798,34 +852,59 @@ export default function SplitPdfPage() {
             {activeTab === "size" && (
               <div className="split-section">
                 <span className="sidebar-label">Split by size limit:</span>
-                <div className="split-input-block__row">
-                  <input
-                    type="number"
-                    min={1}
-                    max={200}
-                    value={sizeLimit}
-                    onChange={(event) => {
-                      let value = parseInt(event.target.value, 10);
-                      if (isNaN(value) || value < 1) value = 1;
-                      setSizeLimit(value);
-                    }}
-                    className="split-simple-input"
-                  />
-                  <span className="split-input-block__suffix">MB</span>
+                <div className="split-input-block">
+                  <div className="split-input-block__row">
+                    <input
+                      type="number"
+                      min={1}
+                      max={200}
+                      value={sizeLimit}
+                      onChange={(event) => {
+                        let value = parseInt(event.target.value, 10);
+                        if (isNaN(value) || value < 1) value = 1;
+                        if (value > 200) value = 200;
+                        setSizeLimit(value);
+                      }}
+                      className="split-simple-input"
+                    />
+                    <span className="split-input-block__suffix">MB</span>
+                  </div>
+
+                  <div className="split-size-slider-wrapper">
+                    <input
+                      type="range"
+                      min={1}
+                      max={100}
+                      value={Math.min(sizeLimit, 100)}
+                      onChange={(event) => setSizeLimit(parseInt(event.target.value, 10))}
+                      className="split-size-slider"
+                    />
+                    <div className="split-size-slider-labels">
+                      <span>1 MB</span>
+                      <span>50 MB</span>
+                      <span>100 MB</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="split-note split-note--warning">
-                  File size split uses an estimated target so each exported part stays under the chosen size whenever possible.
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="split-note__icon">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  <span>File size split uses an estimated target so each exported part stays under the chosen size whenever possible.</span>
                 </div>
               </div>
             )}
 
-            <div className="split-sidebar-panel__footer split-sidebar-panel__footer--desktop">
-              <button onClick={splitPdf} disabled={processing} className="btn-sidebar-cta">
-                <span>{processing ? "Splitting..." : "Split PDF"}</span>
-                <span className="btn-sidebar-cta__icon">→</span>
-              </button>
-            </div>
+          </div>
+
+          <div className="split-sidebar-panel__footer split-sidebar-panel__footer--desktop">
+            <button onClick={splitPdf} disabled={processing} className="btn-sidebar-cta">
+              <span>{processing ? "Splitting..." : "Split PDF"}</span>
+              <span className="btn-sidebar-cta__icon">→</span>
+            </button>
           </div>
         </div>
       }
@@ -860,14 +939,16 @@ export default function SplitPdfPage() {
             {/* Action buttons (Change File / Remove) */}
             <div className="split-file-header__actions">
               <button 
-                onClick={() => changeInputRef.current?.click()}
+                type="button"
+                onClick={(e) => { e.preventDefault(); changeInputRef.current?.click(); }}
                 className="split-header-btn split-header-btn--change"
                 title="Choose a different PDF file"
               >
                 Change File
               </button>
               <button 
-                onClick={clearFiles}
+                type="button"
+                onClick={(e) => { e.preventDefault(); clearFiles(); }}
                 className="split-header-btn split-header-btn--remove"
                 title="Remove this file"
               >

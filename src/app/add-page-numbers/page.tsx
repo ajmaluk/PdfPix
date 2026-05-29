@@ -55,21 +55,79 @@ export default function AddPageNumbersPage() {
   }, [files, startNumber]);
 
   const sidebarContent = (
-    <div className="option__panel">
-      <div className="option__panel__title">Add Page Numbers</div>
-      <div className="option__panel__content">
-        <div className="info">Starting number:</div>
-        <input type="number" className="w-full px-3 py-2 border border-[#d1d5db] rounded-lg text-sm mb-3" value={startNumber} onChange={(e) => setStartNumber(parseInt(e.target.value) || 1)} min={1} />
-        {files.length > 0 && <button className="btn btn--primary w-full mt-4" onClick={addNumbers} disabled={processing}>{processing ? "Adding..." : "Add Page Numbers!"}</button>}
+    <div className="option__panel split-sidebar-panel">
+      <div className="split-sidebar-panel__header">
+        <div className="option__panel__title split-sidebar-panel__title text-center w-full">Add Page Numbers</div>
+      </div>
+
+      <div className="option__panel__content split-sidebar-panel__content">
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Starting Number</label>
+          <input 
+            type="number" 
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl text-sm focus:border-[#ab6993] focus:outline-none transition-all duration-200" 
+            value={startNumber} 
+            onChange={(e) => setStartNumber(parseInt(e.target.value) || 1)} 
+            min={1} 
+          />
+        </div>
+
+        {/* Features */}
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+          <div className="space-y-2">
+            {["Custom starting numbers", "Center bottom placement", "Clean default typography", "100% Secure local processing"].map((feature) => (
+              <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="split-sidebar-panel__footer">
+        <button 
+          type="button" 
+          onClick={addNumbers} 
+          disabled={files.length === 0 || processing} 
+          className="btn-sidebar-cta"
+          style={{ backgroundColor: "#ab6993" }}
+        >
+          <span>{processing ? "Adding..." : "Add Page Numbers!"}</span>
+          <span className="btn-sidebar-cta__icon">→</span>
+        </button>
       </div>
     </div>
   );
+
   return (
-    <ToolLayout toolId="page-numbers" title="Add Page Numbers" subtitle="Add page numbers to your PDF files easily." sidebar={sidebarContent}>
-      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
+    <ToolLayout 
+      toolId="page-numbers" 
+      title="Add Page Numbers" 
+      subtitle="Add page numbers to your PDF files easily." 
+      hasFiles={files.length > 0}
+      fileCount={files.length}
+      sidebar={sidebarContent}
+    >
+      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <AdSpace />
-      <FileList files={files} onRemove={removeFile} />
-      {files.length > 0 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={addNumbers} disabled={processing}>{processing ? "Adding..." : "Add Page Numbers!"}</button></div>}
+      <FileList files={files} onRemove={removeFile} onAddFiles={addFiles} accept=".pdf" />
+      
+      {files.length > 0 && (
+        <button 
+          className="split-mobile-cta show--sm" 
+          onClick={addNumbers} 
+          disabled={processing}
+          style={{ backgroundColor: "#ab6993" }}
+        >
+          <span>{processing ? "Adding..." : "Add Page Numbers"}</span>
+          <span className="split-mobile-cta__icon">→</span>
+        </button>
+      )}
+      
       <ProcessOverlay isActive={processing} message="Adding page numbers..." />
     </ToolLayout>
   );

@@ -57,37 +57,83 @@ export default function RotatePdfPage() {
     <ToolLayout toolId="rotate"
       title="Rotate PDF pages"
       subtitle="Rotate PDF pages by 90 degrees left or right."
+      hasFiles={files.length > 0}
+      fileCount={files.length}
       sidebar={
-        <div className="option__panel">
-          <div className="option__panel__title">Rotate PDF</div>
-          <div className="option__panel__content">
-            <div className="info">Select rotation angle for all pages:</div>
-            <div className="flex gap-2 mb-4">
-              {[90, 180, 270].map((deg) => (
-                <button key={deg} className={`btn ${rotation === deg ? "btn--primary" : "btn--secondary"} btn--sm`} onClick={() => setRotation(deg)}>
-                  {deg}°
-                </button>
-              ))}
+        <div className="option__panel split-sidebar-panel">
+          <div className="split-sidebar-panel__header">
+            <div className="option__panel__title split-sidebar-panel__title text-center w-full">Rotate PDF</div>
+          </div>
+
+          <div className="option__panel__content split-sidebar-panel__content">
+            <div className="split-section">
+              <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Select Rotation Angle</label>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { deg: 90, label: "90° Right" },
+                  { deg: 180, label: "180° Flip" },
+                  { deg: 270, label: "90° Left" }
+                ].map((opt) => (
+                  <button 
+                    key={opt.deg}
+                    type="button"
+                    className={`flex flex-col items-center rounded-xl border-2 px-2 py-3 text-xs font-bold transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${rotation === opt.deg ? "border-[#ab6993] bg-[#faf5f8] text-[#863d6b] shadow-[0_4px_12px_rgba(171,105,147,0.12)]" : "border-gray-200 bg-white text-[#555c66] hover:border-gray-300 hover:shadow-sm"}`}
+                    onClick={() => setRotation(opt.deg)}
+                  >
+                    <span className="text-base font-black mb-1">{opt.deg}°</span>
+                    <span className="text-[9px] font-medium opacity-65">{opt.label}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            {files.length > 0 && (
-              <button className="btn btn--primary w-full mt-4" onClick={rotatePdf} disabled={processing}>
-                {processing ? "Rotating..." : "Rotate PDF!"}
-              </button>
-            )}
+            
+            {/* Features list */}
+            <div className="split-section">
+              <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+              <div className="space-y-2">
+                {["Rotate all pages at once", "Select 90°, 180° or 270°", "Keeps document formatting", "100% Secure local processing"].map((feature) => (
+                  <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="split-sidebar-panel__footer">
+            <button 
+              type="button" 
+              onClick={rotatePdf} 
+              disabled={files.length === 0 || processing} 
+              className="btn-sidebar-cta"
+              style={{ backgroundColor: "#ab6993" }}
+            >
+              <span>{processing ? "Rotating..." : "Rotate PDF!"}</span>
+              <span className="btn-sidebar-cta__icon">→</span>
+            </button>
           </div>
         </div>
       }
     >
-      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
+      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <AdSpace />
-      <FileList files={files} onRemove={removeFile} />
+      <FileList files={files} onRemove={removeFile} onAddFiles={addFiles} accept=".pdf" />
+      
       {files.length > 0 && (
-        <div className="flex justify-center mt-6">
-          <button className="btn btn--primary text-lg px-10 py-3" onClick={rotatePdf} disabled={processing}>
-            {processing ? "Rotating..." : "Rotate PDF!"}
-          </button>
-        </div>
+        <button 
+          className="split-mobile-cta show--sm" 
+          onClick={rotatePdf} 
+          disabled={processing}
+          style={{ backgroundColor: "#ab6993" }}
+        >
+          <span>{processing ? "Rotating..." : "Rotate PDF!"}</span>
+          <span className="split-mobile-cta__icon">→</span>
+        </button>
       )}
+
       <ProcessOverlay isActive={processing} message="Rotating PDF pages..." />
     </ToolLayout>
   );

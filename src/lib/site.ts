@@ -31,6 +31,8 @@ const seoIdToPath: Record<string, string> = {
   "excel-to-pdf": "/excel-to-pdf",
   "pdf-to-jpg": "/pdf-to-jpg",
   "jpg-to-pdf": "/jpg-to-pdf",
+  "png-to-pdf": "/png-to-pdf",
+  "image-to-pdf": "/image-to-pdf",
   rotate: "/rotate-pdf",
   edit: "/edit-pdf",
   "remove-pages": "/remove-pages",

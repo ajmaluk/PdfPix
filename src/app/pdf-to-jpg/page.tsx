@@ -62,30 +62,68 @@ export default function PdfToJpgPage() {
     <ToolLayout toolId="pdf-to-jpg"
       title="PDF to JPG"
       subtitle="Convert each PDF page into a JPG or extract all images contained in a PDF."
+      hasFiles={files.length > 0}
+      fileCount={files.length}
       sidebar={
-        <div className="option__panel">
-          <div className="option__panel__title">PDF to JPG</div>
-          <div className="option__panel__content">
-            <div className="info">Upload a PDF to convert its pages to JPG images.</div>
-            {files.length > 0 && (
-              <button className="btn btn--primary w-full mt-4" onClick={convert} disabled={processing}>
-                {processing ? "Converting..." : "Convert to JPG!"}
-              </button>
-            )}
+        <div className="option__panel split-sidebar-panel">
+          <div className="split-sidebar-panel__header">
+            <div className="option__panel__title split-sidebar-panel__title text-center w-full">PDF to JPG</div>
+          </div>
+
+          <div className="option__panel__content split-sidebar-panel__content">
+            <div className="split-section">
+              <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Conversion settings</label>
+              <div className="text-xs text-[#555c66] font-medium leading-relaxed">
+                Every page of the PDF will be converted to a high-quality JPEG image.
+              </div>
+            </div>
+
+            <div className="split-section">
+              <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+              <div className="space-y-2">
+                {["High fidelity rendering", "Downloads ZIP or separate JPEGs", "Optimized file sizes", "Completely client-side conversion"].map((feature) => (
+                  <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="split-sidebar-panel__footer">
+            <button 
+              type="button" 
+              onClick={convert} 
+              disabled={files.length === 0 || processing} 
+              className="btn-sidebar-cta"
+              style={{ backgroundColor: "#d6bf2d" }}
+            >
+              <span>{processing ? "Converting..." : "Convert to JPG!"}</span>
+              <span className="btn-sidebar-cta__icon">→</span>
+            </button>
           </div>
         </div>
       }
     >
       <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <AdSpace />
-      <FileList files={files} onRemove={removeFile} />
+      <FileList files={files} onRemove={removeFile} onAddFiles={addFiles} accept=".pdf" />
+      
       {files.length > 0 && (
-        <div className="flex justify-center mt-6">
-          <button className="btn btn--primary text-lg px-10 py-3" onClick={convert} disabled={processing}>
-            {processing ? "Converting..." : "Convert to JPG!"}
-          </button>
-        </div>
+        <button 
+          className="split-mobile-cta show--sm" 
+          onClick={convert} 
+          disabled={processing}
+          style={{ backgroundColor: "#d6bf2d" }}
+        >
+          <span>{processing ? "Converting..." : "Convert to JPG"}</span>
+          <span className="split-mobile-cta__icon">→</span>
+        </button>
       )}
+      
       <ProcessOverlay isActive={processing} message="Converting PDF to JPG..." />
     </ToolLayout>
   );

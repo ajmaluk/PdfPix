@@ -60,26 +60,80 @@ export default function RepairPdfPage() {
   }, [files]);
 
   const sidebarContent = (
-    <div className="option__panel">
-      <div className="option__panel__title">Repair PDF</div>
-      <div className="option__panel__content">
-        <div className="info">Upload a damaged or corrupted PDF to attempt repair.</div>
-        {results.length > 0 && (
-          <div className="mt-3 p-2 bg-green-50 border border-green-200 rounded-lg text-xs text-green-800 whitespace-pre-wrap max-h-40 overflow-y-auto">
-            {results.join("\n")}
+    <div className="option__panel split-sidebar-panel">
+      <div className="split-sidebar-panel__header">
+        <div className="option__panel__title split-sidebar-panel__title text-center w-full">Repair PDF</div>
+      </div>
+
+      <div className="option__panel__content split-sidebar-panel__content">
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Rebuild PDF Structure</label>
+          <p className="text-[12px] text-[#555c66] font-medium leading-relaxed mb-3">
+            Attempt to fix internal PDF tables, cross-reference offsets, and load structural nodes locally.
+          </p>
+          {results.length > 0 && (
+            <div className="p-3 bg-green-50 border border-green-200 rounded-xl text-xs text-green-800 whitespace-pre-wrap max-h-40 overflow-y-auto font-medium">
+              {results.join("\n")}
+            </div>
+          )}
+        </div>
+
+        {/* Features */}
+        <div className="split-section">
+          <label className="text-xs font-bold text-[#8a8a92] uppercase tracking-wider block mb-3">Features</label>
+          <div className="space-y-2">
+            {["Rebuild corrupted stream offsets", "Extract intact layout structures", "Maintains page data & links", "100% Secure local processing"].map((feature) => (
+              <div key={feature} className="flex items-center gap-2.5 text-[12px] text-[#555c66] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>{feature}</span>
+              </div>
+            ))}
           </div>
-        )}
-        {files.length > 0 && <button className="btn btn--primary w-full mt-4" onClick={repair} disabled={processing}>{processing ? "Repairing..." : "Repair PDF!"}</button>}
+        </div>
+      </div>
+
+      <div className="split-sidebar-panel__footer">
+        <button 
+          type="button" 
+          onClick={repair} 
+          disabled={files.length === 0 || processing} 
+          className="btn-sidebar-cta"
+          style={{ backgroundColor: "#8fbc5d" }}
+        >
+          <span>{processing ? "Repairing..." : "Repair PDF!"}</span>
+          <span className="btn-sidebar-cta__icon">→</span>
+        </button>
       </div>
     </div>
   );
 
   return (
-    <ToolLayout toolId="repair" title="Repair PDF" subtitle="Repair damaged or corrupted PDF files." sidebar={sidebarContent}>
-      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} />
+    <ToolLayout 
+      toolId="repair" 
+      title="Repair PDF" 
+      subtitle="Repair damaged or corrupted PDF files." 
+      hasFiles={files.length > 0}
+      fileCount={files.length}
+      sidebar={sidebarContent}
+    >
+      <FileUploader onFilesSelected={addFiles} hasFiles={files.length > 0} accept=".pdf" />
       <AdSpace />
-      <FileList files={files} onRemove={removeFile} />
-      {files.length > 0 && <div className="flex justify-center mt-6"><button className="btn btn--primary text-lg px-10 py-3" onClick={repair} disabled={processing}>{processing ? "Repairing..." : "Repair PDF!"}</button></div>}
+      <FileList files={files} onRemove={removeFile} onAddFiles={addFiles} accept=".pdf" />
+      
+      {files.length > 0 && (
+        <button 
+          className="split-mobile-cta show--sm" 
+          onClick={repair} 
+          disabled={processing}
+          style={{ backgroundColor: "#8fbc5d" }}
+        >
+          <span>{processing ? "Repairing..." : "Repair PDF"}</span>
+          <span className="split-mobile-cta__icon">→</span>
+        </button>
+      )}
+      
       <ProcessOverlay isActive={processing} message="Repairing PDF..." />
     </ToolLayout>
   );

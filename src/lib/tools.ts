@@ -12,6 +12,8 @@ export const tools: Tool[] = [
   { id: "excel-to-pdf", title: "Excel to PDF", description: "Make EXCEL spreadsheets easy to read by converting them to PDF.", category: "convert", path: "/excel-to-pdf", color: "#5ea162" },
   { id: "pdf-to-jpg", title: "PDF to JPG", description: "Convert each PDF page into a JPG or extract all images contained in a PDF.", category: "convert", path: "/pdf-to-jpg", color: "#d6bf2d" },
   { id: "jpg-to-pdf", title: "JPG to PDF", description: "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.", category: "convert", path: "/jpg-to-pdf", color: "#d6bf2d" },
+  { id: "png-to-pdf", title: "PNG to PDF", description: "Convert PNG and WEBP images to PDF with custom layout options.", category: "convert", path: "/png-to-pdf", color: "#2ecc71" },
+  { id: "image-to-pdf", title: "Image to PDF", description: "Convert JPG, PNG, WEBP, GIF, BMP, and TIFF images to PDF with custom layout options.", category: "convert", path: "/image-to-pdf", color: "#e67e22" },
   { id: "rotate", title: "Rotate PDF", description: "Rotate PDF pages by 90 degrees left or right.", category: "edit", path: "/rotate-pdf", color: "#ab6993" },
   { id: "edit", title: "Edit PDF", description: "Add text, images, shapes or freehand annotations to a PDF document.", category: "edit", path: "/edit-pdf", color: "#ab6993" },
   { id: "remove-pages", title: "Remove Pages", description: "Remove pages from a PDF document easily.", category: "organize", path: "/remove-pages", color: "#ee6c4d" },
