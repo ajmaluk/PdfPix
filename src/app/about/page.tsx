@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
+import Image from "next/image";
 import { 
   Globe, 
   Coffee, 
@@ -12,7 +12,6 @@ import {
   Code, 
   FileText, 
   Mail, 
-  BookOpen, 
   Award,
   Layers
 } from "lucide-react";
@@ -140,7 +139,7 @@ export default function AboutPage() {
             
              <div className="relative z-10 max-w-3xl">
               <div className="flex items-center gap-3 mb-5">
-                <img src="/img/uthakkan.png" alt="UTHAKKAN" className="w-10 h-10 object-contain rounded-xl shadow-sm" />
+                <Image src="/img/uthakkan.png" alt="UTHAKKAN" width={40} height={40} className="h-10 w-10 rounded-xl object-contain shadow-sm" />
                 <span 
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider"
                   style={{ background: "rgba(59, 130, 246, 0.1)", color: "var(--color-primary)" }}
@@ -199,7 +198,7 @@ export default function AboutPage() {
               <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
                 {/* Founder Photo */}
                 <div className="w-32 h-32 md:w-44 md:h-44 rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex-shrink-0">
-                  <img src="/img/ajmal.jpg" alt="Muhammed Ajmal U K" className="w-full h-full object-cover" />
+                <Image src="/img/ajmal.jpg" alt="Muhammed Ajmal U K" width={176} height={176} className="h-full w-full object-cover" loading="lazy" />
                 </div>
                 {/* Founder Info */}
                 <div className="flex-1">

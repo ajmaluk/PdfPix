@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -143,11 +144,16 @@ const pdfPixLinks = [
   { name: "Sponsor", href: "/sponsor", icon: "sponsor" },
   { name: "Donate", href: "/donate", icon: "donate" },
   { name: "Founder", href: "/founder", icon: "founder" },
-  { name: "Blog", href: "https://www.uthakkan.in", icon: "blog" },
+  { name: "Blog", href: "/blog", icon: "blog" },
   { name: "Contact", href: "/contact", icon: "about" },
   { name: "Privacy", href: "/privacy", icon: "privacy" },
   { name: "Terms", href: "/terms", icon: "terms" },
 ] as const;
+
+const pdfPixLinkColumns = [
+  pdfPixLinks.slice(0, Math.ceil(pdfPixLinks.length / 2)),
+  pdfPixLinks.slice(Math.ceil(pdfPixLinks.length / 2)),
+];
 
 const convertMenuPaths = new Set(convertPdfLinks.flatMap((group) => group.items.map((item) => item.href)));
 const directMenuPaths = new Set(["/merge-pdf", "/split-pdf", "/compress-pdf"]);
@@ -275,7 +281,8 @@ export default function Header() {
         </button>
 
         <Link href="/" className="brand" title="PdfPix">
-          <img src="/img/pdfpix.svg" alt="PdfPix" />
+          <span className="sr-only">PdfPix home</span>
+          <Image src="/img/pdfpix.svg" alt="PdfPix" width={196} height={40} priority />
         </Link>
 
         <div className="menu hide--sm">
@@ -377,17 +384,21 @@ export default function Header() {
                   <div className="nav-products__side">
                     <div className="nav-products__title">PdfPix</div>
                     <div className="nav-products__side-list">
-                      {pdfPixLinks.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          className={`nav-products__item nav-products__item--with-icon ${currentPath === link.href ? "active" : ""}`}
-                        >
-                          <span className="nav-products__item-icon">
-                            <SiteLinkIcon icon={link.icon} />
-                          </span>
-                          <span>{link.name}</span>
-                        </Link>
+                      {pdfPixLinkColumns.map((column, columnIndex) => (
+                        <div key={columnIndex} className="nav-products__side-col">
+                          {column.map((link) => (
+                            <Link
+                              key={link.href}
+                              href={link.href}
+                              className={`nav-products__item nav-products__item--with-icon ${currentPath === link.href ? "active" : ""}`}
+                            >
+                              <span className="nav-products__item-icon">
+                                <SiteLinkIcon icon={link.icon} />
+                              </span>
+                              <span>{link.name}</span>
+                            </Link>
+                          ))}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -417,7 +428,7 @@ export default function Header() {
       <div className={`drawer drawer--left ${leftOpen ? "open" : ""}`}>
         <div className="drawer__header">
           <div className="drawer__logo">
-            <img src="/img/pdfpix.svg" alt="PdfPix" />
+            <Image src="/img/pdfpix.svg" alt="PdfPix" width={196} height={40} />
           </div>
           <button className="drawer__close" onClick={() => setLeftOpen(false)} aria-label="Close tools menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -452,7 +463,7 @@ export default function Header() {
       <div className={`drawer drawer--right ${rightOpen ? "open" : ""}`}>
         <div className="drawer__header">
           <div className="drawer__logo">
-            <img src="/img/pdfpix.svg" alt="PdfPix" />
+            <Image src="/img/pdfpix.svg" alt="PdfPix" width={196} height={40} />
           </div>
           <button className="drawer__close" onClick={() => setRightOpen(false)} aria-label="Close site links">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

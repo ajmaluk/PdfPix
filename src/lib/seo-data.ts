@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import {
   SITE_NAME,
   SITE_OG_IMAGE,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
   SITE_URL,
   getCanonicalUrl,
   getPathForSeoId,
@@ -684,7 +686,14 @@ export function getMetadataForTool(id: string): Metadata {
       siteName: SITE_NAME,
       type: "website",
       url: canonicalUrl,
-      images: [{ url: SITE_OG_IMAGE }],
+      images: [
+        {
+          url: SITE_OG_IMAGE,
+          width: SITE_OG_IMAGE_WIDTH,
+          height: SITE_OG_IMAGE_HEIGHT,
+          alt: `${data.heading} on ${SITE_NAME}`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",

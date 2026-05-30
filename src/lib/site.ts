@@ -6,11 +6,14 @@ export const SITE_URL = "https://pdfpix.uthakkan.in";
 export const SITE_DESCRIPTION =
   "Free browser-based PDF tools to merge, split, compress, convert, edit, and secure PDF files without uploading them to a server.";
 export const SITE_OG_IMAGE = `${SITE_URL}/img/pdfpix-icon-transparent.png`;
+export const SITE_OG_IMAGE_WIDTH = 1200;
+export const SITE_OG_IMAGE_HEIGHT = 630;
 export const SUPPORT_EMAIL = "contact.uthakkan@gmail.com";
 
-const staticPagePaths: Record<string, string> = {
+export const staticPagePaths: Record<string, string> = {
   home: "/",
   about: "/about",
+  blog: "/blog",
   contact: "/contact",
   pricing: "/pricing",
   privacy: "/privacy",

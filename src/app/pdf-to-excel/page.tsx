@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import ToolLayout from "@/components/ToolLayout";
@@ -6,7 +7,6 @@ import FileUploader from "@/components/FileUploader";
 import ProcessOverlay from "@/components/ProcessOverlay";
 import AdSpace from "@/components/AdSpace";
 import { generateFileId, downloadBlob, readFileAsArrayBuffer, formatFileSize } from "@/lib/pdf-utils";
-import { PDFDocument } from "pdf-lib";
 import { useTool } from "@/components/ToolContext";
 
 interface FileEntry {

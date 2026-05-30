@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
@@ -88,16 +89,17 @@ export default function Footer() {
         </div>
         <div className="footer__bottom">
           <div className="footer__brand">
-            <img src="/img/pdfpix-footer.svg" alt="PdfPix" />
+            <Image src="/img/pdfpix-footer.svg" alt="PdfPix" width={196} height={40} />
             <span>&copy; 2026 PdfPix. All rights reserved.</span>
           </div>
           <div className="footer__social">
             <Link href="/about">About Us</Link>
+            <Link href="/blog">Blog</Link>
             <Link href="/sponsor">Sponsor</Link>
             <Link href="/donate">Donate</Link>
             <Link href="/founder">Founder</Link>
             <Link href="/contact" title="Contact">Contact</Link>
-            <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+            <span>{SUPPORT_EMAIL}</span>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
           </div>

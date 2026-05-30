@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 import { 
   Globe, 
   ExternalLink, 
@@ -7,9 +8,7 @@ import {
   Cpu, 
   Gamepad2, 
   Award,
-  Layers,
   Code,
-  FileText,
   Briefcase
 } from "lucide-react";
 
@@ -98,7 +97,7 @@ export default function FounderPage() {
           <div className="bg-white border border-gray-200 rounded-3xl p-8 md:p-12 mb-16 shadow-sm">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl overflow-hidden border-2 border-gray-100 shadow-sm flex-shrink-0">
-                <img src="/img/ajmal.jpg" alt="Muhammed Ajmal U K" className="w-full h-full object-cover" />
+                <Image src="/img/ajmal.jpg" alt="Muhammed Ajmal U K" width={176} height={176} className="h-full w-full object-cover" loading="lazy" />
               </div>
               <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-col md:flex-row md:items-center gap-3.5 mb-4 justify-center md:justify-start">

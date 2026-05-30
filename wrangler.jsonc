@@ -1,31 +1,6 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "pdfpix",
-  "main": "dist/index.js",
   "compatibility_date": "2026-05-30",
-  "observability": {
-    "enabled": true
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "routes": [
-    {
-      "pattern": "example.com/*",
-      "zone_name": "example.com"
-    }
-  ],
-  "build": {
-    "command": "npm run build",
-    "cwd": "./"
-  },
-  "env": {
-    "production": {
-      "routes": [
-        {
-          "pattern": "pdfpix.com/*",
-          "zone_name": "pdfpix.com"
-        }
-      ]
-    }
-  }
+  "pages_build_output_dir": ".next"
 }

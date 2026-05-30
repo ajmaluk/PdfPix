@@ -84,31 +84,18 @@ function FileBadge({
   x,
   y,
   accent,
-  label,
-  labelSize = 6.8,
 }: {
   x: number;
   y: number;
   accent: string;
-  label: string;
-  labelSize?: number;
 }) {
   return (
     <>
       <rect x={x} y={y + 2} width="17" height="22" rx="4.2" fill="#ffffff" opacity="0.97" />
       <path d={`M${x + 12} ${y + 2}h5v5`} fill="none" stroke="#d1d5db" strokeWidth="1.4" strokeLinejoin="round" />
       <rect x={x} y={y + 10} width="17" height="9" rx="2.6" fill={accent} />
-      <text
-        x={x + 8.5}
-        y={y + 16.5}
-        fill="#ffffff"
-        fontFamily="Arial, sans-serif"
-        fontSize={labelSize}
-        fontWeight="700"
-        textAnchor="middle"
-      >
-        {label}
-      </text>
+      <path d={`M${x + 4} ${y + 13.8}h9`} fill="none" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" />
+      <path d={`M${x + 4} ${y + 16.8}h6.8`} fill="none" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" />
     </>
   );
 }
@@ -117,29 +104,17 @@ function AppBadge({
   x,
   y,
   fill,
-  label,
-  textSize = 10,
 }: {
   x: number;
   y: number;
   fill: string;
-  label: string;
-  textSize?: number;
 }) {
   return (
     <>
       <rect x={x} y={y} width="18" height="18" rx="4.2" fill={fill} />
-      <text
-        x={x + 9}
-        y={y + 12.5}
-        fill="#ffffff"
-        fontFamily="Arial, sans-serif"
-        fontSize={textSize}
-        fontWeight="700"
-        textAnchor="middle"
-      >
-        {label}
-      </text>
+      <path d={`M${x + 4.5} ${y + 6.5}h9`} fill="none" stroke="#ffffff" strokeWidth="1.9" strokeLinecap="round" />
+      <path d={`M${x + 4.5} ${y + 10.5}h9`} fill="none" stroke="#ffffff" strokeWidth="1.9" strokeLinecap="round" />
+      <path d={`M${x + 4.5} ${y + 14.5}h6`} fill="none" stroke="#ffffff" strokeWidth="1.9" strokeLinecap="round" />
     </>
   );
 }
@@ -151,8 +126,6 @@ function ConvertIcon({
   appLabel,
   pdfAccent = "#ff9800",
   fileLabel = "PDF",
-  appTextSize = 10,
-  fileTextSize = 7.6,
 }: {
   size: number;
   direction: "from-pdf" | "to-pdf";
@@ -160,27 +133,27 @@ function ConvertIcon({
   appLabel: string;
   pdfAccent?: string;
   fileLabel?: string;
-  appTextSize?: number;
-  fileTextSize?: number;
 }) {
   const fileX = direction === "from-pdf" ? 8 : 19;
   const fileY = direction === "from-pdf" ? 10 : 19;
   const appX = direction === "from-pdf" ? 21 : 8;
   const appY = direction === "from-pdf" ? 21 : 8;
   const idBase = useId().replace(/:/g, "");
+  void appLabel;
+  void fileLabel;
   const pdfFill = pdfAccent === "brand-cool" ? `url(#${idBase}-cool)` : `url(#${idBase}-warm)`;
   const appFillValue = appFill === "brand-warm" ? `url(#${idBase}-warm)` : `url(#${idBase}-cool)`;
 
   return (
     <svg width={size} height={size} viewBox="0 0 50 50" aria-hidden="true">
       <BrandDefs idBase={idBase} />
-      <FileBadge x={fileX} y={fileY} accent={pdfFill} label={fileLabel} labelSize={fileTextSize} />
-      <AppBadge x={appX} y={appY} fill={appFillValue} label={appLabel} textSize={appTextSize} />
+      <FileBadge x={fileX} y={fileY} accent={pdfFill} />
+      <AppBadge x={appX} y={appY} fill={appFillValue} />
     </svg>
   );
 }
 
-function MergeIcon({ size, color }: { size: number; color: string }) {
+function MergeIcon({ size }: { size: number }) {
   const idBase = useId().replace(/:/g, "");
 
   return (
@@ -197,7 +170,7 @@ function MergeIcon({ size, color }: { size: number; color: string }) {
   );
 }
 
-function SplitIcon({ size, color }: { size: number; color: string }) {
+function SplitIcon({ size }: { size: number }) {
   const idBase = useId().replace(/:/g, "");
 
   return (
@@ -214,7 +187,7 @@ function SplitIcon({ size, color }: { size: number; color: string }) {
   );
 }
 
-function CompressIcon({ size, color }: { size: number; color: string }) {
+function CompressIcon({ size }: { size: number }) {
   const idBase = useId().replace(/:/g, "");
 
   return (
@@ -237,11 +210,11 @@ export default function ToolIcon({ id, color, size = 18 }: { id: string; color: 
 
   switch (normalizedId) {
     case "merge":
-      return <MergeIcon size={size} color={color} />;
+      return <MergeIcon size={size} />;
     case "split":
-      return <SplitIcon size={size} color={color} />;
+      return <SplitIcon size={size} />;
     case "compress":
-      return <CompressIcon size={size} color={color} />;
+      return <CompressIcon size={size} />;
 
     case "pdf-to-word":
       return <ConvertIcon size={size} direction="from-pdf" appFill="brand-cool" appLabel="W" />;
@@ -262,9 +235,9 @@ export default function ToolIcon({ id, color, size = 18 }: { id: string; color: 
     case "png-to-pdf":
       return <ConvertIcon size={size} direction="to-pdf" appFill="brand-cool" appLabel="P" />;
     case "image-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-warm" appLabel="IMG" appTextSize={6} />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-warm" appLabel="IMG" />;
     case "html-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-cool" appLabel="</>" appTextSize={6.5} />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-cool" appLabel="</>" />;
     case "pdf-to-pdfa":
       return <ConvertIcon size={size} direction="from-pdf" appFill="brand-warm" appLabel="A" />;
 

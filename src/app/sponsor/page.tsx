@@ -6,7 +6,6 @@ import {
   ChevronRight,
   ExternalLink,
   Target,
-  Users,
   Terminal
 } from "lucide-react";
 

@@ -16,6 +16,14 @@ interface FileEntry {
   file: File;
 }
 
+interface ZipEntry {
+  async(type: "base64"): Promise<string>;
+}
+
+interface ZipLike {
+  file(path: string): ZipEntry | null;
+}
+
 function sanitizeWinAnsiText(str: string): string {
   if (!str) return "";
   return str
@@ -30,7 +38,7 @@ function sanitizeWinAnsiText(str: string): string {
 async function drawSlideToCanvas(
   slideXml: string, 
   relsXml: string | null, 
-  zip: any, 
+  zip: ZipLike, 
   canvas: HTMLCanvasElement
 ): Promise<void> {
   const ctx = canvas.getContext("2d");
@@ -41,8 +49,8 @@ async function drawSlideToCanvas(
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Standard slide dimensions (usually 12192000 x 6858000 EMUs, matching 16:9 widescreen layout)
-  let slideWidthEmu = 12192000;
-  let slideHeightEmu = 6858000;
+  const slideWidthEmu = 12192000;
+  const slideHeightEmu = 6858000;
   
   const scaleX = canvas.width / slideWidthEmu;
   const scaleY = canvas.height / slideHeightEmu;
@@ -134,7 +142,7 @@ async function drawSlideToCanvas(
           for (const r of runs) {
             const tMatch = r.match(/<a:t[^>]*>([\s\S]*?)<\/a:t>/);
             if (tMatch) {
-              paragraphText += tMatch[1];
+              paragraphText += sanitizeWinAnsiText(tMatch[1]);
             }
             if (r.includes('b="1"')) isBold = true;
             const szMatch = r.match(/sz="(\d+)"/);
@@ -146,7 +154,9 @@ async function drawSlideToCanvas(
           // Fallback if formatting structure is plain
           if (!paragraphText) {
             const fallbackMatch = p.match(/<a:t[^>]*>([\s\S]*?)<\/a:t>/g) || [];
-            paragraphText = fallbackMatch.map(m => m.replace(/<a:t[^>]*>/, "").replace("</a:t>", "")).join("");
+            paragraphText = fallbackMatch
+              .map((m) => sanitizeWinAnsiText(m.replace(/<a:t[^>]*>/, "").replace("</a:t>", "")))
+              .join("");
           }
 
           if (paragraphText.trim()) {

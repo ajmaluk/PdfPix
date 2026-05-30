@@ -6,12 +6,11 @@ interface FileListProps {
   files: { id: string; name: string; size: number; file: File }[];
   onRemove: (id: string) => void;
   onReorder?: (from: number, to: number) => void;
-  hideSidetools?: boolean;
   onAddFiles?: (files: File[]) => void;
   accept?: string;
 }
 
-export default function FileList({ files, onRemove, onReorder, hideSidetools, onAddFiles, accept = ".pdf" }: FileListProps) {
+export default function FileList({ files, onRemove, onReorder, onAddFiles, accept = ".pdf" }: FileListProps) {
   const { setHasFiles, setFileCount } = useTool();
   const fileInputRef = useRef<HTMLInputElement>(null);
 

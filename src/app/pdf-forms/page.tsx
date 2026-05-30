@@ -11,11 +11,8 @@ import {
   ImagePlus,
   Minus,
   Move,
-  Paintbrush,
-  Pencil,
   Plus,
   Sidebar,
-  Shapes,
   Type,
   Undo2,
   Upload,
@@ -417,7 +414,7 @@ export default function PdfFormsPage() {
   const [processing, setProcessing] = useState(false);
   const [loadingPdf, setLoadingPdf] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
-  const [mode, setMode] = useState<EditorMode>("edit");
+  const [, setMode] = useState<EditorMode>("edit");
   const [tool, setTool] = useState<EditorTool>("text");
   const [activePage, setActivePage] = useState(1);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
@@ -429,10 +426,10 @@ export default function PdfFormsPage() {
   const [textDraft, setTextDraft] = useState("Fill form field");
   const [textColor, setTextColor] = useState("#111827");
   const [textSize, setTextSize] = useState(14);
-  const [shapeColor, setShapeColor] = useState("#e5322d");
-  const [drawColor, setDrawColor] = useState("#f59e0b");
-  const [drawWidth, setDrawWidth] = useState(3);
-  const [shapeOpacity, setShapeOpacity] = useState(0.18);
+  const [shapeColor] = useState("#e5322d");
+  const [drawColor] = useState("#f59e0b");
+  const [drawWidth] = useState(3);
+  const [shapeOpacity] = useState(0.18);
   const [pendingImage, setPendingImage] = useState<string | null>(null);
   const [isCompact, setIsCompact] = useState(false);
   const [history, setHistory] = useState<EditorSnapshot[]>([]);

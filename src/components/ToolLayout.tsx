@@ -48,7 +48,7 @@ function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLay
                 </nav>
                 <div className="tool__header">
                   <h1 className="tool__header__title">{title}</h1>
-                  <h2 className="tool__header__subtitle">{subtitle}</h2>
+                  <p className="tool__header__subtitle">{subtitle}</p>
                 </div>
               </>
             )}

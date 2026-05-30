@@ -6,6 +6,7 @@ import {
   SITE_URL,
   SITE_NAME,
   SITE_OG_IMAGE,
+  SUPPORT_EMAIL,
   getCategoryLabel,
   getCanonicalUrl,
   getRelatedTools,
@@ -17,6 +18,23 @@ interface ToolSEOContentProps {
   toolId: string;
 }
 
+const categoryIntentCopy: Record<string, string> = {
+  "Organize PDF":
+    "This tool is useful when you need to rearrange, combine, split, or prepare PDF pages for sharing, submissions, and document cleanup.",
+  "Optimize PDF":
+    "This tool is useful when you need better file size, better scan quality, or a PDF that is easier to search, open, and store.",
+  "Convert PDF":
+    "This tool is useful when you need to move content between PDF files and common office formats without using desktop software.",
+  "Edit PDF":
+    "This tool is useful when you need to add, change, or clean up visible content inside a PDF while staying in your browser.",
+  "PDF Security":
+    "This tool is useful when you need to protect, unlock, sign, compare, or permanently remove sensitive PDF information.",
+  "PDF Intelligence":
+    "This tool is useful when you need AI-assisted extraction, summarization, or translation for document workflows.",
+  "PDF Tools":
+    "This tool is useful when you need a fast PDF workflow that runs directly in your browser without uploading files to a server.",
+};
+
 export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
   const data = seoData[toolId];
   if (!data) return null;
@@ -26,6 +44,7 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
   const tool = getToolForSeoId(toolId);
   const relatedTools = getRelatedTools(toolId);
   const categoryLabel = tool ? getCategoryLabel(tool.category) : "PDF Tools";
+  const useCaseCopy = categoryIntentCopy[categoryLabel] ?? categoryIntentCopy["PDF Tools"];
 
   // Structured Data Schemas
   const webAppSchema = {
@@ -42,21 +61,14 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": SITE_NAME,
+      "url": SITE_URL,
+      "email": SUPPORT_EMAIL
     }
   };
-
-  const faqSchema = faqs && faqs.length > 0 ? {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
-  } : null;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -82,18 +94,28 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
     ]
   };
 
-  const howToSchema = steps && steps.length > 0 ? {
+  const softwareApplicationSchema = {
     "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": `How to use ${heading}`,
-    "description": description,
-    "step": steps.map((step, index) => ({
-      "@type": "HowToStep",
-      "position": index + 1,
-      "text": step,
-      "url": `${toolUrl}#step-${index + 1}`
-    }))
-  } : null;
+    "@type": "SoftwareApplication",
+    "name": heading,
+    "url": toolUrl,
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": SITE_NAME,
+      "url": SITE_URL,
+      "email": SUPPORT_EMAIL
+    },
+    "featureList": steps,
+    "description": description
+  };
 
   return (
     <div className="seo-section mt-16 w-full pb-20" style={{ borderTop: "1px solid var(--color-border)", background: "linear-gradient(180deg, rgba(245,249,255,0.8) 0%, #ffffff 38%)" }}>
@@ -106,25 +128,51 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      {howToSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-        />
-      )}
-      {faqSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
+      />
 
       <div className="max-w-4xl mx-auto px-6 pt-16">
+        <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <section
+            className="rounded-2xl p-6"
+            style={{ background: "#ffffff", border: "1px solid var(--color-border)" }}
+          >
+            <h2 className="mb-3 text-2xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
+              What is {heading}?
+            </h2>
+            <p className="text-sm leading-7 text-gray-700">
+              {description}
+            </p>
+          </section>
+          <section
+            className="rounded-2xl p-6"
+            style={{ background: "#ffffff", border: "1px solid var(--color-border)" }}
+          >
+            <h2 className="mb-3 text-2xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
+              When should you use it?
+            </h2>
+            <p className="text-sm leading-7 text-gray-700">
+              {useCaseCopy}
+            </p>
+          </section>
+        </div>
+
+        <section className="mb-16 rounded-2xl p-6 text-left" style={{ background: "#fcfeff", border: "1px solid var(--color-border)" }}>
+          <h2 className="mb-3 text-2xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
+            Browser-based PDF processing
+          </h2>
+          <p className="text-sm leading-7 text-gray-700">
+            PdfPix is designed for direct browser workflows. For most tools, files stay on your device during processing, which helps reduce upload delays and supports privacy-focused document handling for everyday PDF tasks.
+          </p>
+        </section>
+
         {/* Step-by-Step Instructions */}
         {steps && steps.length > 0 && (
           <div className="mb-16 text-left">
             <h2 className="mb-8 text-center text-3xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
-              How to use {heading}
+              How to use{" "}{heading}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step, idx) => (
@@ -141,9 +189,9 @@ export default function ToolSEOContent({ toolId }: ToolSEOContentProps) {
 
         {/* Benefits Grid */}
         <div className="mb-16 text-left">
-          <h2 className="mb-8 text-center text-3xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
-            Why choose {SITE_NAME} for {heading}?
-          </h2>
+            <h2 className="mb-8 text-center text-3xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
+              Why choose{" "}{SITE_NAME}{" "}for{" "}{heading}?
+            </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start gap-4 rounded-2xl p-6 shadow-sm" style={{ background: "#ffffff", border: "1px solid var(--color-border)" }}>
               <div className="rounded-xl p-3" style={{ background: "rgba(19, 162, 241, 0.12)", color: "#0f58d9" }}>

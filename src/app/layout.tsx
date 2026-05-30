@@ -5,6 +5,8 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_OG_IMAGE,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
   SITE_URL,
   getCanonicalUrl,
 } from "@/lib/site";
@@ -64,7 +66,14 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     locale: "en_US",
-    images: [{ url: SITE_OG_IMAGE }],
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        width: SITE_OG_IMAGE_WIDTH,
+        height: SITE_OG_IMAGE_HEIGHT,
+        alt: `${SITE_NAME} PDF tools preview`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

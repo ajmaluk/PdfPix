@@ -1,0 +1,55 @@
+# PdfPix
+
+> PdfPix is a browser-based PDF toolkit focused on privacy-first workflows. The product helps users merge, split, compress, convert, edit, secure, and organize PDF files without uploading documents to a server.
+
+## Primary intent
+- Offer direct, task-oriented PDF utilities with minimal friction.
+- Emphasize local processing, no account requirement, and broad browser compatibility.
+- Serve users looking for document conversion, editing, protection, and optimization workflows.
+
+## Core pages
+- [Home](https://pdfpix.uthakkan.in/): Main product overview and category navigation
+- [About](https://pdfpix.uthakkan.in/about/): Company background and mission
+- [Blog](https://pdfpix.uthakkan.in/blog/): Editorial hub for guides, trends, founder content, and ecosystem articles
+- [Founder](https://pdfpix.uthakkan.in/founder/): Founder profile and credibility signals
+- [Pricing](https://pdfpix.uthakkan.in/pricing/): Product access and support positioning
+- [Privacy](https://pdfpix.uthakkan.in/privacy/): Privacy commitments and local-processing explanation
+- [Terms](https://pdfpix.uthakkan.in/terms/): Terms of service
+- [Contact](https://pdfpix.uthakkan.in/contact/): Support contact details
+
+## Major tool categories
+- Organize PDF
+- Optimize PDF
+- Convert to PDF
+- Convert from PDF
+- Edit PDF
+- PDF Security
+- PDF Intelligence
+
+## High-priority tool URLs
+- [Merge PDF](https://pdfpix.uthakkan.in/merge-pdf/): Combine multiple PDF files into one document
+- [Split PDF](https://pdfpix.uthakkan.in/split-pdf/): Separate pages or custom page ranges
+- [Compress PDF](https://pdfpix.uthakkan.in/compress-pdf/): Reduce file size while preserving quality
+- [PDF to Word](https://pdfpix.uthakkan.in/pdf-to-word/): Convert PDFs into editable Word documents
+- [Word to PDF](https://pdfpix.uthakkan.in/word-to-pdf/): Convert Word documents into PDFs
+- [PDF to PowerPoint](https://pdfpix.uthakkan.in/pdf-to-powerpoint/): Convert PDF slides into editable presentations
+- [PowerPoint to PDF](https://pdfpix.uthakkan.in/powerpoint-to-pdf/): Export presentations to PDF
+- [PDF to Excel](https://pdfpix.uthakkan.in/pdf-to-excel/): Extract spreadsheet-ready data
+- [Excel to PDF](https://pdfpix.uthakkan.in/excel-to-pdf/): Export spreadsheets to PDF
+- [PDF to JPG](https://pdfpix.uthakkan.in/pdf-to-jpg/): Turn PDF pages into images
+- [JPG to PDF](https://pdfpix.uthakkan.in/jpg-to-pdf/): Create PDFs from images
+- [OCR PDF](https://pdfpix.uthakkan.in/ocr-pdf/): Make scanned PDFs searchable
+- [Protect PDF](https://pdfpix.uthakkan.in/protect-pdf/): Add password protection
+- [Unlock PDF](https://pdfpix.uthakkan.in/unlock-pdf/): Remove password protection from accessible PDFs
+- [Redact PDF](https://pdfpix.uthakkan.in/redact-pdf/): Permanently hide sensitive content
+
+## Product characteristics
+- Privacy-first browser processing
+- Free access to core tools
+- No forced registration for common tasks
+- Multi-tool internal linking across related workflows
+- Designed for desktop and mobile browsers
+
+## Contact
+- Email: contact.uthakkan@gmail.com
+- Contact page: [Support and inquiries](https://pdfpix.uthakkan.in/contact/)
