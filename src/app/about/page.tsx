@@ -33,29 +33,29 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#f3f3f9]" style={{ paddingTop: "calc(var(--header-height) + 48px)" }}>
+      <main className="min-h-screen" style={{ background: "var(--brand-surface)", paddingTop: "calc(var(--header-height) + 48px)" }}>
         <div className="mx-auto max-w-5xl px-4 pb-24">
-          <section className="mt-8 mb-12 rounded-3xl border border-[#e8eaed] bg-white p-10 shadow-sm">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#e5322d]">About PdfPix</p>
-            <h1 className="mb-4 text-5xl font-extrabold tracking-tight text-[#2d3238]">
+          <section className="mb-12 mt-8 rounded-3xl bg-white p-10 shadow-sm" style={{ border: "1px solid var(--color-border)", boxShadow: "0 18px 46px rgba(15, 23, 42, 0.08)" }}>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--color-primary)" }}>About PdfPix</p>
+            <h1 className="mb-4 text-5xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
               Free online PDF tools built for fast, private document work
             </h1>
-            <p className="max-w-3xl text-lg leading-relaxed text-[#6b7280]">
+            <p className="max-w-3xl text-lg leading-relaxed" style={{ color: "var(--color-text-light)" }}>
               PdfPix helps people merge PDF files, split pages, compress documents, convert office files, and handle everyday PDF tasks from one browser-based workspace.
             </p>
           </section>
 
           <section className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {pillars.map((pillar) => (
-              <article key={pillar.title} className="rounded-2xl border border-[#e8eaed] bg-white p-6 shadow-sm">
-                <h2 className="mb-3 text-xl font-bold text-[#2d3238]">{pillar.title}</h2>
+              <article key={pillar.title} className="rounded-2xl bg-white p-6 shadow-sm" style={{ border: "1px solid var(--color-border)" }}>
+                <h2 className="mb-3 text-xl font-bold" style={{ color: "var(--color-dark)" }}>{pillar.title}</h2>
                 <p className="text-sm leading-relaxed text-gray-600">{pillar.description}</p>
               </article>
             ))}
           </section>
 
-          <section className="mb-12 rounded-3xl border border-[#e8eaed] bg-white p-8 shadow-sm">
-            <h2 className="mb-4 text-3xl font-bold text-[#2d3238]">What PdfPix offers</h2>
+          <section className="mb-12 rounded-3xl bg-white p-8 shadow-sm" style={{ border: "1px solid var(--color-border)" }}>
+            <h2 className="mb-4 text-3xl font-bold" style={{ color: "var(--color-dark)" }}>What PdfPix offers</h2>
             <div className="space-y-4 text-gray-600">
               <p>
                 PdfPix combines PDF organization, conversion, editing, security, and document intelligence tools in a single interface. Typical use cases include combining invoices, converting PDFs to Word, reducing file sizes for email, adding page numbers, protecting files with passwords, and extracting searchable text with OCR.
@@ -66,14 +66,15 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section className="mb-12 rounded-3xl border border-[#e8eaed] bg-white p-8 shadow-sm">
-            <h2 className="mb-6 text-3xl font-bold text-[#2d3238]">Popular tools on PdfPix</h2>
+          <section className="mb-12 rounded-3xl bg-white p-8 shadow-sm" style={{ border: "1px solid var(--color-border)" }}>
+            <h2 className="mb-6 text-3xl font-bold" style={{ color: "var(--color-dark)" }}>Popular tools on PdfPix</h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {popularTools.map((tool) => (
                 <Link
                   key={tool.href}
                   href={tool.href}
-                  className="rounded-2xl border border-[#eef0f3] bg-[#fcfcfd] px-5 py-4 font-semibold text-[#2d3238] transition duration-200 hover:border-[#e5322d] hover:text-[#e5322d]"
+                  className="rounded-2xl px-5 py-4 font-semibold transition duration-200"
+                  style={{ border: "1px solid var(--color-border)", background: "#fcfeff", color: "var(--color-dark)" }}
                 >
                   {tool.name}
                 </Link>
@@ -81,8 +82,8 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section className="rounded-3xl border border-[#e8eaed] bg-white p-8 shadow-sm">
-            <h2 className="mb-4 text-3xl font-bold text-[#2d3238]">Why people use PdfPix</h2>
+          <section className="rounded-3xl bg-white p-8 shadow-sm" style={{ border: "1px solid var(--color-border)" }}>
+            <h2 className="mb-4 text-3xl font-bold" style={{ color: "var(--color-dark)" }}>Why people use PdfPix</h2>
             <ul className="space-y-3 text-gray-600">
               <li>PdfPix covers both simple tasks like rotate and merge, and higher-value tasks like OCR, redaction, and office-to-PDF conversion.</li>
               <li>The site is structured so visitors can jump between related tools without leaving the main workflow.</li>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useId } from "react";
+
 function normalizeIconId(id: string) {
   switch (id) {
     case "pdf-to-powerpoint":
@@ -35,19 +37,44 @@ function normalizeIconId(id: string) {
   }
 }
 
+function BrandDefs({ idBase }: { idBase: string }) {
+  return (
+    <defs>
+      <linearGradient id={`${idBase}-brand`} x1="8%" y1="10%" x2="92%" y2="92%">
+        <stop offset="0%" stopColor="#93dcff" />
+        <stop offset="26%" stopColor="#1ba2f1" />
+        <stop offset="48%" stopColor="#0f58d9" />
+        <stop offset="76%" stopColor="#ff9800" />
+        <stop offset="100%" stopColor="#ffe36a" />
+      </linearGradient>
+      <linearGradient id={`${idBase}-cool`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#7dd8ff" />
+        <stop offset="100%" stopColor="#0f58d9" />
+      </linearGradient>
+      <linearGradient id={`${idBase}-warm`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#fff0a8" />
+        <stop offset="55%" stopColor="#ffc629" />
+        <stop offset="100%" stopColor="#ff8a00" />
+      </linearGradient>
+    </defs>
+  );
+}
+
 function TileIcon({
   size,
-  color,
   children,
 }: {
   size: number;
   color: string;
   children: React.ReactNode;
 }) {
+  const idBase = useId().replace(/:/g, "");
+
   return (
     <svg width={size} height={size} viewBox="0 0 50 50" aria-hidden="true">
-      <rect x="4" y="4" width="42" height="42" rx="11" fill={color} opacity="0.16" />
-      <rect x="9" y="9" width="32" height="32" rx="8" fill={color} />
+      <BrandDefs idBase={idBase} />
+      <rect x="4" y="4" width="42" height="42" rx="11" fill={`url(#${idBase}-brand)`} opacity="0.16" />
+      <rect x="9" y="9" width="32" height="32" rx="8" fill={`url(#${idBase}-brand)`} />
       {children}
     </svg>
   );
@@ -122,7 +149,7 @@ function ConvertIcon({
   direction,
   appFill,
   appLabel,
-  pdfAccent = "#ef4444",
+  pdfAccent = "#ff9800",
   fileLabel = "PDF",
   appTextSize = 10,
   fileTextSize = 7.6,
@@ -140,20 +167,27 @@ function ConvertIcon({
   const fileY = direction === "from-pdf" ? 10 : 19;
   const appX = direction === "from-pdf" ? 21 : 8;
   const appY = direction === "from-pdf" ? 21 : 8;
+  const idBase = useId().replace(/:/g, "");
+  const pdfFill = pdfAccent === "brand-cool" ? `url(#${idBase}-cool)` : `url(#${idBase}-warm)`;
+  const appFillValue = appFill === "brand-warm" ? `url(#${idBase}-warm)` : `url(#${idBase}-cool)`;
 
   return (
     <svg width={size} height={size} viewBox="0 0 50 50" aria-hidden="true">
-      <FileBadge x={fileX} y={fileY} accent={pdfAccent} label={fileLabel} labelSize={fileTextSize} />
-      <AppBadge x={appX} y={appY} fill={appFill} label={appLabel} textSize={appTextSize} />
+      <BrandDefs idBase={idBase} />
+      <FileBadge x={fileX} y={fileY} accent={pdfFill} label={fileLabel} labelSize={fileTextSize} />
+      <AppBadge x={appX} y={appY} fill={appFillValue} label={appLabel} textSize={appTextSize} />
     </svg>
   );
 }
 
 function MergeIcon({ size, color }: { size: number; color: string }) {
+  const idBase = useId().replace(/:/g, "");
+
   return (
     <svg width={size} height={size} viewBox="0 0 50 50" aria-hidden="true">
-      <rect x="6" y="8" width="22" height="22" rx="4.5" fill={color} />
-      <rect x="22" y="20" width="22" height="22" rx="4.5" fill={color} />
+      <BrandDefs idBase={idBase} />
+      <rect x="6" y="8" width="22" height="22" rx="4.5" fill={`url(#${idBase}-cool)`} />
+      <rect x="22" y="20" width="22" height="22" rx="4.5" fill={`url(#${idBase}-warm)`} />
       <path d="M17 14v8h-8m8 0-6-6" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M33 36v-8h8m-8 0 6 6" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="24.8" cy="24.8" r="1.6" fill="#fff" />
@@ -164,10 +198,13 @@ function MergeIcon({ size, color }: { size: number; color: string }) {
 }
 
 function SplitIcon({ size, color }: { size: number; color: string }) {
+  const idBase = useId().replace(/:/g, "");
+
   return (
     <svg width={size} height={size} viewBox="0 0 50 50" aria-hidden="true">
-      <rect x="6" y="8" width="22" height="22" rx="4.5" fill={color} />
-      <rect x="22" y="20" width="22" height="22" rx="4.5" fill={color} />
+      <BrandDefs idBase={idBase} />
+      <rect x="6" y="8" width="22" height="22" rx="4.5" fill={`url(#${idBase}-cool)`} />
+      <rect x="22" y="20" width="22" height="22" rx="4.5" fill={`url(#${idBase}-warm)`} />
       <path d="M12 14h8v8m0-8-6 6" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M38 36h-8v-8m0 8 6-6" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="24.8" cy="24.8" r="1.6" fill="#fff" />
@@ -178,12 +215,15 @@ function SplitIcon({ size, color }: { size: number; color: string }) {
 }
 
 function CompressIcon({ size, color }: { size: number; color: string }) {
+  const idBase = useId().replace(/:/g, "");
+
   return (
     <svg width={size} height={size} viewBox="0 0 50 50" aria-hidden="true">
-      <rect x="7" y="8" width="16" height="16" rx="3" fill={color} />
-      <rect x="27" y="8" width="16" height="16" rx="3" fill={color} />
-      <rect x="7" y="28" width="16" height="16" rx="3" fill={color} />
-      <rect x="27" y="28" width="16" height="16" rx="3" fill={color} />
+      <BrandDefs idBase={idBase} />
+      <rect x="7" y="8" width="16" height="16" rx="3" fill={`url(#${idBase}-cool)`} />
+      <rect x="27" y="8" width="16" height="16" rx="3" fill={`url(#${idBase}-warm)`} />
+      <rect x="7" y="28" width="16" height="16" rx="3" fill={`url(#${idBase}-brand)`} />
+      <rect x="27" y="28" width="16" height="16" rx="3" fill={`url(#${idBase}-brand)`} />
       <path d="M15 14v4h-4m4 0-4-4" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M15 38v-4h-4m4 0-4 4" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M35 14v4h4m-4 0 4-4" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -204,29 +244,29 @@ export default function ToolIcon({ id, color, size = 18 }: { id: string; color: 
       return <CompressIcon size={size} color={color} />;
 
     case "pdf-to-word":
-      return <ConvertIcon size={size} direction="from-pdf" appFill="#5f83c6" appLabel="W" />;
+      return <ConvertIcon size={size} direction="from-pdf" appFill="brand-cool" appLabel="W" />;
     case "word-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="#5f83c6" appLabel="W" />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-cool" appLabel="W" />;
     case "pdf-to-ppt":
-      return <ConvertIcon size={size} direction="from-pdf" appFill="#f28c63" appLabel="P" />;
+      return <ConvertIcon size={size} direction="from-pdf" appFill="brand-warm" appLabel="P" />;
     case "ppt-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="#f28c63" appLabel="P" />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-warm" appLabel="P" />;
     case "pdf-to-excel":
-      return <ConvertIcon size={size} direction="from-pdf" appFill="#74b06f" appLabel="X" />;
+      return <ConvertIcon size={size} direction="from-pdf" appFill="brand-cool" appLabel="X" />;
     case "excel-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="#74b06f" appLabel="X" />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-cool" appLabel="X" />;
     case "pdf-to-jpg":
-      return <ConvertIcon size={size} direction="from-pdf" appFill="#d9bf29" appLabel="J" />;
+      return <ConvertIcon size={size} direction="from-pdf" appFill="brand-warm" appLabel="J" />;
     case "jpg-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="#d9bf29" appLabel="J" />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-warm" appLabel="J" />;
     case "png-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="#2ecc71" appLabel="P" />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-cool" appLabel="P" />;
     case "image-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="#e67e22" appLabel="IMG" appTextSize={6} />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-warm" appLabel="IMG" appTextSize={6} />;
     case "html-to-pdf":
-      return <ConvertIcon size={size} direction="to-pdf" appFill="#8b5cf6" appLabel="</>" appTextSize={6.5} />;
+      return <ConvertIcon size={size} direction="to-pdf" appFill="brand-cool" appLabel="</>" appTextSize={6.5} />;
     case "pdf-to-pdfa":
-      return <ConvertIcon size={size} direction="from-pdf" appFill="#8b5cf6" appLabel="A" />;
+      return <ConvertIcon size={size} direction="from-pdf" appFill="brand-warm" appLabel="A" />;
 
     case "rotate":
       return (

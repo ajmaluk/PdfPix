@@ -128,20 +128,20 @@ export default function HomePage() {
         </div>
         <section className="max-w-5xl mx-auto px-4 pb-20 pt-8">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-[#e8eaed] bg-white p-6">
-              <h2 className="mb-3 text-xl font-bold text-[#2d3238]">Private by design</h2>
+            <div className="rounded-2xl p-6" style={{ border: "1px solid var(--color-border)", background: "rgba(255,255,255,0.9)", boxShadow: "0 18px 46px rgba(15, 23, 42, 0.08)" }}>
+              <h2 className="mb-3 text-xl font-bold" style={{ color: "var(--color-dark)" }}>Private by design</h2>
               <p className="text-sm leading-relaxed text-gray-600">
                 PdfPix runs core PDF processing in your browser, which helps protect confidential documents and removes slow uploads.
               </p>
             </div>
-            <div className="rounded-2xl border border-[#e8eaed] bg-white p-6">
-              <h2 className="mb-3 text-xl font-bold text-[#2d3238]">Tools for every workflow</h2>
+            <div className="rounded-2xl p-6" style={{ border: "1px solid var(--color-border)", background: "rgba(255,255,255,0.9)", boxShadow: "0 18px 46px rgba(15, 23, 42, 0.08)" }}>
+              <h2 className="mb-3 text-xl font-bold" style={{ color: "var(--color-dark)" }}>Tools for every workflow</h2>
               <p className="text-sm leading-relaxed text-gray-600">
                 Merge, split, compress, convert, redact, sign, translate, and organize PDF files from one toolkit.
               </p>
             </div>
-            <div className="rounded-2xl border border-[#e8eaed] bg-white p-6">
-              <h2 className="mb-3 text-xl font-bold text-[#2d3238]">Built for speed</h2>
+            <div className="rounded-2xl p-6" style={{ border: "1px solid var(--color-border)", background: "rgba(255,255,255,0.9)", boxShadow: "0 18px 46px rgba(15, 23, 42, 0.08)" }}>
+              <h2 className="mb-3 text-xl font-bold" style={{ color: "var(--color-dark)" }}>Built for speed</h2>
               <p className="text-sm leading-relaxed text-gray-600">
                 Open a tool, drop your file, and finish the task in a few clicks without registration or waiting queues.
               </p>

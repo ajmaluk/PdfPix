@@ -29,10 +29,10 @@ function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLay
             <div id="dropArea"></div>
             {!hasFiles && (
               <>
-                <nav aria-label="Breadcrumb" className="mb-4 text-sm text-[#6b7280]">
+                <nav aria-label="Breadcrumb" className="mb-4 text-sm" style={{ color: "var(--color-text-light)" }}>
                   <ol className="flex flex-wrap items-center gap-2">
                     <li>
-                      <Link href="/" className="hover:text-[#e5322d]">Home</Link>
+                      <Link href="/" className="transition-colors hover:opacity-80" style={{ color: "var(--color-primary)" }}>Home</Link>
                     </li>
                     {categoryLabel && (
                       <li className="flex items-center gap-2">
@@ -42,7 +42,7 @@ function ToolLayoutInner({ title, subtitle, sidebar, children, toolId }: ToolLay
                     )}
                     <li className="flex items-center gap-2">
                       <span aria-hidden="true">/</span>
-                      <span aria-current="page" className="text-[#2d3238]">{title}</span>
+                      <span aria-current="page" style={{ color: "var(--color-dark)" }}>{title}</span>
                     </li>
                   </ol>
                 </nav>

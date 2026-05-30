@@ -6,19 +6,19 @@ export default function PricingPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#f3f3f9]" style={{ paddingTop: "calc(var(--header-height) + 64px)" }}>
+      <main className="min-h-screen" style={{ background: "var(--brand-surface)", paddingTop: "calc(var(--header-height) + 64px)" }}>
         <div className="max-w-4xl mx-auto px-4 pb-20 text-center">
           <div className="mb-12">
-            <h1 className="text-5xl font-extrabold text-[#2d3238] mb-4 tracking-tight">
-              Simple Pricing. <span className="text-[#e5322d]">100% Free.</span>
+            <h1 className="mb-4 text-5xl font-extrabold tracking-tight" style={{ color: "var(--color-dark)" }}>
+              Simple Pricing. <span style={{ color: "var(--color-primary)" }}>100% Free.</span>
             </h1>
-            <p className="text-xl text-[#6b7280] max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-xl" style={{ color: "var(--color-text-light)" }}>
               All our PDF and image tools are free to use. No subscriptions, no limits, and no registration required.
             </p>
           </div>
 
-          <div className="max-w-md mx-auto bg-white border border-[#e8eaed] rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
-            <div className="bg-[#e5322d] text-white py-8 px-6">
+          <div className="mx-auto max-w-md overflow-hidden rounded-2xl bg-white shadow-xl transition duration-300 hover:shadow-2xl" style={{ border: "1px solid var(--color-border)" }}>
+            <div className="px-6 py-8 text-white" style={{ backgroundImage: "var(--brand-gradient)" }}>
               <span className="uppercase text-xs font-bold tracking-widest opacity-85">Lifetime Access</span>
               <h2 className="text-3xl font-bold mt-1">Free Plan</h2>
               <div className="mt-4 flex justify-center items-baseline">
@@ -63,15 +63,16 @@ export default function PricingPage() {
 
               <Link
                 href="/merge-pdf"
-                className="mt-8 block w-full rounded-xl bg-[#e5322d] px-6 py-4 text-center font-bold text-white shadow-lg transition duration-200 hover:bg-[#c8231e]"
+                className="mt-8 block w-full rounded-xl px-6 py-4 text-center font-bold text-white shadow-lg transition duration-200"
+                style={{ backgroundImage: "var(--brand-gradient)" }}
               >
                 Start with Merge PDF
               </Link>
             </div>
           </div>
 
-          <div className="mt-16 bg-white border border-[#e8eaed] rounded-xl p-8 max-w-2xl mx-auto shadow-sm">
-            <h3 className="text-xl font-bold text-[#2d3238] mb-2 text-left">Why is it free?</h3>
+          <div className="mx-auto mt-16 max-w-2xl rounded-xl bg-white p-8 shadow-sm" style={{ border: "1px solid var(--color-border)" }}>
+            <h3 className="mb-2 text-left text-xl font-bold" style={{ color: "var(--color-dark)" }}>Why is it free?</h3>
             <p className="text-gray-600 text-left leading-relaxed">
               We believe that simple tasks like merging, splitting, or compressing PDFs should not cost money. 
               By leveraging advanced in-browser technology, your files are processed locally on your own computer, 
@@ -80,12 +81,12 @@ export default function PricingPage() {
             </p>
           </div>
           <div className="mt-10 grid max-w-2xl grid-cols-1 gap-4 mx-auto md:grid-cols-2">
-            <Link href="/compress-pdf" className="rounded-2xl border border-[#e8eaed] bg-white p-5 text-left shadow-sm transition hover:border-[#e5322d]">
-              <h2 className="mb-2 text-lg font-bold text-[#2d3238]">Compress large PDF files</h2>
+            <Link href="/compress-pdf" className="rounded-2xl bg-white p-5 text-left shadow-sm transition" style={{ border: "1px solid var(--color-border)" }}>
+              <h2 className="mb-2 text-lg font-bold" style={{ color: "var(--color-dark)" }}>Compress large PDF files</h2>
               <p className="text-sm text-gray-600">Reduce file size before sharing contracts, resumes, and project documents.</p>
             </Link>
-            <Link href="/pdf-to-word" className="rounded-2xl border border-[#e8eaed] bg-white p-5 text-left shadow-sm transition hover:border-[#e5322d]">
-              <h2 className="mb-2 text-lg font-bold text-[#2d3238]">Convert PDF to Word</h2>
+            <Link href="/pdf-to-word" className="rounded-2xl bg-white p-5 text-left shadow-sm transition" style={{ border: "1px solid var(--color-border)" }}>
+              <h2 className="mb-2 text-lg font-bold" style={{ color: "var(--color-dark)" }}>Convert PDF to Word</h2>
               <p className="text-sm text-gray-600">Turn PDFs into editable documents without paying for a separate PDF suite.</p>
             </Link>
           </div>
