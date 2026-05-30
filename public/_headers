@@ -1,0 +1,17 @@
+# Aggressive caching for Next.js immutable static assets
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Caching for site images and local assets
+/img/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# Prevent index files and critical documents from caching aggressively so updates are instant
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sitemap.xml
+  Cache-Control: public, max-age=0, must-revalidate
+
+/robots.txt
+  Cache-Control: public, max-age=0, must-revalidate
