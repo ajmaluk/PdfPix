@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Nobile } from "next/font/google";
 import "./globals.css";
 import {
   SITE_DESCRIPTION,
@@ -13,6 +13,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
+
+const nobile = Nobile({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nobile",
+});
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -72,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.className}`}>
+    <html lang="en" className={`${inter.className} ${nobile.variable}`}>
       <body>{children}</body>
     </html>
   );

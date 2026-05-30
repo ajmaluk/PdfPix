@@ -621,18 +621,18 @@ body {
 .home-title {
   position: relative;
   text-align: center;
-  padding: 56px 24px 28px;
+  padding: calc(var(--header-height) + 56px) 24px 28px;
   z-index: 1;
 }
 
 .home-title__title {
-  font-family: "Outfit", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-nobile), "Outfit", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 48px;
-  font-weight: 900;
+  font-weight: 500;
   color: var(--color-dark);
   margin: 0 0 16px;
   line-height: 1.15;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
 }
 
 .home-title__subtitle {
@@ -840,12 +840,13 @@ body {
 }
 
 .tool__header__title {
-  font-size: 52px;
-  font-weight: 800;
-  color: var(--color-dark);
+  font-family: var(--font-nobile), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 44px;
+  font-weight: 500;
+  color: #33333b;
   margin: 0 0 18px;
   line-height: 1.1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
 }
 
 .tool__header__subtitle {
