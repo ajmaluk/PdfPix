@@ -92,6 +92,10 @@ export default function Footer() {
             <span>&copy; 2026 PdfPix. All rights reserved.</span>
           </div>
           <div className="footer__social">
+            <Link href="/about">About Us</Link>
+            <Link href="/sponsor">Sponsor</Link>
+            <Link href="/donate">Donate</Link>
+            <Link href="/founder">Founder</Link>
             <Link href="/contact" title="Contact">Contact</Link>
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
             <Link href="/privacy">Privacy</Link>

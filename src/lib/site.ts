@@ -6,7 +6,7 @@ export const SITE_URL = "https://pdfpix.uthakkan.in";
 export const SITE_DESCRIPTION =
   "Free browser-based PDF tools to merge, split, compress, convert, edit, and secure PDF files without uploading them to a server.";
 export const SITE_OG_IMAGE = `${SITE_URL}/img/pdfpix-icon-transparent.png`;
-export const SUPPORT_EMAIL = "support@pdfpix.com";
+export const SUPPORT_EMAIL = "contact.uthakkan@gmail.com";
 
 const staticPagePaths: Record<string, string> = {
   home: "/",
@@ -15,6 +15,9 @@ const staticPagePaths: Record<string, string> = {
   pricing: "/pricing",
   privacy: "/privacy",
   terms: "/terms",
+  sponsor: "/sponsor",
+  donate: "/donate",
+  founder: "/founder",
 };
 
 const toolPaths = Object.fromEntries(tools.map((tool) => [tool.id, tool.path]));
@@ -69,12 +72,12 @@ export function getPathForSeoId(id: string): string | undefined {
 }
 
 export function getCanonicalUrl(path = "/"): string {
-  if (path === "/") {
-    return `${SITE_URL}/`;
+  if (path === "/" || path === "") {
+    return SITE_URL;
   }
 
-  const normalizedPath = path.replace(/\/$/, "");
-  return `${SITE_URL}${normalizedPath}/`;
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${SITE_URL}${normalizedPath.replace(/\/$/, "")}`;
 }
 
 export function getToolForSeoId(id: string): Tool | undefined {

@@ -583,10 +583,10 @@ export const seoData: Record<string, ToolSEOInfo> = {
   // Fallbacks for content pages
   about: {
     id: "about",
-    title: "About Us - PdfPix | Online PDF tools for PDF lovers",
-    description: "Learn more about PdfPix, a secure and private browser-based suite of PDF tools. Read about our mission to make PDF processing free, local, and private.",
-    keywords: "about pdfpix, secure pdf tools, local browser pdf processing",
-    heading: "About PdfPix",
+    title: "About Us - UTHAKKAN & Founder Ajmal U K | PdfPix",
+    description: "Discover UTHAKKAN, the technology product brand by Ajmal U K behind PdfPix, and explore our ecosystem of AI tools, games, and digital products.",
+    keywords: "uthakkan, ajmal u k, founder uthakkan, about pdfpix, tech startup kerala, toolpix, kallancop",
+    heading: "About UTHAKKAN & PdfPix",
     steps: [],
     faqs: []
   },
@@ -623,6 +623,33 @@ export const seoData: Record<string, ToolSEOInfo> = {
     description: "Read the Terms of Service for using PdfPix. Understand our free-to-use policies, local execution licenses, and user terms.",
     keywords: "terms of service, terms of use, legal agreement, user terms",
     heading: "Terms of Service",
+    steps: [],
+    faqs: []
+  },
+  sponsor: {
+    id: "sponsor",
+    title: "GitHub Sponsors - Support Open-Source | PdfPix",
+    description: "Support our open-source milestones and sponsor our software development directly via GitHub Sponsors. Perfect for recurring and official project support.",
+    keywords: "sponsor, github sponsors, open source support, support software creator, uthakkan, pdfpix development",
+    heading: "GitHub Sponsors",
+    steps: [],
+    faqs: []
+  },
+  donate: {
+    id: "donate",
+    title: "Buy Me a Coffee - Micro-Donations | PdfPix",
+    description: "Support our project with a flexible micro-contribution. Buy me a coffee to keep the development momentum going and our tools 100% free.",
+    keywords: "donate, buy me a coffee, micro donation, support creator, support pdfpix",
+    heading: "Buy Me a Coffee",
+    steps: [],
+    faqs: []
+  },
+  founder: {
+    id: "founder",
+    title: "Muhammed Ajmal U K - Founder Spotlight | PdfPix",
+    description: "Meet Muhammed Ajmal U K, the software engineer and founder of UTHAKKAN behind PdfPix. Explore his digital portfolio, skills, and background.",
+    keywords: "founder pdfpix, muhammed ajmal u k, uthakkan owner, kerala developer, toolpix creator, joyful builder",
+    heading: "About the Founder",
     steps: [],
     faqs: []
   }

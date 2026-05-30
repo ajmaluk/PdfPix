@@ -313,8 +313,10 @@ export default function ToolIcon({ id, color, size = 18 }: { id: string; color: 
     case "crop":
       return (
         <TileIcon size={size} color={color}>
-          <path d="M19 16v15h15M16 19h7a3 3 0 0 1 3 3v7" fill="none" stroke="#fff" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M31 16v6M16 31h6" fill="none" stroke="#fff" strokeWidth="2.8" strokeLinecap="round" />
+          {/* Main crop L-shape 1 */}
+          <path d="M15 11v20a2 2 0 0 0 2 2h20" fill="none" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Main crop L-shape 2 */}
+          <path d="M35 39V19a2 2 0 0 0-2-2H11" fill="none" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
         </TileIcon>
       );
     case "unlock":
@@ -348,7 +350,13 @@ export default function ToolIcon({ id, color, size = 18 }: { id: string; color: 
     case "compare":
       return (
         <TileIcon size={size} color={color}>
-          <path d="M20 17v16M30 17v16M24 19h-4M24 25h-4M24 31h-4M30 19h-4M30 25h-4M30 31h-4" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" />
+          {/* Left Document */}
+          <path d="M12 15h6l3 3v14H12z" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinejoin="round" />
+          {/* Right Document */}
+          <path d="M29 15h6l3 3v14H29z" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinejoin="round" />
+          {/* Comparison arrows/lines in center */}
+          <path d="M23 21h4M23 27h4" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+          <path d="M25 18v12" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
         </TileIcon>
       );
     case "scan":
@@ -368,10 +376,13 @@ export default function ToolIcon({ id, color, size = 18 }: { id: string; color: 
     case "repair":
       return (
         <TileIcon size={size} color={color}>
-          <path d="M20 18h10l-2 4 2 4H20l2-4z" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinejoin="round" />
-          <path d="M24 26l-5 6M26 24l5-6" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
+          {/* Elegant Wrench */}
+          <path d="M15 35l11-11" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" />
+          <path d="M28 22l6-6a4.2 4.2 0 0 0-6-6l-6 6" fill="none" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="15" cy="35" r="2" fill="#fff" />
         </TileIcon>
       );
+
     case "forms":
       return (
         <TileIcon size={size} color={color}>

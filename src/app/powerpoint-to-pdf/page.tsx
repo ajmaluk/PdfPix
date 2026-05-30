@@ -16,6 +16,167 @@ interface FileEntry {
   file: File;
 }
 
+function sanitizeWinAnsiText(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/[\u2018\u2019]/g, "'") // smart single quotes
+    .replace(/[\u201C\u201D]/g, '"') // smart double quotes
+    .replace(/[\u2013\u2014]/g, "-") // em/en dashes
+    .replace(/[\u2022\uf0b4\uf0b7]/g, "*") // bullet points
+    .replace(/\u00A0/g, " ")         // non-breaking space
+    .replace(/[^\x00-\x7F\u00A0-\u00FF]/g, ""); // strip anything outside standard WinAnsi / Latin-1 range
+}
+
+async function drawSlideToCanvas(
+  slideXml: string, 
+  relsXml: string | null, 
+  zip: any, 
+  canvas: HTMLCanvasElement
+): Promise<void> {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  // Clear canvas (default to white slide background)
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Standard slide dimensions (usually 12192000 x 6858000 EMUs, matching 16:9 widescreen layout)
+  let slideWidthEmu = 12192000;
+  let slideHeightEmu = 6858000;
+  
+  const scaleX = canvas.width / slideWidthEmu;
+  const scaleY = canvas.height / slideHeightEmu;
+
+  // Parse relationships to locate media resources
+  const relMap: Record<string, string> = {};
+  if (relsXml) {
+    const relMatches = relsXml.match(/<Relationship[^>]*Id="([^"]+)"[^>]*Target="([^"]+)"/g) || [];
+    for (const m of relMatches) {
+      const idMatch = m.match(/Id="([^"]+)"/);
+      const targetMatch = m.match(/Target="([^"]+)"/);
+      if (idMatch && targetMatch) {
+        // Maps Target to relative path inside the zip
+        relMap[idMatch[1]] = targetMatch[1].replace("../", "ppt/");
+      }
+    }
+  }
+
+  // Parse shape and picture tags in order to preserve visual z-index overlapping
+  const elements = slideXml.match(/<(p:sp|p:pic)[^>]*>([\s\S]*?)<\/p:(sp|pic)>/g) || [];
+
+  for (const element of elements) {
+    const isPic = element.startsWith("<p:pic");
+    
+    // Parse coordinates and bounding boxes
+    const offMatch = element.match(/<a:off[^>]*x="(-?\d+)"[^>]*y="(-?\d+)"/);
+    const extMatch = element.match(/<a:ext[^>]*cx="(\d+)"[^>]*cy="(\d+)"/);
+    if (!offMatch || !extMatch) continue;
+
+    const x = parseInt(offMatch[1], 10) * scaleX;
+    const y = parseInt(offMatch[2], 10) * scaleY;
+    const w = parseInt(extMatch[1], 10) * scaleX;
+    const h = parseInt(extMatch[2], 10) * scaleY;
+
+    if (isPic) {
+      // Decode and render slide image
+      const blipMatch = element.match(/<a:blip[^>]*r:embed="([^"]+)"/);
+      const rId = blipMatch ? blipMatch[1] : null;
+      if (rId && relMap[rId]) {
+        const imagePath = relMap[rId];
+        const imageFile = zip.file(imagePath);
+        if (imageFile) {
+          const imgBase64 = await imageFile.async("base64");
+          const imgType = imagePath.endsWith(".png") ? "image/png" : "image/jpeg";
+          const img = new Image();
+          await new Promise<void>((resolve) => {
+            img.onload = () => {
+              ctx.drawImage(img, x, y, w, h);
+              resolve();
+            };
+            img.onerror = () => resolve();
+            img.src = `data:${imgType};base64,${imgBase64}`;
+          });
+        }
+      }
+    } else {
+      // Parse shape properties only to prevent text run colors (inside txBody) from overriding background fills
+      const spPrMatch = element.match(/<p:spPr[^>]*>([\s\S]*?)<\/p:spPr>/);
+      const spPr = spPrMatch ? spPrMatch[1] : "";
+
+      // Draw standard shape background if a solid fill exists inside spPr
+      const fillMatch = spPr.match(/<a:solidFill[^>]*>[\s\S]*?<a:srgbClr[^>]*val="([0-9A-Fa-f]{6})"/);
+      if (fillMatch) {
+        ctx.fillStyle = `#${fillMatch[1]}`;
+        ctx.fillRect(x, y, w, h);
+      }
+
+      // Draw outlines if present inside spPr
+      const lnMatch = spPr.match(/<a:ln[^>]*>[\s\S]*?<a:solidFill[^>]*>[\s\S]*?<a:srgbClr[^>]*val="([0-9A-Fa-f]{6})"/);
+      if (lnMatch) {
+        ctx.strokeStyle = `#${lnMatch[1]}`;
+        ctx.lineWidth = 1.8;
+        ctx.strokeRect(x, y, w, h);
+      }
+
+      // Draw structured text body runs inside textframes
+      const txBodyMatch = element.match(/<p:txBody[^>]*>([\s\S]*?)<\/p:txBody>/);
+      if (txBodyMatch) {
+        const paragraphs = txBodyMatch[1].match(/<a:p[^>]*>([\s\S]*?)<\/a:p>/g) || [];
+        let currY = y + 16;
+
+        for (const p of paragraphs) {
+          const runs = p.match(/<a:r[^>]*>([\s\S]*?)<\/a:r>/g) || [];
+          let paragraphText = "";
+          let isBold = false;
+          let fontSize = 14;
+          let fontColor = "#000000";
+
+          for (const r of runs) {
+            const tMatch = r.match(/<a:t[^>]*>([\s\S]*?)<\/a:t>/);
+            if (tMatch) {
+              paragraphText += tMatch[1];
+            }
+            if (r.includes('b="1"')) isBold = true;
+            const szMatch = r.match(/sz="(\d+)"/);
+            if (szMatch) fontSize = Math.max(10, parseInt(szMatch[1], 10) / 100);
+            const colorMatch = r.match(/<a:solidFill[^>]*>[\s\S]*?<a:srgbClr[^>]*val="([0-9A-Fa-f]{6})"/);
+            if (colorMatch) fontColor = `#${colorMatch[1]}`;
+          }
+
+          // Fallback if formatting structure is plain
+          if (!paragraphText) {
+            const fallbackMatch = p.match(/<a:t[^>]*>([\s\S]*?)<\/a:t>/g) || [];
+            paragraphText = fallbackMatch.map(m => m.replace(/<a:t[^>]*>/, "").replace("</a:t>", "")).join("");
+          }
+
+          if (paragraphText.trim()) {
+            ctx.fillStyle = fontColor;
+            ctx.font = `${isBold ? "bold " : ""}${fontSize}px Arial, sans-serif`;
+            
+            const words = paragraphText.split(" ");
+            let line = "";
+            for (const word of words) {
+              const testLine = line ? line + " " + word : word;
+              const metrics = ctx.measureText(testLine);
+              if (metrics.width > w - 10) {
+                ctx.fillText(line, x + 5, currY);
+                currY += fontSize * 1.25;
+                line = word;
+              } else {
+                line = testLine;
+              }
+            }
+            if (line) {
+              ctx.fillText(line, x + 5, currY);
+              currY += fontSize * 1.5;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 export default function PptToPdfPage() {
   const [files, setFiles] = useState<FileEntry[]>([]);
   const [processing, setProcessing] = useState(false);
@@ -83,32 +244,33 @@ export default function PptToPdfPage() {
           page.drawText(`Converted from: ${entry.name}`, { x: 50, y: 700, size: 14 });
           page.drawText("(No slides found in this presentation)", { x: 50, y: 670, size: 11 });
         } else {
+          // Offscreen slide canvas renderer
+          const canvas = document.createElement("canvas");
+          canvas.width = 960;
+          canvas.height = 540;
+
           for (let idx = 0; idx < slideFiles.length; idx++) {
             const slidePath = slideFiles[idx];
-            const xmlStr = await zip.file(slidePath)!.async("string");
+            const slideXmlStr = await zip.file(slidePath)!.async("string");
             
-            // Extract text strictly inside <a:t> elements
-            const matches = xmlStr.match(/<a:t[^>]*>([\s\S]*?)<\/a:t>/g);
-            const texts = matches
-              ? matches.map(m => m.replace(/<a:t[^>]*>/, "").replace("</a:t>", "")).join(" ").replace(/\s+/g, " ").trim()
-              : "";
-              
-            const page = pdfDoc.addPage([612, 792]);
-            page.drawText(`Slide: ${idx + 1}`, { x: 50, y: 740, size: 12 });
-            let y = 700;
-            const words = texts.split(" ").filter(Boolean);
-            let line = "";
-            for (const word of words) {
-              if ((line + " " + word).length > 100) {
-                page.drawText(line, { x: 50, y, size: 10 });
-                y -= 14;
-                line = word;
-              } else {
-                line = line ? line + " " + word : word;
-              }
-              if (y < 40) break;
-            }
-            if (line && y >= 40) page.drawText(line, { x: 50, y, size: 10 });
+            // Map relationships to query media (images)
+            const relsPath = slidePath.replace("ppt/slides/", "ppt/slides/_rels/") + ".rels";
+            const relsFile = zip.file(relsPath);
+            const relsXmlStr = relsFile ? await relsFile.async("string") : null;
+
+            await drawSlideToCanvas(slideXmlStr, relsXmlStr, zip, canvas);
+
+            const imgData = canvas.toDataURL("image/jpeg", 0.95);
+            const slideImage = await pdfDoc.embedJpg(imgData);
+
+            // Add landscape slide page layout
+            const page = pdfDoc.addPage([720, 405]);
+            page.drawImage(slideImage, {
+              x: 0,
+              y: 0,
+              width: 720,
+              height: 405,
+            });
           }
         }
         const bytes = await pdfDoc.save();

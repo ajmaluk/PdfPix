@@ -113,9 +113,37 @@ const convertPdfLinks = [
   },
 ];
 
+const ecosystemProducts = [
+  {
+    name: "ToolPix",
+    desc: "AI productivity platform featuring image, PDF, and dev utilities.",
+    href: "https://toolpix.pythonanywhere.com",
+    icon: "✨",
+    color: "#8B5CF6",
+  },
+  {
+    name: "Joyful Builder",
+    desc: "AI-assisted drag-and-drop website and application layout builder.",
+    href: "https://joyful.uthakkan.in",
+    icon: "🤖",
+    color: "#EC4899",
+  },
+  {
+    name: "KallanCop",
+    desc: "Local multiplayer social deduction game on Google Play Store.",
+    href: "https://play.google.com/store/apps/details?id=com.ajmal.kallancop",
+    icon: "🎮",
+    color: "#F59E0B",
+  },
+] as const;
+
 const pdfPixLinks = [
   { name: "Pricing", href: "/pricing", icon: "pricing" },
   { name: "About us", href: "/about", icon: "about" },
+  { name: "Sponsor", href: "/sponsor", icon: "sponsor" },
+  { name: "Donate", href: "/donate", icon: "donate" },
+  { name: "Founder", href: "/founder", icon: "founder" },
+  { name: "Blog", href: "https://www.uthakkan.in", icon: "blog" },
   { name: "Contact", href: "/contact", icon: "about" },
   { name: "Privacy", href: "/privacy", icon: "privacy" },
   { name: "Terms", href: "/terms", icon: "terms" },
@@ -145,7 +173,7 @@ function NineDotsIcon() {
   );
 }
 
-function SiteLinkIcon({ icon }: { icon: "pricing" | "about" | "privacy" | "terms" }) {
+function SiteLinkIcon({ icon }: { icon: "pricing" | "about" | "privacy" | "terms" | "sponsor" | "blog" | "donate" | "founder" }) {
   if (icon === "pricing") {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -160,6 +188,45 @@ function SiteLinkIcon({ icon }: { icon: "pricing" | "about" | "privacy" | "terms
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 21s-6.5-4.35-9-8.28C1.24 9.94 3.16 6 7.2 6c2.17 0 3.55 1.2 4.8 2.76C13.25 7.2 14.63 6 16.8 6 20.84 6 22.76 9.94 21 12.72 18.5 16.65 12 21 12 21Z" />
+      </svg>
+    );
+  }
+
+  if (icon === "sponsor") {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
+    );
+  }
+
+  if (icon === "donate") {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+        <line x1="6" y1="2" x2="6" y2="4" />
+        <line x1="10" y1="2" x2="10" y2="4" />
+        <line x1="14" y1="2" x2="14" y2="4" />
+      </svg>
+    );
+  }
+
+  if (icon === "founder") {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    );
+  }
+
+  if (icon === "blog") {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+        <path d="M6 6h10" />
+        <path d="M6 10h10" />
       </svg>
     );
   }
@@ -279,7 +346,35 @@ export default function Header() {
               </span>
               <div className="nav-dropdown nav-dropdown--products">
                 <div className="nav-products">
-                  <div className="nav-products__side" style={{ width: "100%" }}>
+                  {/* Left Main Products Column */}
+                  <div className="nav-products__main">
+                    <div className="nav-products__title">Other Products</div>
+                    <div className="nav-products__list">
+                      {ecosystemProducts.map((prod) => (
+                        <a
+                          key={prod.name}
+                          href={prod.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="nav-products__product"
+                        >
+                          <div 
+                            className="nav-products__product-icon"
+                            style={{ background: `${prod.color}15`, color: prod.color }}
+                          >
+                            {prod.icon}
+                          </div>
+                          <div className="nav-products__product-copy">
+                            <span className="nav-products__product-name">{prod.name}</span>
+                            <span className="nav-products__product-desc">{prod.desc}</span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Right Corporate Links Column */}
+                  <div className="nav-products__side">
                     <div className="nav-products__title">PdfPix</div>
                     <div className="nav-products__side-list">
                       {pdfPixLinks.map((link) => (
@@ -380,6 +475,26 @@ export default function Header() {
                     <SiteLinkIcon icon={link.icon} />
                     <span>{link.name}</span>
                   </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="drawer__section">
+            <div className="drawer__section-title">Other Products</div>
+            <ul className="drawer__section-list">
+              {ecosystemProducts.map((prod) => (
+                <li key={prod.name}>
+                  <a
+                    href={prod.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="drawer__section-item"
+                    onClick={() => setRightOpen(false)}
+                  >
+                    <span className="mr-2 text-lg">{prod.icon}</span>
+                    <span>{prod.name}</span>
+                  </a>
                 </li>
               ))}
             </ul>
