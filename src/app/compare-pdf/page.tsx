@@ -71,7 +71,7 @@ export default function ComparePdfPage() {
     if (files.length < 2) return;
     setProcessing(true);
     try {
-      const parsedFilesData: any[] = [];
+      const parsedFilesData: ComparisonData["files"] = [];
       for (const entry of files) {
         const buf = await readFileAsArrayBuffer(entry.file);
         const pdf = await PDFDocument.load(buf, { ignoreEncryption: true });

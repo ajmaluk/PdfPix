@@ -61,7 +61,6 @@ export default function PptToPdfPage() {
     setProcessing(true);
     try {
       const JSZipImport = await import("jszip");
-      // @ts-ignore
       const JSZip = JSZipImport.default || JSZipImport;
       
       for (const entry of files) {

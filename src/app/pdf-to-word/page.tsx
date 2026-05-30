@@ -147,7 +147,10 @@ function escapeXml(unsafe: string): string {
           const page = await pdf.getPage(i);
           const textContent = await page.getTextContent();
           const pageText = textContent.items
-            .map((item: any) => item.str)
+            .map((rawItem: unknown) => {
+              const item = rawItem as { str: string };
+              return item.str;
+            })
             .join(" ")
             .replace(/\s+/g, " ")
             .trim();

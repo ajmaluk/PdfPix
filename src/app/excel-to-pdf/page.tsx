@@ -72,7 +72,6 @@ export default function ExcelToPdfPage() {
         } else {
           // Parse .xlsx zip structure natively
           const JSZipImport = await import("jszip");
-          // @ts-ignore
           const JSZip = JSZipImport.default || JSZipImport;
           const zip = await JSZip.loadAsync(entry.file);
           

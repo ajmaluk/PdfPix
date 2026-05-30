@@ -1272,8 +1272,19 @@ export default function EditPdfPage() {
                 <div className="edit-settings-block">
                   <label>Draft text</label>
                   <textarea
-                    value={textDraft}
-                    onChange={(event) => setTextDraft(event.target.value)}
+                    value={selectedItem && (selectedItem.type === "text" || selectedItem.type === "existing-text") ? selectedItem.text : textDraft}
+                    onChange={(event) => {
+                      const val = event.target.value;
+                      if (selectedItem && (selectedItem.type === "text" || selectedItem.type === "existing-text")) {
+                        if (selectedItem.type === "existing-text") {
+                          handleExistingTextChange(selectedItem.id, val);
+                        } else {
+                          updateOverlay(selectedItem.id, (overlay) => overlay.type === "text" ? { ...overlay, text: val } : overlay);
+                        }
+                      } else {
+                        setTextDraft(val);
+                      }
+                    }}
                     rows={4}
                   />
                 </div>

@@ -5,9 +5,14 @@ node_modules/
 
 # Build
 .next/
+.open-next/
 out/
 build/
 dist/
+
+# Cloudflare
+.wrangler/
+.dev.vars
 
 # Environment
 .env

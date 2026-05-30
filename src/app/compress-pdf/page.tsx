@@ -142,6 +142,7 @@ export default function CompressPdfPage() {
           pdf.setCreator("");
           pdf.setAuthor("");
           pdf.setSubject("");
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           compressedBytes = await pdf.save({ useObjectStreams: true, addOctoStream: true } as any);
         } else if (compressionLevel === "recommended") {
           compressedBytes = await pdf.save({ useObjectStreams: true });

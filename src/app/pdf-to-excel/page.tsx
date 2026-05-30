@@ -140,11 +140,14 @@ export default function PdfToExcelPage() {
             y: number;
           }
           
-          const items: TextItem[] = textContent.items.map((item: any) => ({
-            str: item.str,
-            x: item.transform[4],
-            y: item.transform[5]
-          }));
+          const items: TextItem[] = textContent.items.map((rawItem: unknown) => {
+            const item = rawItem as { str: string; transform: number[] };
+            return {
+              str: item.str,
+              x: item.transform[4],
+              y: item.transform[5]
+            };
+          });
           
           // Group items by similar y-coordinate (threshold of 5 points)
           const rowsMap: { [key: number]: TextItem[] } = {};

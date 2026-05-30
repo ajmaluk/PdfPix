@@ -73,7 +73,7 @@ export default function RemovePagesPage() {
             onChange={(e) => setPagesToRemove(e.target.value)} 
           />
           <p className="text-[10px] text-[#8a8a92] mt-1.5 font-medium leading-relaxed">
-            Separate pages by commas. E.g., "1,3,5" will delete pages 1, 3, and 5.
+            Separate pages by commas. E.g., &quot;1,3,5&quot; will delete pages 1, 3, and 5.
           </p>
         </div>
 
